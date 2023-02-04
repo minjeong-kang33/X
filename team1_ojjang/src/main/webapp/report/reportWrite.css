@@ -1,41 +1,6 @@
 @charset "UTF-8";
 
-*{
-	width : 500px;
+* {
+	
+	
 }
-
-.reportForm {
-	width:80%;
-	background-color: pink;	
-}
-
-
-
-span {
-	padding-top : 10px;
-	width : 80%;
-	text-align:center;
-	background-color: skyblue;
-	justify-content: center;
-	display: flex;
-}
-
-
-select {
-	width: 80%
-}
-
-textarea{
-	margin-top:10px;
-	width: 79%;
-	display: flex;
-}
-
-
-input {
-	width : 39%;
-	text-align: center;
-	display :inline-block;
-}
-
-
