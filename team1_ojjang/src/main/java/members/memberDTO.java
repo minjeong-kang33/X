@@ -9,7 +9,7 @@ public class memberDTO {
 	private String M_nick;
 	private String M_gender;
 	private String M_address;
-	private String M_addrees2;
+	private String M_address2;
 	private String M_email;
 	private Timestamp M_createdate;
 	private int M_play;
@@ -50,11 +50,11 @@ public class memberDTO {
 	public void setM_address(String m_address) {
 		M_address = m_address;
 	}
-	public String getM_addrees2() {
-		return M_addrees2;
+	public String getM_address2() {
+		return M_address2;
 	}
-	public void setM_addrees2(String m_addrees2) {
-		M_addrees2 = m_addrees2;
+	public void setM_addrees2(String m_address2) {
+		M_address2 = m_address2;
 	}
 	public String getM_email() {
 		return M_email;
@@ -80,6 +80,6 @@ public class memberDTO {
 	public void setM_admin(String m_admin) {
 		M_admin = m_admin;
 	}
-	
-	
+
+
 }

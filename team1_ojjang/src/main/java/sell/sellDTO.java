@@ -10,10 +10,11 @@ public class sellDTO {
 		private String S_text;
 		private int S_like;
 		private int S_view;
-		private String S_send;
+		private String S_sido1;
+		private String S_gugun1 ;
 		private Timestamp S_createdate;
 		private Timestamp S_updatedate;
-		private int S_category;
+		private String S_category;
 		
 		public int getS_num() {
 			return S_num;
@@ -75,10 +76,22 @@ public class sellDTO {
 		public void setS_updatedate(Timestamp s_updatedate) {
 			S_updatedate = s_updatedate;
 		}
-		public int getS_category() {
+		public String getS_category() {
 			return S_category;
 		}
-		public void setS_category(int s_category) {
+		public void setS_category(String s_category) {
 			S_category = s_category;
+		}
+		public String getS_sido1() {
+			return S_sido1;
+		}
+		public void setS_sido1(String s_sido1) {
+			S_sido1 = s_sido1;
+		}
+		public String getS_gugun1() {
+			return S_gugun1;
+		}
+		public void setS_gugun1(String s_gugun1) {
+			S_gugun1 = s_gugun1;
 		}
 	}
