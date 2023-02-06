@@ -10,7 +10,7 @@
 <body>
 <form action="joinpro.jsp" method="post" >
 <div>
-아이디  <input type="text" name="M_id" size="15" >
+아이디  <input type="text" id="M_id" name="M_id" size="15" >
       <input type="button" value="ID중복확인" >
       
 </div>
@@ -23,18 +23,18 @@
 	<input type="submit" value="PW중복확인">
 </div>
 <div>
-이름 <input type="text" name="M_name" size="15" required>
+이름 <input type="text" id="M_name" name="M_name"  size="15" required>
 </div>
 <div>
-닉네임 <input type="text" name="M_nick" size="15" required>
+닉네임 <input type="text" id="M_nick" name="M_nick" size="15" required>
 	  <input type="button" value="닉네임중복확인" >
 </div>
 <div> 
-이메일 <input type="email" name="M_email" size="30">
-      <input type="button" value="Email 인증" onclick="emailCheck()">	
+이메일 <input type="email" id="M_email" name="M_email" size="30">
+      <input type="button" id="M_id" value="Email 인증" onclick="emailCheck()">	
 </div>
 <div>
-전화번호 <input type="text" name="M_phone" size="15">
+전화번호 <input type="text" id="M_phone" name="M_phone" size="15">
 </div>
 <div>	
 우편번호 <input type="text" name="M_zipcode" id="zipcode" size="7"  readonly>
@@ -46,11 +46,11 @@
 </div> 
   
  <div>
-나머지주소 <input type="text" name="M_address2" id="address2" size="45">  
+나머지주소 <input type="text" name="M_address2" id="M_address2" size="45">  
 </div> 
   
  <div>
- 성별 <select name="M_gender" >
+ 성별 <select name="M_gender" id="M_gender">
       <option value="2">선택하세요.</option>
       <option value="0">남자</option>
        <option value="1">여자</option>
