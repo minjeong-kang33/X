@@ -2,7 +2,7 @@ package sell;
 
 import java.sql.Timestamp;
 
-public class sellDTO {
+public class SellDTO {
 		private int S_num;
 		private String M_id;
 		private String S_title;
@@ -10,6 +10,7 @@ public class sellDTO {
 		private String S_text;
 		private int S_like;
 		private int S_view;
+		private String S_send;
 		private String S_sido1;
 		private String S_gugun1 ;
 		private Timestamp S_createdate;

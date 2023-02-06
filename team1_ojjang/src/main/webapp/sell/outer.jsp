@@ -14,7 +14,8 @@
     <link rel="stylesheet" href="sell.css"> 
     
         <script type="text/javascript">
-    <%-- 토글 --%>
+        
+   	 <%-- 토글 --%>
     	var set_state = true;
     	var img_icon = new Array(); 
     	img_icon[0] = new Image(); 

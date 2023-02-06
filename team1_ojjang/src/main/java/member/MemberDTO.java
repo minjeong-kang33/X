@@ -1,8 +1,8 @@
-package members;
+package member;
 
 import java.sql.Timestamp;
 
-public class memberDTO {
+public class MemberDTO {
 	private String M_id;
 	private String M_pw;
 	private String M_name;

@@ -1,5 +1,5 @@
-<%@page import="members.MembersDTO"%>
-<%@page import="members.MembersDAO"%>
+<%@page import="member.MemberDTO"%>
+<%@page import="member.MemberDAO"%>
 <%@page import="java.sql.Timestamp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -18,7 +18,7 @@ String M_email=request.getParameter("M_email");
 Timestamp M_createdate=new Timestamp(System.currentTimeMillis());
 // String M_admin=request.getParameter("M_admin");
 
-MembersDTO dto=new MembersDTO();
+MemberDTO dto=new MemberDTO();
 
 dto.setM_id(M_id);
 dto.setM_pw(M_pw);
@@ -32,8 +32,8 @@ dto.setM_email(M_email);
 dto.setM_createdate(M_createdate);
 // dto.setM_admin(M_admin);
 
-MembersDAO dao=new MembersDAO();
-dao.insertMembers(dto);
+MemberDAO dao=new MemberDAO();
+dao.insertMember(dto);
 response.sendRedirect("../login/loginForm.jsp");
 
 
