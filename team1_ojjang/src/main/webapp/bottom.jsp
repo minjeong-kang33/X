@@ -7,7 +7,7 @@
 			<div class="col-lg-3">
 				<div class="first-item">
 					<div class="logo">
-						<img src="assets/images/otzang_logo_bottom.png" width="230px">
+						<img src="../assets/images/otzang_logo_bottom.png" width="230px">
 					</div>
 					<ul>
 						<li><a href="#">109, Dongcheon-ro, Busanjin-gu, Busan,

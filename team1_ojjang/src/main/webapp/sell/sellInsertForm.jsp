@@ -62,8 +62,6 @@ $('document').ready(function() {
 	   var area15 = ["거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
 	   var area16 = ["서귀포시","제주시","남제주군","북제주군"];
 
-	 
-
 	 // 시/도 선택 박스 초기화
 	 $("select[name^=sido]").each(function() {
 	  $selsido = $(this);
@@ -103,7 +101,7 @@ $('document').ready(function() {
     </div>  
     
     <!-- ***** 헤더 ***** -->
-  <jsp:include page="../inc/top.jsp" />
+  <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
 <div class="sellInsert"> 
@@ -169,7 +167,7 @@ $('document').ready(function() {
 <!-- 텍스트박스 입력상자 끝  -->  
 
     <!-- ***** 푸터 시작 ***** -->
-   <jsp:include page="../inc/bottom.jsp" />
+   <jsp:include page="../bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->

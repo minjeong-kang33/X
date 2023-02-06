@@ -8,7 +8,7 @@
 				<nav class="main-nav">
 					<!-- ***** 로고 시작 ***** -->
 					<a href="index.html" class="logo"> <img
-						src="assets/images/otzang_logo_top.png" height="60px">
+						src="../assets/images/otzang_logo_top.png" height="60px">
 					</a>
 					<!-- ***** 로고 끝 ***** -->
 					<!-- ***** 상단 바 메뉴 시작 ***** -->

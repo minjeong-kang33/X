@@ -5,11 +5,11 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>중고의류거래: 옺장</title>
-   <link rel="stylesheet" type="text/css" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="assets/css/font-awesome.css">
-    <link rel="stylesheet" href="assets/css/templatemo-hexashop.css">
-    <link rel="stylesheet" href="assets/css/owl-carousel.css">
-    <link rel="stylesheet" href="assets/css/lightbox.css"> 
+   <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css">
+    <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
+    <link rel="stylesheet" href="../assets/css/owl-carousel.css">
+    <link rel="stylesheet" href="../assets/css/lightbox.css"> 
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
 </head>
@@ -25,14 +25,14 @@
     </div>  
     
     <!-- ***** 헤더 ***** -->
-  <jsp:include page="./inc/top.jsp" />
+  <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
 	<!-- ***** 배너 시작 ***** -->
     <div class="page-heading about-page-heading" id="top">
         <div class="container">
              <div class="inner-content2">
-             	<img src="assets/images/banner_img.png" width="100%" >
+             	<img src="../assets/images/banner_img.png" width="100%" >
              </div>
         </div>
     </div>
@@ -64,7 +64,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>카모플라주 자켓</h4>
@@ -87,7 +87,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Air Force 1 X</h4>
@@ -110,7 +110,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Love Nana ‘20</h4>
@@ -133,7 +133,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Classic Spring</h4>
@@ -181,7 +181,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>New Green Jacket</h4>
@@ -204,7 +204,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Classic Dress</h4>
@@ -227,7 +227,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Spring Collection</h4>
@@ -250,7 +250,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Classic Spring</h4>
@@ -298,7 +298,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>School Collection</h4>
@@ -321,7 +321,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Summer Cap</h4>
@@ -344,7 +344,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Classic Kid</h4>
@@ -367,7 +367,7 @@
                                             <li><a href="single-product.html"><i class="fa fa-shopping-cart"></i></a></li>
                                         </ul>
                                     </div>
-                                    <img src="assets/images/sample_img.jpg" alt="">
+                                    <img src="../assets/images/sample_img.jpg" alt="">
                                 </div>
                                 <div class="down-content">
                                     <h4>Classic Spring</h4>
@@ -390,30 +390,30 @@
     <!-- ***** 하의 최신 글 끝 ***** -->
 
     <!-- ***** 푸터 시작 ***** -->
-   <jsp:include page="./inc/bottom.jsp" />
+   <jsp:include page="../bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->
-    <script src="assets/js/jquery-2.1.0.min.js"></script>
+    <script src="../assets/js/jquery-2.1.0.min.js"></script>
 
  <!--  Bootstrap -->
-    <script src="assets/js/popper.js"></script>
-    <script src="assets/js/bootstrap.min.js"></script>
+    <script src="../assets/js/popper.js"></script>
+    <script src="../assets/js/bootstrap.min.js"></script>
 
  <!-- Plugins -->
-    <script src="assets/js/owl-carousel.js"></script>
-    <script src="assets/js/accordions.js"></script>
-    <script src="assets/js/datepicker.js"></script>
-    <script src="assets/js/scrollreveal.min.js"></script>
-    <script src="assets/js/waypoints.min.js"></script>
-    <script src="assets/js/jquery.counterup.min.js"></script>
-    <script src="assets/js/imgfix.min.js"></script> 
-    <script src="assets/js/slick.js"></script> 
-    <script src="assets/js/lightbox.js"></script> 
-    <script src="assets/js/isotope.js"></script> 
+    <script src="../assets/js/owl-carousel.js"></script>
+    <script src="../assets/js/accordions.js"></script>
+    <script src="../assets/js/datepicker.js"></script>
+    <script src="../assets/js/scrollreveal.min.js"></script>
+    <script src="../assets/js/waypoints.min.js"></script>
+    <script src="../assets/js/jquery.counterup.min.js"></script>
+    <script src="../assets/js/imgfix.min.js"></script> 
+    <script src="../assets/js/slick.js"></script> 
+    <script src="../assets/js/lightbox.js"></script> 
+    <script src="../assets/js/isotope.js"></script> 
     
 <!-- Global Init -->
-    <script src="assets/js/custom.js"></script>
+    <script src="../assets/js/custom.js"></script>
 
     <script>
 
