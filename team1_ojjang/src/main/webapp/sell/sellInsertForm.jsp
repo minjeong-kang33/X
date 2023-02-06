@@ -115,7 +115,7 @@ $('document').ready(function() {
 		<input type="radio" id="radio-btn-2" name="S_category" value="shirts">
 			<label for="radio-btn-2" class="btn">상의</label>
 		<input type="radio" id="radio-btn-3" name="S_category" value="pants">
-			<label for="radio-btn-3" class="btn">하의</label>
+			<label for="radio-btn-3" class="btn">하의하의</label>
 		<input type="radio" id="radio-btn-4" name="S_category" value="dress">
 			<label for="radio-btn-4" class="btn">원피스</label>
 	</div>
