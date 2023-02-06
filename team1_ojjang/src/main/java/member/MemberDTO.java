@@ -15,6 +15,7 @@ public class MemberDTO {
 	private Timestamp M_createdate;
 	private int M_play;
 	private String M_admin;
+	
 	public String getM_id() {
 		return M_id;
 	}
@@ -87,6 +88,5 @@ public class MemberDTO {
 	public void setM_admin(String m_admin) {
 		M_admin = m_admin;
 	}
-	
 	
 }
