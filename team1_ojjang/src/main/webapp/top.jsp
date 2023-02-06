@@ -13,10 +13,10 @@
 					<!-- ***** 로고 끝 ***** -->
 					<!-- ***** 상단 바 메뉴 시작 ***** -->
 					<ul class="nav">
-						<li class="scroll-to-section"><a href="#top" class="active">홈</a></li>
-						<li class="scroll-to-section"><a href="#men">아우터</a></li>
-						<li class="scroll-to-section"><a href="#women">상의</a></li>
-						<li class="scroll-to-section"><a href="#kids">하의</a></li>
+						<li><a href="#" class="active">홈</a></li>
+						<li><a href="../sell/outer.jsp">아우터</a></li>
+						<li><a href="#women">상의</a></li>
+						<li><a href="#kids">하의</a></li>
 						<!-- 로그인 안 한 경우는 마이페이지 말고 로그인 버튼 보이도록 -->
 						<li class="submenu"><a>마이페이지</a>
 							<ul>

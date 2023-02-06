@@ -1,4 +1,4 @@
-package members;
+package member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -7,7 +7,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class memberDAO {
+public class MemberDAO {
 	public Connection getConnection() throws Exception{
 		Context init = new InitialContext();
 		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
@@ -15,7 +15,7 @@ public class memberDAO {
 		return con;
 	
 	}
-	public void insertMembers(memberDTO dto) {
+	public void insertMember(MemberDTO dto) {
 		Connection con =null;
 		PreparedStatement pstmt=null;
 		try {
