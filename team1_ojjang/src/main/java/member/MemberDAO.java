@@ -2,20 +2,22 @@ package member;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+
 public class MemberDAO {
 	public Connection getConnection() throws Exception{
-		Context init = new InitialContext();
-		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
-		Connection con = ds.getConnection();
+		Context init=new InitialContext();
+		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
+		Connection con=ds.getConnection();
 		return con;
 	
 	}
-	public void insertMember(MemberDTO dto) {
+	public void insertMembers(MemberDTO dto) {
 		Connection con =null;
 		PreparedStatement pstmt=null;
 		try {
@@ -32,7 +34,7 @@ public class MemberDAO {
 			pstmt.setString(8, dto.getM_address2());
 			pstmt.setString(9, dto.getM_email());
 			pstmt.setTimestamp(10,dto.getM_createdate());
-//			pstmt.setString(11, dto.getM_admin());
+
 			
 			pstmt.executeUpdate();	
 			}
@@ -45,7 +47,38 @@ public class MemberDAO {
 				if (con != null)try {con.close();} catch (Exception e2) {}
 				
 			}
+	}
 
+	public MemberDTO M_userCheck(String M_id, String M_pw) {
+		//바구니 주소가 저장되는 변수에 null 초기화
+		MemberDTO dto=null;
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con = getConnection();
+		     String sql="select * from Members where M_id=? and M_pw=?";
+			 pstmt=con.prepareStatement(sql);
+			 pstmt.setString(1,M_id);
+			 pstmt.setString(2,M_pw);
+			 rs=pstmt.executeQuery();
+			 if(rs.next()){
+				 dto=new MemberDTO(); 
+				dto.setM_id(rs.getString("M_id"));
+				dto.setM_id(rs.getString("M_pw"));
+				
+			 }
+		 	
+		}
+		
+		catch (Exception e) {	
+		}
+		finally {
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
+			if(con!=null)try {con.close();} catch (Exception e2) {}
+			if(rs!=null)try {rs.close();} catch (Exception e2) {}
 
+		}
+		return dto;
 	}
 }
