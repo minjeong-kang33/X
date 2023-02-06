@@ -72,7 +72,7 @@
                         </div>
                         <div class="down-content">
                             <h4>Classic Spring</h4>
-                            <span>$300.00</span>
+                            <span>$120.00</span>
                             <span> <input type="button" class="preference btn1" value="직거래" disabled>
                             	   <input type="button" class="preference btn2" value="택배거래" disabled>  </span>
                             <ul class="stars">
