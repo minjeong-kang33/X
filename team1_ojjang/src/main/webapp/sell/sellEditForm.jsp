@@ -103,7 +103,7 @@ $('document').ready(function() {
     </div>  
     
     <!-- ***** 헤더 ***** -->
-  <jsp:include page="../inc/top.jsp" />
+  <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
 <div class="sellInsert"> 
@@ -170,7 +170,7 @@ $('document').ready(function() {
 <!-- 텍스트박스 입력상자 끝  -->  
 
     <!-- ***** 푸터 시작 ***** -->
-   <jsp:include page="../inc/bottom.jsp" />
+   <jsp:include page="../bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->
