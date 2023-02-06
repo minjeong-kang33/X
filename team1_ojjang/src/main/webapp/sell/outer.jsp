@@ -198,7 +198,7 @@
                         </div>
                         <div class="down-content">
                             <h4>Spring Collection</h4>
-                            <span>$130.00</span>
+                            <span>$100.00</span>
                             <ul class="stars">
                                 <li><i class="fa fa-star"></i></li>
                                 <li><i class="fa fa-star"></i></li>
