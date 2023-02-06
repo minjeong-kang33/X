@@ -21,7 +21,7 @@ if(pageNum==null){pageNum="1";}
 int currentPage=Integer.valueOf(pageNum);
 int startRow=(currentPage-1)*pageSize+1;
 int endRow=startRow+pageSize-1;
-ArrayList<BuyDTO> buyList=dao.adBuyList(startRow,pageSize);
+ArrayList<BuyDTO> adbuyList=dao.adBuyList(startRow,pageSize);
 %>
 <section>
 <div class="container">
@@ -32,8 +32,8 @@ ArrayList<BuyDTO> buyList=dao.adBuyList(startRow,pageSize);
 <table border="1">
 <tr><td>구매번호</td><td>아이디</td><td>제목</td><td>날짜</td><td>삭제</td></tr>
 <%
-for(int i=0;i<buyList.size();i++){
-	dto=buyList.get(i);
+for(int i=0;i<adbuyList.size();i++){
+	dto=adbuyList.get(i);
 %>
 	<tr><td><a href=""><%=dto.getB_num() %></a></td>
 		<td><a href=""><%=dto.getM_id() %></a></td>

@@ -140,7 +140,7 @@ public class MemberDAO {
 		ResultSet rs=null;
 		try {
 			con=getConnection();
-			String sql="select * from member order by M_id limit ?, ?";
+			String sql="select * from member where M_play=2 order by M_id limit ?, ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow-1);
 			pstmt.setInt(2, pageSize);
@@ -163,6 +163,28 @@ public class MemberDAO {
 		}
 		return adOutList;
 	}//adOutList()
+	
+	public int adOutCount() {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			con=getConnection();
+			String sql="select count(*) from member where M_play=2";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				count=rs.getInt("count(*)");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			if(con!=null) try {con.close();} catch (Exception e) {}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e) {}
+			if(rs!=null) try {rs.close();} catch (Exception e) {}
+		} return count;
+	}//adOutCount()
 	
 	public ArrayList<MemberDTO> searchOutMemberList(String info, String search) {
 		ArrayList<MemberDTO> searchMemberList=new ArrayList<MemberDTO>();

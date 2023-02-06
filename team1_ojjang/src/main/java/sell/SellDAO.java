@@ -16,7 +16,7 @@ public class SellDAO {
 		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/team_test");
 		Connection con=ds.getConnection();
 		return con;
-	}
+	}//getConnection()
 	
 	public void insertBoard(SellDTO dto) {		
 		System.out.println("Board insertBoard()");
@@ -63,12 +63,66 @@ public class SellDAO {
 		}finally {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 			if(con!=null) try { con.close();} catch (Exception e2) {}
-	}
+		}
+	}//insertBoard()
 	
-	}
+	public ArrayList<SellDTO> adSellList(int startRow, int pageSize) {
+		ArrayList<SellDTO> adSellList=new ArrayList<SellDTO>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=getConnection();
+			String sql="select * from sell order by S_updatedate desc limit ?, ?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow-1);
+			pstmt.setInt(2, pageSize);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				SellDTO dto=new SellDTO();
+				dto.setS_num(rs.getInt("S_num"));
+				dto.setM_id(rs.getString("M_id"));
+				dto.setS_title(rs.getString("S_title"));
+				dto.setS_price(rs.getInt("S_price"));
+				dto.setS_text(rs.getString("S_text"));
+				dto.setS_like(rs.getInt("S_like"));
+				dto.setS_view(rs.getInt("S_view"));
+				dto.setS_createdate(rs.getTimestamp("S_createdate"));
+				dto.setS_createdate(rs.getTimestamp("S_updatedate"));
+				dto.setS_category(rs.getString("S_category"));
+				dto.setS_view(rs.getInt("S_num"));
+				adSellList.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(con!=null) try {con.close();} catch (Exception e) {}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e) {}
+			if(rs!=null) try {rs.close();} catch (Exception e) {}
+		}
+		return adSellList;
+	}//adSellList()
 	
-	
-	
-	
+	public int adSellCount() {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		int count=0;
+		try {
+			con=getConnection();
+			String sql="select count(*) from sell";
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				count=rs.getInt("count(*)");
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}finally {
+			if(con!=null) try {con.close();} catch (Exception e) {}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e) {}
+			if(rs!=null) try {rs.close();} catch (Exception e) {}
+		} return count;
+	}//adSellCount()
 	
 }

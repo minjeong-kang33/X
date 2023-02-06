@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="member.memberDTO"%>
-<%@page import="member.memberDAO"%>
+<%@page import="member.MemberDTO"%>
+<%@page import="member.MemberDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
@@ -13,8 +13,8 @@
 <h3>탈퇴회원목록조회</h3>
 <%
 request.setCharacterEncoding("utf-8");
-memberDTO dto=new memberDTO();
-memberDAO dao=new memberDAO();
+MemberDTO dto=new MemberDTO();
+MemberDAO dao=new MemberDAO();
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 int pageSize=10;
 String pageNum=request.getParameter("pageNum");
@@ -22,7 +22,7 @@ if(pageNum==null){pageNum="1";}
 int currentPage=Integer.valueOf(pageNum);
 int startRow=(currentPage-1)*pageSize+1;
 int endRow=startRow+pageSize-1;
-ArrayList<memberDTO> OutmemberList=dao.getOutmemberList(startRow,pageSize);
+ArrayList<MemberDTO> adOutList=dao.adOutList(startRow,pageSize);
 %>
 <section>
 <div class="container">
@@ -42,14 +42,14 @@ ArrayList<memberDTO> OutmemberList=dao.getOutmemberList(startRow,pageSize);
 	</form>
 	</div>
 		<div>
-		총 멤버 <%=dao.getmemberCount() %>명
+		총 멤버 <%=dao.adOutCount() %>명
 		</div>
 <form action="#.jsp" method="post">
 <table border="1">
 <tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td><td>관리</td></tr>
 <%
-for(int i=0;i<memberList.size();i++){
-	dto=memberList.get(i);
+for(int i=0;i<adOutList.size();i++){
+	dto=adOutList.get(i);
 %>
 	<tr><td><input type="checkbox" id="ck" name="id" value="<%=dto.getM_id() %>"></td>
 		<td><%=i+1 %></td>
@@ -67,7 +67,7 @@ for(int i=0;i<memberList.size();i++){
 int pageBlock=10;
 int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 int endPage=startPage+pageBlock-1;
-int count=dao.getmemberCount();
+int count=dao.adOutCount();
 int pageCount=count/pageSize+(count%pageSize==0?0:1);
 if(endPage>pageCount){endPage=pageCount;}
 for(int i=startPage;i<=endPage;i++){

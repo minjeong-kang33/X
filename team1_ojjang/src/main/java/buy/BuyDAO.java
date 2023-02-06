@@ -19,7 +19,7 @@ public class BuyDAO {
 	}//getConnection()
 	
 	public ArrayList<BuyDTO> adBuyList(int startRow, int pageSize) {
-		ArrayList<BuyDTO> buyList=new ArrayList<BuyDTO>();
+		ArrayList<BuyDTO> adbuyList=new ArrayList<BuyDTO>();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -39,7 +39,7 @@ public class BuyDAO {
 				dto.setB_img1(rs.getString("B_img1"));
 				dto.setB_img2(rs.getString("B_img3"));
 				dto.setB_img2(rs.getString("B_img3"));
-				buyList.add(dto);
+				adbuyList.add(dto);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -48,7 +48,7 @@ public class BuyDAO {
 			if(pstmt!=null) try {pstmt.close();} catch (Exception e) {}
 			if(rs!=null) try {rs.close();} catch (Exception e) {}
 		}
-		return buyList;
+		return adbuyList;
 	}//adBuyList()
 	
 	public int adBuyCount() {
