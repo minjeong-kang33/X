@@ -7,17 +7,15 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-import member.MemberDTO;
-
-public class MembersDAO {
+public class memberDAO {
 	public Connection getConnection() throws Exception{
-		Context init=new InitialContext();
-		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
-		Connection con=ds.getConnection();
+		Context init = new InitialContext();
+		DataSource ds = (DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
+		Connection con = ds.getConnection();
 		return con;
 	
 	}
-	public void insertMembers(MembersDTO dto) {
+	public void insertMembers(memberDTO dto) {
 		Connection con =null;
 		PreparedStatement pstmt=null;
 		try {
