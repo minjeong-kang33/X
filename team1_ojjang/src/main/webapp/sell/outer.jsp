@@ -22,6 +22,7 @@
     	img_icon[1] = new Image();
     	img_icon[0].src = "hart.png"; 
     	img_icon[1].src = "fullhart.png"; 
+    	
     function hartToggle(){
     	document.all.icon_btn.src = (set_state ? img_icon[0].src : img_icon[1].src);
     	   if(set_state){ 
@@ -68,7 +69,7 @@
                         <div class="thumb">
                        <div class="hover-content">
                             </div>
-                            <a href="sellDetail.jsp" target="_self"> <img src="sample_img.jpg" class="goodsImg" alt=""></a>
+                            <a href="sellDetail.jsp" target="_self"> <img src="../assets/images/sample_img.jpg" class="goodsImg" alt=""></a>
                         </div>
                         <div class="down-content">
                             <h4>Classic Spring</h4>
