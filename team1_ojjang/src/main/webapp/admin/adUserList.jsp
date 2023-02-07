@@ -1,8 +1,7 @@
-<%@page import="member.MemberDTO"%>
-<%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@page import="member.MemberDTO"%>
+<%@page import="admin.AdminDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
@@ -15,7 +14,7 @@
 <%
 request.setCharacterEncoding("utf-8");
 MemberDTO dto=new MemberDTO();
-MemberDAO dao=new MemberDAO();
+AdminDAO dao=new AdminDAO();
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 int pageSize=10;
 String pageNum=request.getParameter("pageNum");

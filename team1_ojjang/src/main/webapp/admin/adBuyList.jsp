@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="buy.BuyDTO"%>
-<%@page import="buy.BuyDAO"%>
+<%@page import="admin.AdminDAO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <!DOCTYPE html>
@@ -13,7 +13,7 @@
 <h3>구매글목록조회</h3>
 <%
 BuyDTO dto=new BuyDTO();
-BuyDAO dao=new BuyDAO();
+AdminDAO dao=new AdminDAO();
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
 int pageSize=10;
 String pageNum=request.getParameter("pageNum");
