@@ -17,19 +17,6 @@ BuyDAO dao = new BuyDAO();
 BuyDTO dto = dao.getBuyBoard(B_num);
 String M_id = (String)session.getAttribute("M_id");
 
-	/* if(request.getParameter("B_num") != null ){
-// 		B_num 이라는 매개변수가 존재한다면 buy_num
-		B_num = Integer.parseInt(request.getParameter("B_num"));		
-	}
-	if (B_num == 0) {
-  		PrintWriter script = response.getWriter();
-  		script.println("<script>");
-  		script.println("alert('유효하지않은 글입니다.')");
-  		script.println("location.href = 'buyDTO.jsp'");
-  		script.println("history.back()");
-  		script.println("</script>");
-  	}
-	BuyDTO buy = new BuyDAO().getBuyBoard(B_num); */
 %>
 <div class="container">
 	<div class="row">
