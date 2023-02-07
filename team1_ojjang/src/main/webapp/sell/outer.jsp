@@ -305,6 +305,9 @@
                                 <a href="#">></a>
                             </li>
                         </ul>
+                        <span>
+                    	<input type="button" id="write" onclick="location.href='../sell/sellInsertForm.jsp'" value="글쓰기"/>
+                    </span>
                     </div>
                 </div>
             </div>
