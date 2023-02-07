@@ -10,7 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class buyDAO {
+public class BuyDAO {
 	private Connection conn;
 	private ResultSet rs;
 	
@@ -89,9 +89,9 @@ public class buyDAO {
 		return -1;
 	}
 	
-	public ArrayList<buyDTO> getList(int pageNumber){
+	public ArrayList<BuyDTO> getList(int pageNumber){
 		String SQL = "select * from Buy where B_num < ? order by B_num desc limit 10";
-		ArrayList<buyDTO> list = new ArrayList<buyDTO>();
+		ArrayList<BuyDTO> list = new ArrayList<BuyDTO>();
 		try {
 			conn = getConnection();
 			PreparedStatement pstmt = conn.prepareStatement(SQL);
@@ -101,7 +101,7 @@ public class buyDAO {
 			// pageNumber = 6-(1-1)*10
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
-				buyDTO buy = new buyDTO();
+				BuyDTO buy = new BuyDTO();
 				buy.setB_num(rs.getInt(1));
 				buy.setM_id(rs.getString(2));
 				buy.setB_title(rs.getString(3));
@@ -134,9 +134,8 @@ public class buyDAO {
 	}
 	
 	
-	public buyDTO getbuy(int B_num) {
-		// 왜안되노
-		buyDTO buy=null;
+	public BuyDTO getbuy(int B_num) {
+		BuyDTO buy=null;
 		String SQL="select * from Buy where B_num=?";
 		try {
 			conn = getConnection();
