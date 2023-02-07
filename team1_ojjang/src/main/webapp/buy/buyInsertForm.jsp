@@ -134,24 +134,27 @@ $('document').ready(function() {
 		<select name="gugun1" id="gugun1"></select>
 	</div>
 	<!-- ** 선호거래 체크박스 끝 **-->
-	
+<%
+String M_id = (String)session.getAttribute("M_id");
+%>	
 <!-- 입력상자 시작  -->    
-<form id="frm" action="sellInsertPro.jsp" method="post" >
+<form id="frm" action="buyInsertPro.jsp" method="post" >
 <table>
+<input type="hidden" name="M_id" value="<%=M_id %>">
 	<tr>
 		<th>제목</th>
-    	<td><input type="text" id="S_title" name="S_title" style="width:650px" placeholder="제목을 입력하세요"/></td>
+    	<td><input type="text" id="B_title" name="B_title" style="width:650px" placeholder="제목을 입력하세요"/></td>
     </tr>
     <tr>
         <th>내용</th>
         <td>
-        <textarea rows="10" cols="30" id="S_text" name="S_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
+        <textarea rows="10" cols="30" id="B_text" name="B_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
         </td>
      </tr>
 	  <tr>
          <td colspan="2">
               <div class="buttons">
-            	 <input type="button" id="save" value="등록"/>
+            	 <input type="submit" value="등록"/>
             	 <input type="reset" value="초기화"/>
               </div>
          </td>
