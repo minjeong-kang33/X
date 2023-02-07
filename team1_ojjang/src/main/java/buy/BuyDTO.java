@@ -60,4 +60,4 @@ public class BuyDTO {
 			B_view = b_view;
 		}
 
-	}
+}

@@ -1,8 +1,8 @@
 <%@page import="java.io.PrintWriter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import=buy.buyDAO %>
-<%@ page import=buy.buyDTO %>
+<%@ page import=buy.BuyDAO %>
+<%@ page import=buy.BuyDTO %>
 
 <!DOCTYPE html>
 <html>
@@ -25,7 +25,7 @@
   		script.println("history.back()");
   		script.println("</script>");
   	}
-	buyDTO buy = new buyDAO().getbuy(B_num);
+	BuyDTO buy = new BuyDAO().getbuy(B_num);
 %>
 <div class="container">
 	<div class="row">
@@ -66,6 +66,7 @@
 <%-- 	<% --%>
 <!-- 		} -->
 <!-- 	%> -->
+
 	</div>
 </div>
 </body>

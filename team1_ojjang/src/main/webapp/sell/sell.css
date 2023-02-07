@@ -36,3 +36,17 @@ h2 {
 .goodsImg {
 	border-radius: 8px;
 }
+
+#write {
+	 width:100px;
+    background-color: #f8585b;
+    border: none;
+    color:#fff;
+    padding: 10px 0;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    margin: 2px;
+    cursor: pointer;
+}

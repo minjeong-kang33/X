@@ -10,22 +10,10 @@
 
 <script type="text/javascript">
 
-<%-- 창닫기 --%>
-function fun1() {
-	if(confirm("정말 신고하시겠습니까??") == true){ 
-	window.close();
-	} else {
-	swindow.close();
-	}
-}
 
 function fun2() {
 	window.close();
-}
-
-<!-- jQuery -->
-$()
-
+} 
 </script>
 
 </head>
@@ -33,24 +21,24 @@ $()
 
 <%-- 신고하기 폼 --%>
 <div class="reportForm">
-<form action="reportForm" method="post">
+<form action="reportWritePro.jsp" method="post">
 	<span class="reportInfo"><img src="danger.png" class="dangerIcon">  클릭하여 신고 이유를 선택해 주세요. </span> 
 	<select id="selectBox" name="selectBox">
-		<option value="" selected="selected"> -- 선택하세요 -- </option>
-		<option value="1"> 회원비난/비하 </option>
-		<option value="2"> 욕설/비속어 </option>
-		<option value="3"> 무단광고/홍보 </option>
-		<option value="4"> 도배 </option>
-		<option value="5"> 아이디/DB거래 </option>
-		<option value="6"> 음란성/선정성 </option>
-		<option value="7"> 기타 </option>
+		<option value=""> -- 선택하세요 -- </option>
+		<option value="회원비난/비하"> 회원비난/비하 </option>
+		<option value="욕설/비속어"> 욕설/비속어 </option>
+		<option value="무단광고/홍보"> 무단광고/홍보 </option>
+		<option value="도배"> 도배 </option>
+		<option value="아이디/DB거래"> 아이디/DB거래 </option>
+		<option value="음란성/선정성"> 음란성/선정성 </option>
+		<option value="기타"> 기타 </option>
 	</select><br>
 
 	<textarea rows = "5" cols = "19" class="textarea" placeholder=" 내용을 입력해 주세요."></textarea><br>
 	<li> 정상적인 게시물을 신고하시는 경우 본인이 제재를 당할 수 있습니다.</li>
 	<li> 신고하게 된 이유를 사제히 써주시면 운영자의 관련 결정에 도움이 됩니다.</li>
 
-<input type="submit" value="신고하기" onclick="fun1()"> <input type="button" value="취소하기" onclick="fun2()">
+<input type="submit" value="신고하기"> <input type="button" value="취소하기" onclick="fun2()">
 </form>      
 </div>
 
@@ -63,7 +51,7 @@ $()
 <script type="text/javascript">
 	jQuery('#selectBox').change(function() {
 	var state = jQuery('#selectBox option:selected').val();
-	if ( state == '7' ) {
+	if ( state == "기타" ) {
 		jQuery('.textarea').show();
 	} else {
 		jQuery('.textarea').hide();
@@ -71,7 +59,6 @@ $()
 	});	
 	
 </script>
-		
 		
 </body>
 </html>
