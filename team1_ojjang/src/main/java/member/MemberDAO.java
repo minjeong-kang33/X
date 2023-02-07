@@ -81,4 +81,52 @@ public class MemberDAO {
 		}
 		return dto;
 	}
+	
+	public MemberDTO getMember(String M_id) {
+		MemberDTO dto=null;
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=getConnection();
+			
+			String sql="select * from members where M_id=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, M_id);
+			
+			rs=pstmt.executeQuery();
+
+			if(rs.next()){
+
+				dto=new MemberDTO();
+				
+				dto.setM_id(rs.getString("M_id"));
+				dto.setM_pw(rs.getString("M_pw"));
+				dto.setM_name(rs.getString("M_name"));
+				dto.setM_nick(rs.getString("M_nick"));
+				dto.setM_gender(rs.getString("M_gender"));
+				dto.setM_address(rs.getString("M_address"));
+				dto.setM_address2(rs.getString("M_address2"));
+				dto.setM_email(rs.getString("M_email"));
+				dto.setM_createdate(rs.getTimestamp("M_createdate"));
+				dto.setM_play(rs.getInt("M_play"));
+				dto.setM_admin(rs.getString("M_admin"));
+				dto.setM_phone(rs.getString("M_phone"));
+			}
+		
+	      }catch(Exception e) {
+	         e.printStackTrace();
+	      }
+		
+		finally {
+
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+		return dto;
+	}//getMember()	
+	
+	
+	
 }
