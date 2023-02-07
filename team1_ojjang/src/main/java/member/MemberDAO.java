@@ -69,7 +69,7 @@ public class MemberDAO {
 		}
 		finally {
 			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
-			if(con!=null)try {pstmt.close();} catch (Exception e2) {}
+			if(con!=null)try {con.close();} catch (Exception e2) {}
 			if(rs!=null)try {rs.close();} catch (Exception e2) {}
 
 		}
@@ -84,7 +84,7 @@ public class MemberDAO {
 		try {
 			con=getConnection();
 			
-			String sql="select * from members where M_id=?";
+			String sql="select * from member where M_id=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, M_id);
 			
@@ -113,14 +113,36 @@ public class MemberDAO {
 	      }
 		
 		finally {
-
 			if(rs!=null) try { rs.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return dto;
 	}//getMember()	
-	
-	
+
+
+	public void updateMember(MemberDTO updateDto) {
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		try {
+			
+			con=getConnection();
+			
+			String sql="update member set M_nick=?, M_email=?, M_address=? where M_id =?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, updateDto.getM_nick()); 
+			pstmt.setString(2, updateDto.getM_email());  
+			pstmt.setString(3, updateDto.getM_address());  
+			pstmt.setString(4, updateDto.getM_id());  
+			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+	}//updateMember()
 	
 }

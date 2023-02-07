@@ -1,14 +1,8 @@
-<%@page import="java.text.SimpleDateFormat"%>
-<%@page import="sell.SellDAO"%>
-<%@page import="sell.SellDTO"%>
-<%@page import="deal.DealDAO"%>
-<%@page import="deal.DealDTO"%>
 <%@page import="member.MemberDTO"%>
 <%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="java.util.ArrayList"%>
-    
+<!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -23,60 +17,50 @@
 </head>
 <body>
     <body>
-     <!-- ***** 헤더 ***** -->
+
+    <!-- ***** 헤더 ***** -->
   <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
-    <div class="page-heading about-page-heading" id="top">
+     <div class="page-heading about-page-heading" id="top">
         <div class="container">
              <div class="inner-content2">
-            
- <!-- ***** 판매내역조회 ***** -->
-    
-    <h3>판매내역조회</h3>
+             	
+    <!-- ***** 회원정보수정 ***** -->
+
+
+<h3>회원정보수정</h3>	
+
 <%
 String M_id=(String)session.getAttribute("M_id");
-DealDTO dto=new DealDTO();
-DealDAO dao=new DealDAO();
-SellDTO sdto=new SellDTO();
-SellDAO sdao=new SellDAO();
-ArrayList<DealDTO> dealList=dao.getdealList(M_id);
-ArrayList<SellDTO> sellList=sdao.getsellList(M_id);
-SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
-%>	
-<section>
-<table border="1">
-<tr><td>판매번호</td><td>아이디</td><td>글제목</td><td>가격</td>
-<td>내용</td><td>작성일</td><td>카테고리</td><td>구매자</td><td>거래일자</td></tr>
-<%
-for(int i=0;i<sellList.size();i++){
-	sdto=sellList.get(i);
-	dto=dealList.get(i);
+MemberDAO dao=new MemberDAO();
+MemberDTO dto=dao.getMember(M_id);
 %>
+<section>	
+<form action="profileUpdatePro.jsp" method="post">
+아이디 : <input type="text" name="M_id" value="<%=M_id%>" readonly><br>
+비밀번호 : <input type="password" name="M_pw"><br>
+이름 : <input type="text" name="M_name" value="<%=dto.getM_name()%>" readonly><br>
+닉네임: <input type="text" name="M_nick" value="<%=dto.getM_nick()%>"><br>
+전화번호: <input type="text" name="M_phone" value="<%=dto.getM_phone() %>" readonly><br>
+주소: <input type="text" name="M_address" value="<%=dto.getM_address() %>">
+<%-- 상세주소:<input type="text" name="M_address2" value="<%=dto.getM_address2() %>"> --%><br>
+이메일:<input type="text" name="M_email" value="<%=dto.getM_email() %>">
 
-	<tr>
-		<td><%=sdto.getS_num() %></td>
-		<td><%=sdto.getM_id() %></td>
-		<td><%=sdto.getS_title() %></td>
-		<td><%=sdto.getS_price() %></td>
-		<td><%=sdto.getS_text() %></td>
-		<td><%=dateFormat.format(sdto.getS_createdate()) %></td>
-		<td><%=sdto.getS_category() %></td>
-		<td><%=dto.getD_buy() %></td>
-		<td><%=dateFormat.format(dto.getD_date()) %></td>
-		
-		
-	</tr>
-	</table>
-<%
-}
-%>
+<input type="submit" value="회원정보수정">
+</form>
+
+<a href="main.jsp">메인으로 이동</a>
+
 </section>
-	<!-- ***** 판매내역조회 끝 ***** -->
-	       
+               
+	<!-- ***** 회원정보수정 끝 ***** -->        
+            
              </div>
         </div>
-    </div>     <!-- ***** 푸터 시작 ***** -->
+    </div>
+    
+       <!-- ***** 푸터 시작 ***** -->
    <jsp:include page="../bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
@@ -122,4 +106,3 @@ for(int i=0;i<sellList.size();i++){
 
   </body>
 </html>
-    
