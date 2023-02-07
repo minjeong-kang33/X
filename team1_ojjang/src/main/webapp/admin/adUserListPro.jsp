@@ -18,7 +18,7 @@
 </head>
 <body>
     <!-- ***** 헤더 ***** -->
-  <jsp:include page="../top.jsp" />
+  <jsp:include page="../admin_top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
 	<!-- ***** 전체회원목록조회 ***** -->
@@ -59,12 +59,12 @@ ArrayList<MemberDTO> adUserListPro=dao.adUserListPro(info, search);
 		</ul><br>
 	</form>
 		<div>
-		검색결과 : <%=adUserListPro.size() %>명 / 총 <%=adUserList.size() %>명
+		검색결과 : <%=adUserListPro.size() %>명 / 총 <%=dao.adUserCount() %>명
 		</div>
 	</div>
-<form action="#.jsp" method="post">
+<form action="adUserDeletePro.jsp" method="post">
 <table border="1">
-<tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td><td>관리</td></tr>
+<tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td></tr>
 <%
 for(int i=0;i<adUserListPro.size();i++){
 	dto=adUserListPro.get(i);
@@ -75,8 +75,7 @@ for(int i=0;i<adUserListPro.size();i++){
 		<td><%=dto.getM_name() %></td>
 		<td><%=dto.getM_nick() %></td>
 		<td><%=dateFormat.format(dto.getM_createdate()) %></td>
-		<td><%=dto.getM_play() %></td>
-		<td><a href="#">관리</a></td></tr>
+		<td><%=dto.getM_play() %></td></tr>
 <%
 }
 %>
@@ -105,7 +104,8 @@ if(endPage < pageCount){
 }
 %>
 <div>
-회원 처리 <input type="submit" value="탈퇴">
+회원 처리 <input type="submit" value="강퇴">
+<!-- 회원 처리 <input type="button" value="수정요청"> <input type="button" value="경고"> <input type="button" value="강퇴" onclick="fun1()"> -->
 </div>
 </form>
 </div>
@@ -116,7 +116,7 @@ if(endPage < pageCount){
     <!-- ***** 탈퇴회원목록조회 끝 ***** -->
     
     <!-- ***** 푸터 시작 ***** -->
-   <jsp:include page="../bottom.jsp" />
+   <jsp:include page="../admin_bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->

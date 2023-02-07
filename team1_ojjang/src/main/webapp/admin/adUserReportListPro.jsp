@@ -21,12 +21,12 @@
   <jsp:include page="../admin_top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
-	<!-- ***** 전체회원목록조회 ***** -->
+	<!-- ***** 신고회원목록조회 ***** -->
     <div class="page-heading about-page-heading" id="top">
         <div class="container">
              <div class="inner-content2">
              
-<h3>회원목록조회</h3>
+<h3>신고회원목록조회</h3>
 <%
 request.setCharacterEncoding("utf-8");
 MemberDTO dto=new MemberDTO();
@@ -38,12 +38,15 @@ if(pageNum==null){pageNum="1";}
 int currentPage=Integer.valueOf(pageNum);
 int startRow=(currentPage-1)*pageSize+1;
 int endRow=startRow+pageSize-1;
-ArrayList<MemberDTO> adUserList=dao.adUserList(startRow, pageSize);
+ArrayList<MemberDTO> adUserReportList=dao.adUserReportList(startRow,pageSize);
+String info = request.getParameter("info");
+String search = request.getParameter("search");
+ArrayList<MemberDTO> adUserReportListPro=dao.adUserReportListPro(info, search);
 %>
 <section>
 <div class="container">
 	<div>
-	<form action="adUserListPro.jsp" method="post">
+	<form action="adUserReportListPro.jsp" method="post">
 		<ul>
 		<li><label>검색어</label>
 		<select name="info">
@@ -55,16 +58,16 @@ ArrayList<MemberDTO> adUserList=dao.adUserList(startRow, pageSize);
 		<input type="text" name="search"> <input type="submit" value="검색"></li>
 		</ul><br>
 	</form>
-	</div>
 		<div>
-		총 멤버 <%=dao.adUserCount() %>명
+		검색결과 : <%=adUserReportListPro.size() %>명 / 총 <%=dao.adUserReportCount() %>명
 		</div>
-<form action="adUserDeletePro.jsp" method="post">
+	</div>
+<form action="adUserReportDeletePro.jsp" method="post">
 <table border="1">
 <tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td></tr>
 <%
-for(int i=0;i<adUserList.size();i++){
-	dto=adUserList.get(i);
+for(int i=0;i<adUserReportListPro.size();i++){
+	dto=adUserReportListPro.get(i);
 %>
 	<tr><td><input type="checkbox" id="ck" name="id" value="<%=dto.getM_id() %>"></td>
 		<td><%=i+1 %></td>
@@ -81,28 +84,28 @@ for(int i=0;i<adUserList.size();i++){
 int pageBlock=10;
 int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 int endPage=startPage+pageBlock-1;
-int count=dao.adUserCount();
+int count=dao.adUserReportCount();
 int pageCount=count/pageSize+(count%pageSize==0?0:1);
 if(endPage>pageCount){endPage=pageCount;}
 for(int i=startPage;i<=endPage;i++){
 if(startPage > pageBlock){
 %>
-<a href="adUserList.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
+<a href="adUserReportListPro.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
 <%
 }
 %>
-<a href="adUserList.jsp?pageNum=<%=i %>"><%=i %></a>
+<a href="adUserReportListPro.jsp?pageNum=<%=i %>"><%=i %></a>
 <%
 }
 if(endPage < pageCount){
 %>
-<a href="adUserList.jsp?pageNum=<%=startPage+pageBlock%>">[10페이지 다음]</a>
+<a href="adUserReportListPro.jsp?pageNum=<%=startPage+pageBlock%>">[10페이지 다음]</a>
 <%
 }
 %>
 <div>
 회원 처리 <input type="submit" value="강퇴">
-<!-- 회원 처리 <input type="button" value="수정요청"> <input type="button" value="경고"> <input type="button" value="강퇴"> -->
+<!-- 회원 처리 <input type="button" value="수정요청"> <input type="button" value="경고"> <input type="button" value="강퇴" onclick="fun1()"> -->
 </div>
 </form>
 </div>
@@ -110,7 +113,7 @@ if(endPage < pageCount){
              </div>
         </div>
     </div>
-    <!-- ***** 전체회원목록조회 끝 ***** -->
+    <!-- ***** 신고회원목록조회 끝 ***** -->
     
     <!-- ***** 푸터 시작 ***** -->
    <jsp:include page="../admin_bottom.jsp" />

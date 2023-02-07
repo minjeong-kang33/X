@@ -17,6 +17,7 @@
 						<li class="submenu"><a>회원관리</a>
 							<ul>
 								<li><a href="../admin/adUserList.jsp">전체회원목록</a></li>
+								<li><a href="../admin/adUserReportList.jsp">신고회원목록</a></li>
 								<li><a href="../admin/adOutList.jsp">탈퇴회원목록</a></li>
 							</ul></li>
 						<li class="submenu"><a>게시글관리</a>
