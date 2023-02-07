@@ -156,7 +156,7 @@ $('document').ready(function() {
 	  <tr>
          <td colspan="2">
               <div class="buttons">
-            	 <input type="button" onclick="location.href = 'sellInsertPro.jsp'" value="등록"/>
+            	 <input type="submit" value="등록"/>
             	 <input type="reset" value="초기화"/>
               </div>
          </td>
