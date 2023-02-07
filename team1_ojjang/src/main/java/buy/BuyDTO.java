@@ -5,8 +5,8 @@ import java.sql.Timestamp;
 public class BuyDTO {
 
 	private int B_num;
-	private String B_title;
 	private String M_id;
+	private String B_title;
 	private String B_text;
 	private Timestamp B_time;
 	private int B_view;
@@ -22,12 +22,6 @@ public class BuyDTO {
 	}
 	public void setB_title(String b_title) {
 		B_title = b_title;
-	}
-	public String getM_id() {
-		return M_id;
-	}
-	public void setM_id(String m_id) {
-		M_id = m_id;
 	}
 	public String getB_text() {
 		return B_text;
@@ -46,6 +40,12 @@ public class BuyDTO {
 	}
 	public void setB_view(int b_view) {
 		B_view = b_view;
+	}
+	public String getM_id() {
+		return M_id;
+	}
+	public void setM_id(String m_id) {
+		M_id = m_id;
 	}
 		
 		

@@ -32,10 +32,19 @@
     <!-- ***** 헤더 끝 ***** -->
     
 <%
-	int pageNumber = 1;
-	if(request.getParameter("pageNumber") != null){
-		pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
-	}
+BuyDAO dao=new BuyDAO();
+
+int pageSize=10;
+
+String pageNum=request.getParameter("pageNum");
+if(pageNum==null){
+	pageNum="1";		
+}
+
+int currentPage=Integer.parseInt(pageNum);
+int startRow=(currentPage-1)*pageSize+1;
+int endRow = startRow+pageSize-1;
+ArrayList<BuyDTO> buyList=dao.getList(startRow, pageSize);
 %>
 
 <section class="notice">
@@ -59,28 +68,58 @@
 		</thead>
 		<tbody>
 			<%
-				BuyDAO BuyDAO = new BuyDAO();
-				ArrayList<BuyDTO> list = BuyDAO.getList(pageNumber);
-				for(int i=0; i<list.size(); i++){
+				for(int i=0; i<buyList.size(); i++){
+					BuyDTO dto = buyList.get(i);
 			%>
 			<tr>
-				<td><%= list.get(i).getB_num() %></td>
-				<td><a href="view.jsp?B_num=<%=list.get(i).getB_num() %>"><%=list.get(i).getB_title() %></a></td>
-				<td><%= list.get(i).getM_id() %></td>
-				<td><%= list.get(i).getB_time() %></td>
+				<td><%= dto.getB_num() %></td>
+				<td><a href="buyDetails.jsp?B_num=<%=dto.getB_num() %>">
+					<%=dto.getB_title() %></a></td>
+				<td><%= dto.getM_id() %></td>
+				<td><%= dto.getB_time() %></td>
+				<td><%= dto.getB_view() %></td>
 			</tr>
 			<%
 				}
 			%>
-			
 		</tbody>
 	</table>
 <!-- 여기다가 페이지번호 -->
+<%
+int pageBlock=10;
 
+int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+int endPage=startPage+pageBlock-1;
+int count = dao.getBuyBoardCount();
+int pageCount=count/pageSize+(count%pageSize==0?0:1);
+if(endPage > pageCount){
+	endPage = pageCount;
+}
 
+// 10페이지 이전
+if(startPage > pageBlock){
+	%>
+<a href="buylist.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
+	<%
+}
+
+for(int i=startPage;i<=endPage;i++){
+	%>
+	<a href="buylist.jsp?pageNum=<%=i%>"><%=i %></a> 
+	<%
+}
+
+//10페이지 다음
+if(endPage < pageCount){
+	%>
+<a href="buylist.jsp?pageNum=<%=startPage+pageBlock%>">[10페이지 다음]</a>
+	<%
+}
+
+%>
 <!-- 	글 작성 버튼을 오른쪽 아래에 고정 -->
 	</div>
-	<button type="button" class="btn btn-dark" onclick="buyInsertForm.jsp" style="float:right">글쓰기</button>
+	<button type="button" class="btn btn-dark" onclick="location.href='buyInsertForm.jsp'" style="float:right">글쓰기</button>
 </section>
 
 

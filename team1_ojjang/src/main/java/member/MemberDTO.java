@@ -15,6 +15,8 @@ public class MemberDTO {
 	private Timestamp M_createdate;
 	private int M_play;
 	private String M_admin;
+	
+	
 	public String getM_id() {
 		return M_id;
 	}
