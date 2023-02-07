@@ -15,19 +15,22 @@
 <%
 
 request.setCharacterEncoding("utf-8");
+String R_type = request.getParameter("R_type"); // 신고유형
+String M_id = request.getParameter("M_id"); 
+String R_id = "가해자"; //가해자
+String R_reason = request.getParameter("R_reason");
 
-String id=(String)session.getAttribute("id"); // 세션에서 id값 받아오기
-
-ReportDAO dao = new ReportDAO();
-
-dto.setM_id(M_id);
+ReportDTO dto = new ReportDTO();
 dto.setR_type(R_type);
-dto.setR_id("test"); //test값 
-dto.setR_reason(r_reason);
+dto.setM_id(M_id);
+dto.setR_id(R_id); 
+dto.setR_reason(R_reason);
 
 ReportDAO dao = new ReportDAO();
+
 dao.insertReport(dto);
 
+response.sendRedirect("../home/main.jsp");
 %>
 
 </body>

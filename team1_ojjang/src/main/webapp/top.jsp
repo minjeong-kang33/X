@@ -24,7 +24,7 @@
 						<!-- 로그인 안 한 경우는 마이페이지 말고 로그인 버튼 보이도록 -->
 						<li class="submenu"><a>마이페이지</a>
 							<ul>
-								<li><a href="#">프로필</a></li>
+								<li><a href="../Mypage/profile.jsp");">프로필</a></li>
 								<li><a href="#">찜목록</a></li>
 								<li><a href="#">거래내역</a></li>
 								<li><a href="#">거래후기</a></li>

@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../assets/css/lightbox.css">
-    <link rel="stylesheet" href="../assets/css/sellInsertForm.css">
+    <link rel="stylesheet" href="../assets/css/buyInsertForm.css">
     <script type="text/javascript" src="../assets/smarteditor2/js/HuskyEZCreator.js" charset="utf-8"></script>
 	<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 <meta charset="UTF-8">
@@ -22,7 +22,7 @@ var oEditors = [];
 $(function(){
       nhn.husky.EZCreator.createInIFrame({
           oAppRef: oEditors,
-          elPlaceHolder: "S_text", 
+          elPlaceHolder: "B_text", 
           sSkinURI: "../assets/smarteditor2/SmartEditor2Skin.html",  
           htParams : {
               bUseToolbar : true,             
@@ -32,13 +32,13 @@ $(function(){
               }
           }, 
           fOnAppLoad : function(){
-              oEditors.getById["S_text"].exec("PASTE_HTML", [""]);
+              oEditors.getById["B_text"].exec("PASTE_HTML", [""]);
           },
           fCreator: "createSEditor2"
       });
       
       $("#save").click(function(){
-          oEditors.getById["S_text"].exec("UPDATE_CONTENTS_FIELD", []);
+          oEditors.getById["B_text"].exec("UPDATE_CONTENTS_FIELD", []);
           $("#frm").submit();
       });    
 });
@@ -106,8 +106,8 @@ $('document').ready(function() {
   <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
-<div class="sellInsert"> 
-<img src="../assets/images/buyInsert_title.png" id="sellBoard" width="500px">
+<div class="BuyInsert"> 
+<img src="../assets/images/buyInsert_title.png" id="buyBoard" width="500px">
 	
 	<!-- ** 옷 카테고리 선택 시작 -->
 	<div class="radio1">
@@ -134,24 +134,27 @@ $('document').ready(function() {
 		<select name="gugun1" id="gugun1"></select>
 	</div>
 	<!-- ** 선호거래 체크박스 끝 **-->
-	
+<%
+String M_id = (String)session.getAttribute("M_id");
+%>	
 <!-- 입력상자 시작  -->    
-<form id="frm" action="sellInsertPro.jsp" method="post" >
+<form id="frm" action="buyInsertPro.jsp" method="post" >
 <table>
+<input type="hidden" name="M_id" value="<%=M_id %>">
 	<tr>
 		<th>제목</th>
-    	<td><input type="text" id="S_title" name="S_title" style="width:650px" placeholder="제목을 입력하세요"/></td>
+    	<td><input type="text" id="B_title" name="B_title" style="width:650px" placeholder="제목을 입력하세요"/></td>
     </tr>
     <tr>
         <th>내용</th>
         <td>
-        <textarea rows="10" cols="30" id="S_text" name="S_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
+        <textarea rows="10" cols="30" id="B_text" name="B_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
         </td>
      </tr>
 	  <tr>
          <td colspan="2">
               <div class="buttons">
-            	 <input type="button" id="save" value="등록"/>
+            	 <input type="submit" value="등록"/>
             	 <input type="reset" value="초기화"/>
               </div>
          </td>

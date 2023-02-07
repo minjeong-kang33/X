@@ -14,7 +14,11 @@
 <title>중고 의류거래: 옺장</title>
 </head>
 <body>
-    <body>
+<%
+
+String M_id = (String)session.getAttribute("M_id");
+
+%>
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
         <div class="jumper">

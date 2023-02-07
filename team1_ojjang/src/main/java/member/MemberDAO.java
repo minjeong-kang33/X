@@ -268,7 +268,6 @@ public class MemberDAO {
 	}
 
 	public MemberDTO M_userCheck(String M_id, String M_pw) {
-		//바구니 주소가 저장되는 변수에 null 초기화
 		MemberDTO dto=null;
 		Connection con = null;
 		PreparedStatement pstmt=null;
@@ -368,6 +367,33 @@ public class MemberDAO {
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 	}//updateMember()
+	
+	public void updatePw(MemberDTO updatePwDto) {
+		System.out.println("pw변경");
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		
+		System.out.println(updatePwDto.getM_pw());
+		System.out.println(updatePwDto.getM_id());
+		try {
+			
+			con=getConnection();			
+			String sql="update member set M_pw=? where M_id =?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, updatePwDto.getM_pw());
+			pstmt.setString(2, updatePwDto.getM_id());			
+			pstmt.executeUpdate();
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+	} //updatePw()
+	
+	
+	
 	
 }
 >>>>>>> branch 'master' of https://github.com/minjeong-kang33/team1_ojjang.git
