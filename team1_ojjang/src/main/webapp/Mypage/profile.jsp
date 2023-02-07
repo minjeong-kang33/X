@@ -38,15 +38,14 @@ String M_id=(String)session.getAttribute("M_id");
 MemberDAO dao=new MemberDAO();
 MemberDTO dto=dao.getMember(M_id);
 %>
-아이디 : <%=dto.getM_id() %><br>
-이름 : <%=dto.getM_name() %><br>
+아이디: <%=dto.getM_id() %><br>
+이름: <%=dto.getM_name() %><br>
 닉네임: <%=dto.getM_nick() %><br>
-이메일:<%=dto.getM_email() %><br>
-주소:<%=dto.getM_address() %><br>
-상세주소:<%=dto.getM_address2() %><br>
-번호:<%=dto.getM_phone() %><br>
-생년월일: <br>
-성별:<%=dto.getM_gender() %><br>
+이메일: <%=dto.getM_email() %><br>
+주소: <%=dto.getM_address() %><br>
+상세주소: <%=dto.getM_address2() %><br>
+번호: <%=dto.getM_phone() %><br>
+성별: <%=dto.getM_gender() %><br>
 
 
 </section>
