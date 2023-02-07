@@ -10,7 +10,7 @@
 	<title>중고의류거래: 옺장</title>
 </head>
 <body>
-<h3>회원목록조회</h3>
+<h3>탈퇴회원목록조회</h3>
 <%
 request.setCharacterEncoding("utf-8");
 MemberDTO dto=new MemberDTO();
@@ -22,15 +22,15 @@ if(pageNum==null){pageNum="1";}
 int currentPage=Integer.valueOf(pageNum);
 int startRow=(currentPage-1)*pageSize+1;
 int endRow=startRow+pageSize-1;
-ArrayList<MemberDTO> adUserList=dao.adUserList(startRow,pageSize);
+ArrayList<MemberDTO> adOutList=dao.adOutList(startRow,pageSize);
 String info = request.getParameter("info");
 String search = request.getParameter("search");
-ArrayList<MemberDTO> adUserListPro=dao.adUserListPro(info, search);
+ArrayList<MemberDTO> adOutListPro=dao.adOutListPro(info, search);
 %>
 <section>
 <div class="container">
 	<div>
-	<form action="adUserListPro.jsp" method="post">
+	<form action="adOutListPro.jsp" method="post">
 		<ul>
 		<li><label>검색어</label>
 		<select name="info">
@@ -44,15 +44,15 @@ ArrayList<MemberDTO> adUserListPro=dao.adUserListPro(info, search);
 		</ul><br>
 	</form>
 		<div>
-		검색결과 : <%=adUserListPro.size() %>명 / 총 <%=adUserList.size() %>명
+		검색결과 : <%=adOutListPro.size() %>명 / 총 <%=adOutList.size() %>명
 		</div>
 	</div>
 <form action="#.jsp" method="post">
 <table border="1">
 <tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td><td>관리</td></tr>
 <%
-for(int i=0;i<adUserListPro.size();i++){
-	dto=adUserListPro.get(i);
+for(int i=0;i<adOutListPro.size();i++){
+	dto=adOutListPro.get(i);
 %>
 	<tr><td><input type="checkbox" id="ck" name="id" value="<%=dto.getM_id() %>"></td>
 		<td><%=i+1 %></td>
@@ -70,22 +70,22 @@ for(int i=0;i<adUserListPro.size();i++){
 int pageBlock=10;
 int startPage=(currentPage-1)/pageBlock*pageBlock+1;
 int endPage=startPage+pageBlock-1;
-int count=dao.adUserCount();
+int count=dao.adOutCount();
 int pageCount=count/pageSize+(count%pageSize==0?0:1);
 if(endPage>pageCount){endPage=pageCount;}
 for(int i=startPage;i<=endPage;i++){
 if(startPage > pageBlock){
 %>
-<a href="adUserListPro.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
+<a href="adOutListPro.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
 <%
 }
 %>
-<a href="adUserListPro.jsp?pageNum=<%=i %>"><%=i %></a>
+<a href="adOutListPro.jsp?pageNum=<%=i %>"><%=i %></a>
 <%
 }
 if(endPage < pageCount){
 %>
-<a href="adUserListPro.jsp?pageNum=<%=startPage+pageBlock%>">[10페이지 다음]</a>
+<a href="adOutListPro.jsp?pageNum=<%=startPage+pageBlock%>">[10페이지 다음]</a>
 <%
 }
 %>

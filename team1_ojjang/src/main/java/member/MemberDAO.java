@@ -140,7 +140,7 @@ public class MemberDAO {
 		ResultSet rs=null;
 		try {
 			con=getConnection();
-			String sql="select * from member where M_play=2 order by M_id limit ?, ?";
+			String sql="select * from member where M_play='4' order by M_id limit ?, ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow-1);
 			pstmt.setInt(2, pageSize);
@@ -171,7 +171,7 @@ public class MemberDAO {
 		int count=0;
 		try {
 			con=getConnection();
-			String sql="select count(*) from member where M_play=2";
+			String sql="select count(*) from member where M_play='4'";
 			pstmt=con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
@@ -186,14 +186,14 @@ public class MemberDAO {
 		} return count;
 	}//adOutCount()
 	
-	public ArrayList<MemberDTO> searchOutMemberList(String info, String search) {
-		ArrayList<MemberDTO> searchMemberList=new ArrayList<MemberDTO>();
+	public ArrayList<MemberDTO> adOutListPro(String info, String search) {
+		ArrayList<MemberDTO> adOutListPro=new ArrayList<MemberDTO>();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=getConnection();
-			String sql="select * from member where M_play=2";
+			String sql="select * from member where M_play='4'";
 			if(info.equals("M_id")) {sql+="and M_id like ?";}
 			else if(info.equals("M_name")) {sql+="and M_name like ?";}
 			else if(info.equals("M_nick")) {sql+="and M_nick like ?";}
@@ -207,7 +207,7 @@ public class MemberDAO {
 				dto.setM_nick(rs.getString("M_nick"));
 				dto.setM_createdate(rs.getTimestamp("M_createdate"));
 				dto.setM_play(rs.getInt("M_play"));
-				searchMemberList.add(dto);
+				adOutListPro.add(dto);
 			}
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -216,7 +216,7 @@ public class MemberDAO {
 			if(pstmt!=null) try {pstmt.close();} catch (Exception e) {}
 			if(rs!=null) try {rs.close();} catch (Exception e) {}
 		}
-		return searchMemberList;
-	}//searchOutMemberList()
+		return adOutListPro;
+	}//adOutListPro()
 	
 }//class
