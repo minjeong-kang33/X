@@ -10,7 +10,7 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class sellDAO {
+public class SellDAO {
 	public Connection getConnection() throws Exception{
 		Context init=new InitialContext();
 		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/team_test");
@@ -18,7 +18,7 @@ public class sellDAO {
 		return con;
 	}
 	
-	public void insertBoard(sellDTO dto) {		
+	public void insertBoard(SellDTO dto) {		
 		System.out.println("Board insertBoard()");
 		
 		Connection con=null;
@@ -37,14 +37,14 @@ public class sellDAO {
 			
 			if(rs.next()) {
 				// 현존하는 최대 num에서 +1한 값을 num으로서 사용
-				num = rs.getInt("max(S_num)") + 1;
+				S_num = rs.getInt("max(S_num)") + 1;
 			}
 			
 			sql="insert into board(S_num,M_id,S_title,S_price,S_text,S_like,S_view,"
 					+ "S_send,S_createdate,S_category) values(?,?,?,?,?,?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 
-			pstmt.setInt(1, num);  
+			pstmt.setInt(1, S_num);  
 			pstmt.setString(2, dto.getM_id()); 
 			pstmt.setString(3, dto.getS_title());
 			pstmt.setInt(4, dto.getS_price());
