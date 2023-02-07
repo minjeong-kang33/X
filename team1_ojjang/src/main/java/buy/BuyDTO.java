@@ -2,7 +2,7 @@ package buy;
 
 import java.sql.Timestamp;
 
-public class buyDTO {
+public class BuyDTO {
 
 		private int B_num;
 		private String B_title;
@@ -11,9 +11,9 @@ public class buyDTO {
 		private String B_time;
 		private int B_view;
 		
-		public buyDTO() {}
+		public BuyDTO() {}
 		
-		public buyDTO(int b_num, String b_title, String m_id, String b_text, String b_time, int b_view) {
+		public BuyDTO(int b_num, String b_title, String m_id, String b_text, String b_time, int b_view) {
 			super();
 			B_num = b_num;
 			B_title = b_title;

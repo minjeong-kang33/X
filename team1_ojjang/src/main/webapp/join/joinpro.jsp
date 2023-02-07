@@ -33,7 +33,7 @@ dto.setM_createdate(M_createdate);
 // dto.setM_admin(M_admin);
 
 MemberDAO dao=new MemberDAO();
-dao.insertMember(dto);
+dao.insertMembers(dto);
 response.sendRedirect("../login/loginForm.jsp");
 
 
