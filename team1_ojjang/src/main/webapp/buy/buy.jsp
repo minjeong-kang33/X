@@ -1,3 +1,4 @@
+<%@page import="buy.BuyDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
@@ -35,7 +36,7 @@
 		</thead>
 		<tbody>
 			<%
-				buyDAO buyDAO = new buyDAO();
+				BuyDAO buyDAO = new buyDAO();
 				ArrayList<buyDTO> list = buyDAO.getList(pageNumber);
 				for(int i=0; i<list.size(); i++){
 			%>

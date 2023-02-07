@@ -400,6 +400,14 @@
     <script src="../assets/js/popper.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
 
+
+
+
+
+
+
+
+
  <!-- Plugins -->
     <script src="../assets/js/owl-carousel.js"></script>
     <script src="../assets/js/accordions.js"></script>

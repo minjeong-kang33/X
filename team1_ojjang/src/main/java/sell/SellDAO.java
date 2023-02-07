@@ -13,7 +13,7 @@ import javax.sql.DataSource;
 public class SellDAO {
 	public Connection getConnection() throws Exception{
 		Context init=new InitialContext();
-		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/team_test");
+		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
 		Connection con=ds.getConnection();
 		return con;
 	}
@@ -66,9 +66,10 @@ public class SellDAO {
 	}
 	
 	}
+	public void getlist
+
+		
+	}
 	
 	
 	
-	
-	
-}
