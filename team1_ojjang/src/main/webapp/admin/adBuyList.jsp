@@ -18,7 +18,7 @@
 </head>
 <body>
     <!-- ***** 헤더 ***** -->
-  <jsp:include page="../top.jsp" />
+  <jsp:include page="../admin_top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
 	<!-- ***** 구매글목록조회 ***** -->
@@ -92,7 +92,7 @@ if(endPage < pageCount){
     <!-- ***** 구매글목록조회 끝 ***** -->
     
     <!-- ***** 푸터 시작 ***** -->
-   <jsp:include page="../bottom.jsp" />
+   <jsp:include page="../admin_bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->
