@@ -26,10 +26,10 @@
         <div class="container">
              <div class="inner-content2">
              	
-    <!-- ***** 회원정보수정 ***** -->
+    <!-- ***** 비밀번호 ***** -->
 
 
-<h3>회원정보수정</h3>	
+<h3>비밀번호수정</h3>	
 
 <%
 String M_id=(String)session.getAttribute("M_id");
@@ -37,15 +37,10 @@ MemberDAO dao=new MemberDAO();
 MemberDTO dto=dao.getMember(M_id);
 %>
 <section>	
-<form action="profileUpdatepro.jsp" method="post">
+<form action="pwUpdatePro.jsp" method="post">
 아이디 : <input type="text" name="M_id" value="<%=M_id%>" readonly><br>
 비밀번호 : <input type="password" name="M_pw"><br>
-이름 : <input type="text" name="M_name" value="<%=dto.getM_name()%>" readonly><br>
-닉네임: <input type="text" name="M_nick" value="<%=dto.getM_nick()%>"><br>
-전화번호: <input type="text" name="M_phone" value="<%=dto.getM_phone() %>" readonly><br>
-주소: <input type="text" name="M_address" value="<%=dto.getM_address() %>"> <br>
-상세주소:<input type="text" name="M_address2" value="<%=dto.getM_address2() %>"><br>
-이메일:<input type="text" name="M_email" value="<%=dto.getM_email() %>"><br>
+변경 비밀번호: <input type="password" name="M_pw2"><br>
 
 <input type="submit" value="회원정보수정">
 </form>
