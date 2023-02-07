@@ -41,7 +41,7 @@ DealDAO dao=new DealDAO();
 SellDTO sdto=new SellDTO();
 SellDAO sdao=new SellDAO();
 ArrayList<DealDTO> dealList=dao.getdealList(M_id);
-ArrayList<SellDTO> sellList=sdao.getsellList(M_id);
+ArrayList<SellDTO> sellList=sdao.sellHistory(M_id);
 SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>	
 <section>
