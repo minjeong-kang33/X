@@ -23,7 +23,7 @@
 						<li class="submenu"><a>게시글관리</a>
 							<ul>
 								<li><a href="../admin/adSellList.jsp">판매글목록</a></li>
-								<li><a href="../admin/asBuyList.jsp">구매글목록</a></li>
+								<li><a href="../admin/adBuyList.jsp">구매글목록</a></li>
 							</ul></li>
 					</ul>
 					<!-- ***** 상단 바 메뉴 끝 ***** -->
