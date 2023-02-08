@@ -19,11 +19,22 @@ function fun2() {
 </head>
 <body>
 
+<%
+String M_id=(String)session.getAttribute("M_id");
+
+if(M_id==null){
+	response.sendRedirect("../login/loginForm.jsp");
+}
+%>
+
+
+
 <%-- 신고하기 폼 --%>
 <div class="reportForm">
-<form action="reportWritePro.jsp" method="post">
+	<form action="reportWritePro.jsp" method="post">
+	<input type="hidden" name="M_id" value="<%=M_id %>">
 	<span class="reportInfo"><img src="danger.png" class="dangerIcon">  클릭하여 신고 이유를 선택해 주세요. </span> 
-	<select id="selectBox" name="selectBox">
+	<select id="selectBox" name="R_type">
 		<option value=""> -- 선택하세요 -- </option>
 		<option value="회원비난/비하"> 회원비난/비하 </option>
 		<option value="욕설/비속어"> 욕설/비속어 </option>
@@ -34,7 +45,7 @@ function fun2() {
 		<option value="기타"> 기타 </option>
 	</select><br>
 
-	<textarea rows = "5" cols = "19" class="textarea" placeholder=" 내용을 입력해 주세요."></textarea><br>
+	<textarea rows = "5" cols = "19" class="textarea" name="R_reason" placeholder=" 내용을 입력해 주세요."></textarea><br>
 	<li> 정상적인 게시물을 신고하시는 경우 본인이 제재를 당할 수 있습니다.</li>
 	<li> 신고하게 된 이유를 사제히 써주시면 운영자의 관련 결정에 도움이 됩니다.</li>
 

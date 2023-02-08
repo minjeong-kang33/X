@@ -18,15 +18,14 @@ public class DealDAO {
 			return con;
 		}
 			
-	public ArrayList<DealDTO> getdealList(String M_id){
+	public ArrayList<DealDTO> dealList(String M_id){
 		ArrayList<DealDTO> dealList=new ArrayList<DealDTO>();
 		Connection con =null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		try {
 			con=getConnection();
-			String sql="select * from deal where M_id=?";
-			
+			String sql="select * from deal where D_buy=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, M_id);
 			
