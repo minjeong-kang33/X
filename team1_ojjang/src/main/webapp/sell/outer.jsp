@@ -3,18 +3,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>중고의류거래: 옺장 - 찜목록</title>
+    <title>중고의류거래: 옺장</title>
    <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css">
     <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
-    <link rel="stylesheet" href="sell.css"> 
-    
-        <script type="text/javascript">
-        
+   <link href="../assets/css/sell.css" rel="stylesheet" type="text/css">
+<meta charset="UTF-8">
+<title>중고 의류거래: 옺장</title>
+
+   <script type="text/javascript">     
    	 <%-- 토글 --%>
     	var set_state = true;
     	var img_icon = new Array(); 
@@ -33,10 +33,8 @@
     }
     
     </script>
-    
-    
-<meta charset="UTF-8">
 </head>
+
    <body>
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
@@ -50,271 +48,62 @@
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
-    
-   <section class="section" id="products">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="section-heading">
-                        <h2>아우터</h2>
-                        <span>outer</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                       <div class="hover-content">
-                            </div>
-                            <a href="sellDetail.jsp" target="_self"> <img src="../assets/images/sample_img.jpg" class="goodsImg" alt=""></a>
-                        </div>
-                        <div class="down-content">
-                            <h4>Classic Spring</h4>
-                            <span>$120.00</span>
-                            <span> <input type="button" class="preference btn1" value="직거래" disabled>
-                            	   <input type="button" class="preference btn2" value="택배거래" disabled>  </span>
-                            <ul class="stars">
-                                <li> 
-                               <!--  <img src="hart.png" class="hart" id="hart">
-                                	 <img src="fullhart.png" class="fullhart" id="fullhart">  --> 
-                                	 <img name="icon_btn" class="hart" src="hart.png" onclick="hartToggle()">
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                            <div class="hover-content">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <img src="sample_img.jpg" alt="">
-                        </div>
-                        <div class="down-content">
-                            <h4>Air Force 1 X</h4>
-                            <span>$90.00</span>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                            <div class="hover-content">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <img src="sample_img.jpg" alt="">
-                        </div>
-                        <div class="down-content">
-                            <h4>Love Nana ‘20</h4>
-                            <span>$150.00</span>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                            <div class="hover-content">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <img src="sample_img.jpg" alt="">
-                        </div>
-                        <div class="down-content">
-                            <h4>New Green Jacket</h4>
-                            <span>$75.00</span>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                            <div class="hover-content">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <img src="sample_img.jpg" alt="">
-                        </div>
-                        <div class="down-content">
-                            <h4>Classic Dress</h4>
-                            <span>$45.00</span>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                            <div class="hover-content">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <img src="sample_img.jpg" alt="">
-                        </div>
-                        <div class="down-content">
-                            <h4>Spring Collection</h4>
-                            <span>$100.00</span>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                            <div class="hover-content">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <img src="sample_img.jpg" alt="">
-                        </div>
-                        <div class="down-content">
-                            <h4>School Collection</h4>
-                            <span>$80.00</span>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                            <div class="hover-content">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <img src="sample_img.jpg" alt="">
-                        </div>
-                        <div class="down-content">
-                            <h4>Summer Cap</h4>
-                            <span>$12.00</span>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4">
-                    <div class="item">
-                        <div class="thumb">
-                            <div class="hover-content">
-                                <ul>
-                                    <li><a href="#"><i class="fa fa-eye"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-star"></i></a></li>
-                                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                                </ul>
-                            </div>
-                            <img src="sample_img.jpg" alt="">
-                        </div>
-                        <div class="down-content">
-                            <h4>Classic Kid</h4>
-                            <span>$30.00</span>
-                            <ul class="stars">
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                                <li><i class="fa fa-star"></i></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-12">
-                    <div class="pagination">
-                        <ul>
-                            <li>
-                                <a href="#">1</a>
-                            </li>
-                            <li class="active">
-                                <a href="#">2</a>
-                            </li>
-                            <li>
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <a href="#">4</a>
-                            </li>
-                            <li>
-                                <a href="#">></a>
-                            </li>
-                        </ul>
-                        <span>
-                    	<input type="button" id="write" onclick="location.href='../sell/sellInsertForm.jsp'" value="글쓰기"/>
-                    </span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- ***** Products Area Ends ***** -->
-    
+
+	<section class="section" id="products">
+
+
+		<!-- 게시판 제목  -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-heading">
+						<h2>아우터</h2>
+						<span>outer</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="item">
+						<div class="down-content">
+<!-- 게시판 내용 여기부터 넣으세요  -->
+						
+							<!-- 상품게시글 table  -->
+							
+						 <table>
+						 
+						  <tr> <!--  테이블................1칸 -->
+							<td>
+							<table class="item-table">
+								<tr>
+									<th colspan="2"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></th>
+								<tr>
+									<td colspan="2" class="title">제목</td>
+								<tr>
+									<td class="price">가격1</td><td class="like">좋아요1</td>
+								<tr>
+									<td colspan="2" class="M_id">판매자명1</td>
+								</tr>
+								<tr>
+									<td colspan="2">선호거래유형1</td>
+								</tr>
+							</table>
+							</td>
+						  </tr>
+						  
+						</table>
+							
+<!-- 게시판 내용 여기 넘어가면 안됨.  -->							
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
 
     <!-- ***** 푸터 시작 ***** -->
    <jsp:include page="../bottom.jsp" />
