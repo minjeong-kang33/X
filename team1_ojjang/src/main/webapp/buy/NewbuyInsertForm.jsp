@@ -144,7 +144,7 @@ $('document').ready(function() {
 String M_id = (String)session.getAttribute("M_id");									 					
 %>	
 <!-- 입력상자 시작  -->    
-<form id="frm" action="buyInsertPro.jsp" method="post" >
+<form id="frm" action="buyInsertPro.jsp" method="post">
 <table>
 <input type="hidden" name="M_id" value="<%=M_id %>">
 	<tr>
@@ -158,15 +158,28 @@ String M_id = (String)session.getAttribute("M_id");
         <div id="B_img1"></div>
         </td>
      </tr>
-	  <tr>
+ </table>   
+</form>
+
+<form id="forBuyImg" action="viewPage.jsp" method="post" enctype="multipart/form-data">
+<table>
+     <tr>
+     	<td colspan="2">
+     		<div class="button1">
+     			파일 : <input type="file" name="file">
+				<input type="submit" value="업로드"><br>
+			</div>
+		</td>
+     </tr>
+      <tr>
          <td colspan="2">
-              <div class="buttons">
+              <div class="button2">
             	 <input type="button" id="save" value="등록"/>
             	 <input type="reset" value="초기화"/>
               </div>
          </td>
      </tr>
- </table>   
+</table>
 </form>
 </div>
 <!-- 텍스트박스 입력상자 끝  -->  

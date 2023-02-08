@@ -119,7 +119,7 @@ if(endPage < pageCount){
 %>
 <!-- 	글 작성 버튼을 오른쪽 아래에 고정 -->
 	</div>
-	<button type="button" class="btn btn-dark" onclick="location.href='buyInsertForm.jsp'" style="float:right">글쓰기</button>
+	<button type="button" class="btn btn-dark" onclick="location.href='NewbuyInsertForm.jsp'" style="float:right">글쓰기</button>
 </section>
 
 
