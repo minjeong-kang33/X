@@ -1,18 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
-<%
-   String userID = null;
-   if(session.getAttribute("userID") != null) {
-	   userID = (String) session.getAttribute("userID");
-   }
-   if(userID == null) {
-	  session.setAttribute("messageType", "오류 메시지");
-	  session.setAttribute("messageContent", "현재 로그인이 되어 있지 않습니다.");
-	  response.sendRedirect("index.jsp");
-	  return;
-   }
-%>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,73 +9,6 @@
 	<title>테스트 사이트</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
-	<script type="text/javascript">
-	    function getUnread() {
-	    	$.ajax({
-	    		type: "POST",
-	    		url: "./chatUnread",
-	    		data: {
-	    			userID: encodeURIComponent('<%= userID %>'),
-	    		},
-	    		success: function(result) {
-	    			if(result >= 1) {
-	    				showUnread(result);
-	    			} else {
-	    				showUnread('');
-	    			}
-	    		}
-	    	});
-	    }
-	    function getInfiniteUnread() {
-	    	setInterval(function() {
-	    		getUnread();
-	    	}, 4000);
-	    }
-	    function showUnread(result) {
-	    	$('#unread').html(result);
-	    }
-	    function chatBoxFunction() {
-	    	var userID = '<%= userID %>'
-	    	$.ajax({
-	    		type: "POST",
-	    		url: "./chatBox",
-	    		data: {
-	    			userID: encodeURIComponent(userID),
-	    		},
-	    		success: function(data) {
-	    			if(data == "") return;
-	    			$('#boxTable').html('');
-	    			var parsed = JSON.parse(data);
-	    			var result = parsed.result;
-	    			for(var i=0; i<result.length; i++) {
-	    				if(result[i][0].value == userID) {
-	    					result[i][0].value = result[i][1].value;
-	    				} else {
-	    					result[i][1].value = result[i][0].value;
-	    				}
-	    				addBox(result[i][0].value, result[i][1].value, result[i][2].value, result[i][3].value, result[i][4].value, result[i][5].value);
-	    			}
-	    		}
-	    	});
-	    }
-	    function addBox(lastID, toID, chatContent, chatTime, unread, profile) {
-	    	$('#boxTable').append('<tr onclick="location.href=\'chat.jsp?toID=' + encodeURIComponent(toID) + '\'">' +
-	    			'<td style="width: 150px;">' + 
-	    			'<img class="media-object img-circle" style="margin: 0 auto; max-width: 40px; max-height: 40px;" src="' + profile + '">' +                       
-	    			'<h5>' + lastID + '</h5></td>' + 
-	    			'<td>' +
-	    			'<h5>' + chatContent +
-	    			'<span class="label label-info">' + unread + '</span></h5>' + 
-	    			'<div class="pull-right">' + chatTime + '</div>' + 
-	    			'</td>' + 
-	    			'</tr>');
-	    }
-	    function getInfiniteBox() {
-	    	setInterval(function() {
-	    		chatBoxFunction();
-	    	}, 3000);
-	    }
-	</script>
 </head>
 <body>
     <nav class="navbar navbar-default">
@@ -106,43 +27,8 @@
                <li><a href="index.jsp">메인</a></li>
                <li><a href="find.jsp">친구찾기</a></li>
                <li class="active"><a href="box.jsp">메시지함<span id="unread" class="label label-info"></span></a></li>
-               <li><a href="boardView.jsp">자유게시판</a></li>
             </ul>
-            <%
-               if(userID == null) {
-            %>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle"
-                        data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false">접속하기<span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="login.jsp">로그인</a></li>
-                        <li><a href="join.jsp">회원가입</a></li>
-                    </ul>  
-                </li> 
-            </ul>
-            <%
-               } else {
-            %>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle"
-                        data-toggle="dropdown" role="button" aria-haspopup="true"
-                        aria-expanded="false">회원관리<span class="caret"></span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="update.jsp">회원정보수정</a></li>
-                        <li><a href="profileUpdate.jsp">프로필 수정</a></li>
-                        <li><a href="logoutAction.jsp">로그아웃</a></li>
-                    </ul>  
-                </li> 
-            </ul>
-            <% 
-               }
-            %> 
-        </div>
+            </div>
     </nav>
     <div class="container">
         <table class="table" style="margin: 0 auto;">
@@ -201,19 +87,6 @@
     <script>
         $('#messageModal').modal("show");
     </script>
-    <%
-        if(userID != null) {
-    %>
-        <script type="text/javascript">
-            $(document).ready(function() {
-            	getUnread();
-            	getInfiniteUnread();
-            	chatBoxFunction();
-            	getInfiniteBox();
-            });
-        </script>
-    <%
-        }   
-    %>
+
 </body>
 </html>

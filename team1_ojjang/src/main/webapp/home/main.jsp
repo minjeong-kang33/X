@@ -14,7 +14,13 @@
 <title>중고 의류거래: 옺장</title>
 </head>
 <body>
-    <body>
+<%
+String M_id=(String)session.getAttribute("M_id");
+
+if(M_id==null){
+	response.sendRedirect("../login/loginForm.jsp");
+}
+%>
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
         <div class="jumper">
@@ -36,9 +42,9 @@
              </div>
         </div>
     </div>
-    <!-- ***** 배너 끝 ***** -->
+<!--     ***** 배너 끝 ***** -->
 
-    <!-- ***** 아우터 최신 글 시작 ***** -->
+<!--     ***** 아우터 최신 글 시작 ***** -->
     <section class="section" id="men">
         <div class="container">
             <div class="row">
@@ -153,9 +159,7 @@
             </div>
         </div>
     </section>
-    <!-- ***** 아우터 최신 글 끝 ***** -->
 
-    <!-- ***** 상의 최신 글 시작 ***** -->
     <section class="section" id="women">
         <div class="container">
             <div class="row">
@@ -270,9 +274,7 @@
             </div>
         </div>
     </section>
-    <!-- ***** 상의 최신 글 끝 ***** -->
 
-    <!-- ***** 하의 최신 글 시작 ***** -->
     <section class="section" id="kids">
         <div class="container">
             <div class="row">
@@ -387,7 +389,7 @@
             </div>
         </div>
     </section>
-    <!-- ***** 하의 최신 글 끝 ***** -->
+
 
     <!-- ***** 푸터 시작 ***** -->
    <jsp:include page="../bottom.jsp" />

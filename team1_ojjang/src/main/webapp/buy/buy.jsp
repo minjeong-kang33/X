@@ -36,8 +36,8 @@
 		</thead>
 		<tbody>
 			<%
-				BuyDAO buyDAO = new buyDAO();
-				ArrayList<buyDTO> list = buyDAO.getList(pageNumber);
+				BuyDAO buyDAO = new BuyDAO();
+				ArrayList<BuyDAOList> = buyDAO.getList(pageNumber);
 				for(int i=0; i<list.size(); i++){
 			%>
 			<tr>

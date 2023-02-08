@@ -31,7 +31,6 @@ public class MemberFindServlet extends HttpServlet {
 	
 	public String find(String M_id) throws Exception {
 		StringBuffer result = new StringBuffer("");
-		result.append("{\"MemberProfile\":\"" + new MemberDAO().getProfile(M_id) + "\"}");
 		return result.toString();
 	}
 }

@@ -2,17 +2,17 @@ package chat;
 
 public class ChatDTO {
 	
-	int chatID;
+	int CH_num;
 	String fromID;
 	String toID;
 	String chatContent;
 	String chatTime;
 	
-	public int getChatID() {
-		return chatID;
+	public int getCH_num() {
+		return CH_num;
 	}
-	public void setChatID(int chatID) {
-		this.chatID = chatID;
+	public void setCH_num(int CH_num) {
+		this.CH_num = CH_num;
 	}
 	public String getFromID() {
 		return fromID;

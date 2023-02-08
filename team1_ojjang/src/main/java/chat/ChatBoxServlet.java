@@ -20,34 +20,34 @@ public class ChatBoxServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");		
-		String M_id = request.getParameter("M_id");
-		if(M_id == null || M_id.equals("")) {
+		String CH_num = request.getParameter("CH_num");
+		if(CH_num == null || CH_num.equals("")) {
 			response.getWriter().write("");
 		} else {
 			try {
 				HttpSession session = request.getSession();
-				if(!URLDecoder.decode(M_id, "UTF-8").equals((String) session.getAttribute("userID"))) {
+				if(!URLDecoder.decode(CH_num, "UTF-8").equals((String) session.getAttribute("CH_num"))) {
 					response.getWriter().write("");
 					return;
 				}
-				M_id = URLDecoder.decode(M_id, "UTF-8");
-				response.getWriter().write(getBox(M_id));
+				CH_num = URLDecoder.decode(CH_num, "UTF-8");
+				response.getWriter().write(getBox(CH_num));
 			} catch (Exception e) {
 				response.getWriter().write("");
 			}
 		}
 	}
 	
-	public String getBox(String M_id) {
+	public String getBox(String CH_num) {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
 		ChatDAO chatDAO = new ChatDAO();
-		ArrayList<ChatDTO> chatList = chatDAO.getBox(M_id);
+		ArrayList<ChatDTO> chatList = chatDAO.getBox(CH_num);
 		if(chatList.size() == 0) return "";
 		for(int i=chatList.size()-1; i>=0; i--) {
 			String unread = "";
-			if(M_id.equals(chatList.get(i).getToID())) {
-				unread = chatDAO.getUnreadChat(chatList.get(i).getFromID(), M_id) + "";
+			if(CH_num.equals(chatList.get(i).getToID())) {
+				unread = chatDAO.getUnreadChat(chatList.get(i).getFromID(), CH_num) + "";
 				if(unread.equals("0")) unread = "";
 			}
 			result.append("[{\"value\": \"" + chatList.get(i).getFromID() + "\"},");
@@ -57,7 +57,7 @@ public class ChatBoxServlet extends HttpServlet {
 			result.append("{\"value\": \"" + unread + "\"},");
 			if(i != 0) result.append(",");
 		}
-		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
+		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getCH_num() + "\"}");
 		return result.toString();
 	}
 

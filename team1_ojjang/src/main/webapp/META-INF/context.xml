@@ -6,20 +6,11 @@
 			 auth="Container"
 			 type="javax.sql.DataSource"
 			 driverClassName="com.mysql.cj.jdbc.Driver"
-			 url="jdbc:mysql://Localhost:3306/Members"
-			 username="root"
+			 url="jdbc:mysql://db.itwillbs.dev:3306/class1_221020_team1"
+			 username="class1_221020_team1"
 			 password="1234"		 
 			 
 			 
 			 
 	/>
-
-
-<!-- 	<Resource name="자원이름"  -->
-<!-- 			 auth="관리자" -->
-<!-- 			 type="저장된 타입" -->
-<!-- 			 url="디비주소" -->
-<!-- 			 username="디비접속 아이디" -->
-<!-- 			 password="비밀번호" -->
-
 </Context>

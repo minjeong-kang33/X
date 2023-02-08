@@ -39,7 +39,7 @@ tr th:last-child {
 }
 /* 모달 팝업창 관련 디자인 처리  */
 .vertical-alignment-helper {
-	display: table;
+	display: ta;
 	height: 100%;
 	width: 100%;
 	pointer-events: none;

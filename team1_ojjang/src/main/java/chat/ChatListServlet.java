@@ -52,16 +52,16 @@ public class ChatListServlet extends HttpServlet {
 			result.append("{\"value\": \"" + chatList.get(i).getChatTime() + "\"}]");
 			if(i != chatList.size() -1) result.append(",");
 		}
-		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
+		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getCH_num() + "\"}");
 		chatDAO.readChat(fromID, toID); //채팅 내역 읽었다.
 		return result.toString();
 	}
 	
-	public String getID(String fromID, String toID, String M_id) {
+	public String getID(String fromID, String toID, String CH_num) {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
 		ChatDAO chatDAO = new ChatDAO();
-		ArrayList<ChatDTO> chatList = chatDAO.getChatListByID(fromID, toID, M_id);
+		ArrayList<ChatDTO> chatList = chatDAO.getChatListByID(fromID, toID, CH_num);
 		if(chatList.size() == 0) return "";
 		for(int i=0; i<chatList.size(); i++) {
 			result.append("[{\"value\": \"" + chatList.get(i).getFromID() + "\"},");
@@ -70,7 +70,7 @@ public class ChatListServlet extends HttpServlet {
 			result.append("{\"value\": \"" + chatList.get(i).getChatTime() + "\"}]");
 			if(i != chatList.size() -1) result.append(",");
 		}
-		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
+		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getCH_num() + "\"}");
 		chatDAO.readChat(fromID, toID); //채팅 내역 읽었다.
 		return result.toString();
 	}

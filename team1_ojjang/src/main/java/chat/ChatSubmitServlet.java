@@ -17,14 +17,20 @@ public class ChatSubmitServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("text/html;charset=UTF-8");
-        String fromID = request.getParameter("fromID");
+        
+        //보낸사람의 파라미터값
+        String fromID = request.getParameter("M_id");
         String toID = request.getParameter("toID");
         String chatContent = request.getParameter("chatContent");
+        
         if(fromID == null || fromID.equals("") || toID == null || toID.equals("")
         		|| chatContent == null || chatContent.equals("")) {
-        	response.getWriter().write("0");
+        	response.getWriter().write("0");  //문자값이 없다면 오류발생
+        	
         } else if(fromID.equals(toID)) {
-        	response.getWriter().write("-1");
+        	response.getWriter().write("-1"); //
+        	
+        	
         } else {
         	fromID = URLDecoder.decode(fromID, "UTF-8");
         	toID = URLDecoder.decode(toID, "UTF-8");
