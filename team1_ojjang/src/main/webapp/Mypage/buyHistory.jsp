@@ -1,3 +1,4 @@
+<%@page import="admin.MypageDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="sell.SellDAO"%>
 <%@page import="sell.SellDTO"%>
@@ -36,30 +37,39 @@
     <h3>구매내역조회</h3>
 <%
 String M_id=(String)session.getAttribute("M_id");
-String D_buy=(String)session.getAttribute("D_buy");
+
 DealDTO dto=new DealDTO();
 DealDAO dao=new DealDAO();
-// SellDTO sdto=new SellDTO();
+
+SellDTO sdto=new SellDTO();
+SellDAO sdao=new SellDAO();
+
 // SellDAO sdao=new SellDAO();
+
 ArrayList<DealDTO> dealListB=dao.dealListB(M_id);
-// ArrayList<SellDTO> sellHistory=sdao.sellHistory(M_id);
+
+ArrayList<SellDTO> dealListS=sdao.dealListS(M_id);
+
 SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>	
 <section>
 <table border="1">
-<tr><td>거래일자</td></tr>
+<tr><td>판매자</td><td>판매글제목</td><td>구매가격</td><td>카테고리</td><td>구매자</td><td>거래날짜</td></tr>
+
 <%
+System.out.println(dealListS.size());
+System.out.println(dealListB.size());
 for(int i=0;i<dealListB.size();i++){
-// 	sdto=sellHistory.get(i);
+ 	sdto=dealListS.get(i);
 	dto=dealListB.get(i);
 %>
 
 	<tr>
-<%-- 		<td><%=sdto.getM_id() %></td> --%>
-<%-- 		<td><%=sdto.getS_title() %></td> --%>
-<%-- 		<td><%=sdto.getS_price() %></td> --%>
-<%-- 		<td><%=sdto.getS_text() %></td> --%>
-<%-- 		<td><%=dto.getD_buy() %> --%>
+		<td><%=sdto.getM_id() %></td>
+		<td><%=sdto.getS_title() %></td>
+		<td><%=sdto.getS_price() %></td>
+		<td><%=sdto.getS_category() %></td>
+		<td><%=dto.getD_buy() %>
 		<td><%=dateFormat.format(dto.getD_date()) %></td>
 		
 		
