@@ -75,7 +75,6 @@ public class MemberDAO {
 		return dto;
 	}
 	
-
 	public MemberDTO getMember(String M_id) {
 		MemberDTO dto=null;
 		Connection con =null;
@@ -169,5 +168,34 @@ public class MemberDAO {
 		}
 	} //updatePw()
 	
+	//회원인지 아닌지 체크하는 매서드
+	public int registerCheck(String M_id) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "SELECT * FROM MEMBER WHERE M_id = ?";
+		try {
+			conn = getConnection();
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, M_id);
+			rs = pstmt.executeQuery();
+			if (rs.next() || M_id.equals("")) {
+				return 0; // 이미 존재하는 회원
+			} else {
+				return 1; // 가입 가능한 회원 아이디
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(conn != null) conn.close();
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
+		return -1;  // 데이터베이스 오류
+	}
 	
 }

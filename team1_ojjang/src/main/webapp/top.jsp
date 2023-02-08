@@ -36,19 +36,12 @@
 								<li><a href="#">QnA</a></li>
 								<li><a href="#">또뭐있지</a></li>
 							</ul></li>
-						<li class="submenu"><a href="">로그인</a>
+						<li class="submenu"><a href="../login/loginForm">로그인</a>
 							<ul>
-								<li><a href="../chat/find.jsp">판매자찾기</a></li>
-								<li><a href="../chat/Testbox.jsp">채팅</a></li>
+								<li><a href="javascript:void(window.open('../chat/find.jsp', '판매자찾기','width=400, height=400'))">판매자찾기</a></li>
+								<li><a href="javascript:void(window.open('../chat/Testbox.jsp', '메세지함','width=300, height=400'))">메세지함</a></li>
 							</ul></li>	
 								</ul>
-							<form action="" class="form-inline">
-					<input type="text" name="Keyword" placeholder="검색어를 입력하세요" 
-															class="form-e">
-																		
-							<button class="btn btn-success">검 색</button>
-							</form>							
-			
 					<!-- ***** 상단 바 메뉴 끝 ***** -->
 				</nav>
 			</div>

@@ -1,4 +1,4 @@
-
+<%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.net.URLDecoder" %>
 
@@ -14,30 +14,12 @@
        if(request.getParameter("toID") != null){
     	  toID = (String) request.getParameter("toID");
        }
-       if(M_id == null) {
-    	  session.setAttribute("messageType", "오류 메시지");
-    	  session.setAttribute("messageContent", "현재 로그인이 되어 있지 않습니다.");
-    	  response.sendRedirect("../home/main.jsp");
-    	  return;
-       }
-       if(toID == null) {
-     	  session.setAttribute("messageType", "오류 메시지");
-     	  session.setAttribute("messageContent", "대화 상대가 지정되지 않습니다.");
-     	  response.sendRedirect("../home/main.jsp");
-     	  return;
-        }
-        if(M_id.equals(URLDecoder.decode(toID, "UTF-8"))) {
-        	session.setAttribute("messageType", "오류 메시지");
-	       	session.setAttribute("messageContent", "자기 자신에게는 쪽지를 보낼 수 없습니다.");
-	       	response.sendRedirect("../home/main.jsp");
-	       	return;
-        }
-    %>
+      %>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/custom.css">
-	<title>테스트 사이트</title>
+	<link rel="stylesheet" href="./cs/bootstrap.css">
+	<link rel="stylesheet" href="./cs/custom.css">
+	<title>옺톡</title>
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script type="text/javascript">
@@ -49,9 +31,10 @@
 	    function submitFunction() {
 	    	var fromID = '<%= M_id %>'
 	    	var toID = '<%= toID %>'
+	    	alert("값"+fromID+toID);
 	    	var chatContent = $('#chatContent').val();
 	    	$.ajax({
-	    		type: "POST",
+	    		type: "GET",
 	    		url: "./chatSubmitServlet",
 	    		data: {
 	    			fromID: encodeURIComponent(fromID),
@@ -180,12 +163,12 @@
                 <div class="portlet portlet-default">
                     <div class="portlet-heading">
                         <div class="portlet-title">
-                            <h4><i class="fa fa-circle text-green"></i>실시간 채팅창</h4>
+                            <h4><i class="fa fa-circle text-green"></i>회원간 1:1채팅</h4>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div id="chat" class="panel-collapse collapse in">
-                        <div id="chatList" class="portlet-body chat-widget" style="overflow-y: auto; width: auto; height: 600px;">
+                        <div id="chatList" class="portlet-body chat-widget" style="overflow-y: auto; width: 300; height: 350px;">
                         </div>
                         <div class="portlet-footer">
                             <div class="row" style="height: 90px;">
