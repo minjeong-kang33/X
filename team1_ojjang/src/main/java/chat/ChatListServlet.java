@@ -39,6 +39,7 @@ public class ChatListServlet extends HttpServlet {
         }
 	}
 	
+	// 목록10개까지만 보여지는 함수
 	public String getTen(String fromID, String toID) {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
@@ -57,6 +58,8 @@ public class ChatListServlet extends HttpServlet {
 		return result.toString();
 	}
 	
+	
+	// 목록 아이디값 불러오는 함수
 	public String getID(String fromID, String toID, String CH_num) {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");

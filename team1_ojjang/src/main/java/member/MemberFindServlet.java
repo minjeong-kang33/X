@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 @WebServlet("/MemberFindServlet")
 public class MemberFindServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,8 +30,10 @@ public class MemberFindServlet extends HttpServlet {
 		}
 	}
 	
+	
 	public String find(String M_id) throws Exception {
 		StringBuffer result = new StringBuffer("");
+		result.append("{\"M_id\":\"" + new MemberDAO().getMember(M_id) + "\"}");
 		return result.toString();
 	}
 }

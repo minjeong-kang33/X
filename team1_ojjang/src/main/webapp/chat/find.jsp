@@ -9,23 +9,24 @@
        if(M_id == null){
     	   session.setAttribute("messageType", "오류 메시지");
     	   session.setAttribute("messageContent", "현재 로그인이 되어있지 않습니다.");
-    	   response.sendRedirect("../home/maia.jsp");
+    	   response.sendRedirect("");
     	   return;
        }
     %>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="../cs/bootstrap.css">
-	<link rel="stylesheet" href="../cs/custom.css">
+	<link rel="stylesheet" href="./cs/bootstrap.css">
+	<link rel="stylesheet" href="./cs/custom.css">
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 	<script src="js/bootstrap.js"></script>
 	<script type="text/javascript">
 	    function findFunction() {
 	    	var M_id = $('#findID').val();
+	    	alert(M_id);
 	    	$.ajax({
 	    		type: "POST",
-	    		url: './UserFindServlet',
+	    		url: "./MemberFindServlet",
 	    		data: {M_id: M_id},
 	    		success: function(result) {
 	    			if(result == -1) {
@@ -37,8 +38,7 @@
 	    				$('#checkMessage').html('친구찾기에 성공했습니다.');
 	    				$('#checkType').attr('class', 'modal-content panel-success');
 	    				var data = JSON.parse(result);
-	    				var profile = data.userProfile; 
-	                    getFriend(M_id, profile);    				
+	                    getFriend(M_id);    				
 	    			} 
 	    			$('#checkModal').modal("show");
 	    		}
@@ -87,15 +87,6 @@
 	</script>
 </head>
 <body>
-
-   
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul class="nav navbar-nav">
-               <li><a href="../home/main.jsp">메인</a></li>
-               <li class="active"><a href="find.jsp">찾기</a></li>
-               <li><a href="box.jsp">메시지함<span id="unread" class="label label-info"></span></a></li>
-            </ul>
-        </div>
     <div class="container">
         <table class="table table-bordered table-hover" style="text-align: center; border: 1px solid #dddddd">
             <thead>

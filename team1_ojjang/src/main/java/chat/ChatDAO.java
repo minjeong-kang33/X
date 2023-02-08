@@ -22,7 +22,7 @@ import javax.sql.DataSource;
     	
     
     //특정한 아이디에서 아이디 내역을 가져온다.			
-	public ArrayList<ChatDTO> getChatListByID(String fromID, String toID, String chatID) {
+	public ArrayList<ChatDTO> getChatListByID(String fromID, String toID, String CH_num) {
 		ArrayList<ChatDTO> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -38,9 +38,10 @@ import javax.sql.DataSource;
 			pstmt.setString(2, toID);
 			pstmt.setString(3, toID);
 			pstmt.setString(4, fromID);
-			pstmt.setInt(5, Integer.parseInt(chatID));
+			pstmt.setInt(5, Integer.parseInt(CH_num));
 			rs = pstmt.executeQuery(); //실행한 결과 반환
 			
+			// 리스트 초기화
 			chatList = new ArrayList<ChatDTO>();
 			while (rs.next()) {
 				ChatDTO chat = new ChatDTO();
@@ -77,13 +78,13 @@ import javax.sql.DataSource;
 	
 	
 	
-	// getChatListByRecent SQL 문장 주고받는 시간순서
+	// getChatListByRecent SQL 문자 주고받는 시간순서
 	public ArrayList<ChatDTO> getChatListByRecent(String fromID, String toID, int number) {
 		ArrayList<ChatDTO> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM CHAT WHERE ((fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) AND chatID > (SELECT MAX(M_id) - ? FROM CHAT WHERE (fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) ORDER BY chatTime";                     
+		String SQL = "SELECT * FROM CHAT WHERE ((fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) AND CH_num > (SELECT MAX(CH_num) - ? FROM CHAT WHERE (fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) ORDER BY chatTime";                     
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -127,17 +128,18 @@ import javax.sql.DataSource;
 		return chatList; // 리스트 반환
 	}
 	
-	public ArrayList<ChatDTO> getBox(String CH_num) {
+	// getbox 상자에 순서별로 담는다
+	public ArrayList<ChatDTO> getBox(String M_id) {
 		ArrayList<ChatDTO> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM CHAT WHERE M_id IN (SELECT MAX(chatID) FROM CHAT WHERE toID = ? OR fromID = ? GROUP BY fromID, toID)";                     
+		String SQL = "SELECT * FROM CHAT WHERE M_id IN (SELECT MAX(CH_num) FROM CHAT WHERE toID = ? OR fromID = ? GROUP BY fromID, toID)";                     
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, CH_num);
-			pstmt.setString(2, CH_num);
+			pstmt.setString(1, M_id);
+			pstmt.setString(2, M_id);
 			rs = pstmt.executeQuery();
 			chatList = new ArrayList<ChatDTO>();
 			while (rs.next()) {
@@ -247,7 +249,7 @@ import javax.sql.DataSource;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT COUNT(M_id) FROM CHAT WHERE toID = ? AND chatRead = 0";
+		String SQL = "SELECT COUNT(CH_num) FROM CHAT WHERE toID = ? AND chatRead = 0";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -277,7 +279,7 @@ import javax.sql.DataSource;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT COUNT(chatID) FROM CHAT WHERE fromID = ? AND toID = ? AND chatRead = 0";
+		String SQL = "SELECT COUNT(CH_num) FROM CHAT WHERE fromID = ? AND toID = ? AND chatRead = 0";
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(SQL);
