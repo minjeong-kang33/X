@@ -17,7 +17,7 @@
                <ul class="nav">
                   <li><a href="#" class="active">홈</a></li>
                   <li><a href="../sell/outer.jsp">아우터</a></li>
-                  <li><a href="../sell/shirts.jsp">상의</a></li>
+                  <li><a href="../sell/shirts.jsp" value="outer">상의</a></li>
                   <li><a href="../sell/pants.jsp">하의</a></li>
                   <li><a href="../sell/dress.jsp">원피스</a></li>
                   <li><a href="../buy/buyList.jsp">삽니다</a></li>
