@@ -8,20 +8,20 @@
 </head>
 <body>
 	<div style="text-align: center">
-		<h3>아이디 중복확인</h3>
-		<form method="post" action="idCheckPro.jsp"
-			onsubmit="return idCheck(this)">
-			아이디 : <input type="text" name="M_id"  maxlength="15" autofocus>
+		<h3>닉네임 중복확인</h3>
+		<form method="post" action="nickCheckPro.jsp"
+			onsubmit="return nickCheck(this)">
+			닉네임 : <input type="text" name="M_nick"  maxlength="15" autofocus>
 			<input type="submit" value="중복확인">
 		</form>
 	</div>
 
 	<script>
-		function idCheck(f) {
-			var M_id = f.M_id.value;
-			M_id = M_id.trim();
-			if (M_id.length < 5) {
-				alert("아이디는 5자 이상 입력해주십시오.");
+		function nickCheck(f) {
+			var M_nick = f.M_nick.value;
+			M_nick = M_nick.trim();
+			if (M_nick.length < 3) {
+				alert("닉네임은 3자 이상 입력해주십시오.");
 				return false;
 			}//if end
 			return true;

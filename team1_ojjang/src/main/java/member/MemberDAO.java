@@ -197,5 +197,67 @@ public class MemberDAO {
 		}
 		return -1;  // 데이터베이스 오류
 	}
+	public int duplecateID(String M_id){
+		int cnt=0;
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+	    try{
+	    	con=getConnection();
+	        StringBuilder sql=new StringBuilder();
+	        
+	  
+	        sql.append(" SELECT count(M_id) as cnt ");
+	        sql.append(" FROM member ");
+	        sql.append(" WHERE M_id = ? ");
+	        
+	        pstmt=con.prepareStatement(sql.toString());
+	        pstmt.setString(1, M_id);
+	        
+	        rs=pstmt.executeQuery();
+	        if(rs.next()){
+	        	cnt=rs.getInt("cnt");
+	        }
+	    }catch(Exception e){
+	     	System.out.println("아이디 중복 확인 실패 : " + e);
+	    }
+	    finally {
+	    	if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
+			if(con!=null)try {con.close();} catch (Exception e2) {}
+			if(rs!=null)try {rs.close();} catch (Exception e2) {}
+		}
+		return cnt;
+	}//idCheck
+	public int duplecateNick(String M_nick){
+		int cnt=0;
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+	    try{
+	    	con=getConnection();
+	        StringBuilder sql=new StringBuilder();
+	        
+	  
+	        sql.append(" SELECT count(M_nick) as cnt ");
+	        sql.append(" FROM member ");
+	        sql.append(" WHERE M_nick = ? ");
+	        
+	        pstmt=con.prepareStatement(sql.toString());
+	        pstmt.setString(1, M_nick);
+	        
+	        rs=pstmt.executeQuery();
+	        if(rs.next()){
+	        	cnt=rs.getInt("cnt");
+	        }
+	    }catch(Exception e){
+	     	System.out.println("닉네임 중복 확인 실패 : " + e);
+	    }
+	    finally {
+	    	if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
+			if(con!=null)try {con.close();} catch (Exception e2) {}
+			if(rs!=null)try {rs.close();} catch (Exception e2) {}
+		}
+		return cnt;
+	}//nick체크
 	
 }
