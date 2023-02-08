@@ -16,6 +16,7 @@ public class SellDTO {
 		private Timestamp S_createdate;
 		private Timestamp S_updatedate;
 		private String S_category;
+		private String S_img;
 		
 		public int getS_num() {
 			return S_num;
@@ -95,5 +96,13 @@ public class SellDTO {
 		public void setS_gugun1(String s_gugun1) {
 			S_gugun1 = s_gugun1;
 		}
+		public String getS_img() {
+			return S_img;
+		}
+		public void setS_img(String s_img) {
+			S_img = s_img;
+		}
+		
+		
 		
 	}
