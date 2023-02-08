@@ -354,7 +354,7 @@ public class AdminDAO {
 				dto.setS_view(rs.getInt("S_view"));
 				dto.setS_createdate(rs.getTimestamp("S_createdate"));
 				dto.setS_createdate(rs.getTimestamp("S_updatedate"));
-				dto.setS_category(rs.getInt("S_category"));
+				dto.setS_category(rs.getString("S_category"));
 				dto.setS_view(rs.getInt("S_num"));
 				adSellList.add(dto);
 			}
@@ -408,7 +408,7 @@ public class AdminDAO {
 				BuyDTO dto=new BuyDTO();
 				dto.setM_id(rs.getString("M_id"));
 				dto.setB_title(rs.getString("B_title"));
-//				dto.setB_time(rs.getTimestamp("B_time"));   //DTO string 수정 말씀드리기
+				dto.setB_time(rs.getTimestamp("B_time"));
 				dto.setB_view(rs.getInt("B_view"));
 				adbuyList.add(dto);
 			}
