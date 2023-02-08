@@ -18,12 +18,12 @@
 </head>
 <script>
 function fun1() {
-	var check = false;
+	let check = false;
 	with(document.ckDelete) {
-		if( ck.length == undefined ) {
+		if(ck.length==undefined) {
 			if(ck.checked) { check = true; }
 		} else {
-			for( var i=0; i<ck.length; i++ ) {
+			for(let i=0;i<ck.length;i++) {
 				if(ck[i].checked) { check = true; } }
 		} if(!check) {
 		alert("강퇴할 멤버를 선택하세요");
@@ -33,8 +33,10 @@ function fun1() {
 		} } }
 
 function fun2() {
-	 $("input[type='checkbox'][name='ck']").prop("checked",true); 
-// 	 $("input[type='checkbox'][name='ck']").attr("checked",false);
+	if(ck==0) {
+// 	 $("input[type='checkbox'][name='ck']").removeAttr("checked"); 
+	 $("input[type='checkbox'][name='ck']").attr("checked", "checked"); 
+	}
 }
 </script>
 <body>
