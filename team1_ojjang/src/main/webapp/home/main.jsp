@@ -40,9 +40,9 @@ String M_id = (String)session.getAttribute("M_id");
              </div>
         </div>
     </div>
-    <!-- ***** 배너 끝 ***** -->
+<!--     ***** 배너 끝 ***** -->
 
-    <!-- ***** 아우터 최신 글 시작 ***** -->
+<!--     ***** 아우터 최신 글 시작 ***** -->
     <section class="section" id="men">
         <div class="container">
             <div class="row">
@@ -157,9 +157,7 @@ String M_id = (String)session.getAttribute("M_id");
             </div>
         </div>
     </section>
-    <!-- ***** 아우터 최신 글 끝 ***** -->
 
-    <!-- ***** 상의 최신 글 시작 ***** -->
     <section class="section" id="women">
         <div class="container">
             <div class="row">
@@ -274,9 +272,7 @@ String M_id = (String)session.getAttribute("M_id");
             </div>
         </div>
     </section>
-    <!-- ***** 상의 최신 글 끝 ***** -->
 
-    <!-- ***** 하의 최신 글 시작 ***** -->
     <section class="section" id="kids">
         <div class="container">
             <div class="row">
@@ -391,7 +387,7 @@ String M_id = (String)session.getAttribute("M_id");
             </div>
         </div>
     </section>
-    <!-- ***** 하의 최신 글 끝 ***** -->
+
 
     <!-- ***** 푸터 시작 ***** -->
    <jsp:include page="../bottom.jsp" />
@@ -403,6 +399,14 @@ String M_id = (String)session.getAttribute("M_id");
  <!--  Bootstrap -->
     <script src="../assets/js/popper.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
 
  <!-- Plugins -->
     <script src="../assets/js/owl-carousel.js"></script>
