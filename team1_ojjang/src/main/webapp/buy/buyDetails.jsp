@@ -1,8 +1,11 @@
+<%@page import="comment.CommentDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="buy.BuyDAO" %>
 <%@ page import="buy.BuyDTO" %>
+<%@ page import="comment.CommentDTO" %>
+<%@ page import="comment.CommentDAO" %>
 <%@ page import="java.util.ArrayList" %>
 <html>
 <head>
@@ -68,6 +71,52 @@ String M_id = (String)session.getAttribute("M_id");
 </tr>
 </tbody>		
 </table>
+<!-- 댓글시작 -->
+<div class="comment">
+<form method="post" action="commentAction.jsp?B_num=<%=B_num%>">
+				<table class="table table-striped"
+					style="text-align: center; border: 1px solid #dddddd">
+					<thead>
+						<tr>
+							<th colspan="3"
+								style="background-color: #eeeeeee; text-align: center;">댓글</th>
+						</tr>
+					</thead>
+					<tbody>
+					
+						<%
+						int pageNumber=1;
+						// pageNumber는 URL에서 가져온다.
+						if(request.getParameter("pageNumber")!=null){
+							pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
+						}
+							CommentDAO comment=new CommentDAO();
+							ArrayList<CommentDTO> List=comment.getList(B_num, pageNumber);
+							for(int i=List.size()-1 ; i>=0 ; i--){
+							
+						%>
+
+						<tr>
+							<td style="text-align: left;"><%=List.get(i).getCo_text() %></td>
+							<td style="text-align: right;"><%=List.get(i).getM_id() %>
+							<a href="update.jsp?B_num=<%=B_num %>" class="btn">수정</a>
+							<a href="update.jsp?B_num=<%=B_num %>" class="btn ">삭제</a>
+							</td>
+						</tr>
+					
+						<%
+								}
+						%>
+						<td><textarea type="text" class="form-control"
+								placeholder="댓글을 입력하세요." name="replyContent" maxlength="2048"></textarea></td>
+						<td></td>
+					
+					</tbody>
+				</table>
+				<input type="submit" class="btn" value="댓글입력">
+			</form>
+			</div>
+<!-- 댓글끝 -->
 </div>
 			<div class="btn-naran">
 <%
