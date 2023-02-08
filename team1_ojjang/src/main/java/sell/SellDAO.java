@@ -62,7 +62,7 @@ public class SellDAO {
 				if(con!=null) try { con.close();} catch (Exception e2) {}
 			}
 			return;
-		} //insertSellBoard (글번호 부여하면서 입력된 내용을 등록)
+		} //insertSellBoard 끝 (글번호 부여하면서 입력된 내용을 등록)
 		
 	public ArrayList<SellDTO> getsellList(int startRow, int pageSize){
 		Connection con =null;
@@ -107,7 +107,7 @@ public class SellDAO {
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return sellList;
-	}
+	} // getsellList 끝
 	
 	public int getSellBoardCount() {
 		int count = 0;
@@ -130,7 +130,7 @@ public class SellDAO {
 			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
 		return count;
-	}
+	} // getSellBoardCount 끝
 	
 	public SellDTO getSellBoard(int S_num){
 		SellDTO dto = null;
@@ -170,7 +170,7 @@ public class SellDAO {
 		}
 		return dto;
 		
-	}
+	} // getSellBoard 끝
 	
 	public ArrayList<SellDTO> sellHistory(String M_id){
 		ArrayList<SellDTO> sellHistory=new ArrayList<SellDTO>();
@@ -211,7 +211,7 @@ public class SellDAO {
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return sellHistory;
-	}
+	} //sellHistory 끝
 	
 	
 	
@@ -253,7 +253,7 @@ public class SellDAO {
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return dealListS;
-	} //구매내역
+	} // dealListS 끝 구매내역
 	
 	
 }
