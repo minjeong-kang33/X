@@ -10,3 +10,8 @@
 .btn btn-dark{
 	display :inline-block;
 }
+
+.comment{
+	 display: inline-block;
+     text-align: center;
+}
