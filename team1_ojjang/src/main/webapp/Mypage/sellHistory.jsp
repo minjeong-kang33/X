@@ -40,8 +40,8 @@ DealDTO dto=new DealDTO();
 DealDAO dao=new DealDAO();
 SellDTO sdto=new SellDTO();
 SellDAO sdao=new SellDAO();
-ArrayList<DealDTO> dealList=dao.getdealList(M_id);
-ArrayList<SellDTO> sellList=sdao.sellHistory(M_id);
+ArrayList<DealDTO> dealList=dao.dealList(M_id);
+ArrayList<SellDTO> sellHistory=sdao.sellHistory(M_id);
 SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>	
 <section>
@@ -49,8 +49,8 @@ SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 <tr><td>판매번호</td><td>아이디</td><td>글제목</td><td>가격</td>
 <td>내용</td><td>작성일</td><td>카테고리</td><td>구매자</td><td>거래일자</td></tr>
 <%
-for(int i=0;i<sellList.size();i++){
-	sdto=sellList.get(i);
+for(int i=0;i<sellHistory.size();i++){
+	sdto=sellHistory.get(i);
 	dto=dealList.get(i);
 %>
 
