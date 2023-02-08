@@ -75,6 +75,7 @@ public class MemberDAO {
 		return dto;
 	}
 	
+
 	public MemberDTO getMember(String M_id) {
 		MemberDTO dto=null;
 		Connection con =null;
@@ -167,8 +168,6 @@ public class MemberDAO {
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 	} //updatePw()
-	
-	
 	
 	
 }

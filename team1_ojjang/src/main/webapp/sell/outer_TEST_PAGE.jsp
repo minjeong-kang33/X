@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.io.PrintWriter" %>
-<%@ page import="buy.BuyDAO" %>
-<%@ page import="buy.BuyDTO" %>
-<%@ page import="java.util.ArrayList" %>
+<!DOCTYPE html>
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -13,12 +10,32 @@
     <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
-   <link href="../assets/css/buyDetails.css" rel="stylesheet" type="text/css">
-    <link href="../assets/css/buy.css" rel="stylesheet" type="text/css">
+   <link href="../assets/css/sell.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
+
+   <script type="text/javascript">     
+   	 <%-- 토글 --%>
+    	var set_state = true;
+    	var img_icon = new Array(); 
+    	img_icon[0] = new Image(); 
+    	img_icon[1] = new Image();
+    	img_icon[0].src = "hart.png"; 
+    	img_icon[1].src = "fullhart.png"; 
+    	
+    function hartToggle(){
+    	document.all.icon_btn.src = (set_state ? img_icon[0].src : img_icon[1].src);
+    	   if(set_state){ 
+    		   set_state = false;
+    	   } else {
+    	       set_state = true;
+    	   }
+    }
+    
+    </script>
 </head>
-    <body>
+
+   <body>
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
         <div class="jumper">
@@ -31,60 +48,66 @@
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
-    
-<%
-int B_num = Integer.parseInt(request.getParameter("B_num"));
-BuyDAO dao = new BuyDAO();
-BuyDTO dto = dao.getBuyBoard(B_num);
-String M_id = (String)session.getAttribute("M_id");
 
-%>
-<div class="container2">
-	<div class="row">
-	<!--보내지는 내용 숨겨지도록(post) 작성한 글을 writeAction으로 보냄 -->
-	<table class = "table table-striped" style="text-align:center; border:1px solid #dddddd">
-		<thead>
-			<tr>
-				<th colspan="3"  style="background-color: #eeeeee; text-align:center">삽니다</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td style="width:20%;">글제목</td>
-				<td colspan="2"><%= dto.getB_title()%></td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td colspan="2"> <%= dto.getM_id() %></td>
-			</tr>
-			<tr>
-				<td>작성일자</td>
-				<td colspan="2"> <%= dto.getB_time()%> </td>
-			</tr>
-			<tr>
-				<td>글내용</td>
-				<td colspan="2"  style="min-height: 200px; text-align:left;"> <%= dto.getB_text() %></td>
-			<tr><td colspan="2">
-</tr>
-</tbody>		
-</table>
-</div>
-			<div class="btn-naran">
-<%
-if(M_id != null){
-	// 세션값=id와 글쓴이가 일치해야만 글수정, 글삭제 표시
-	if(M_id.equals(dto.getM_id())){
-		%>
-<input type="button" class="btn btn-dark" value="글수정" onclick="location.href='buyEdit.jsp?num=<%=dto.getB_num() %>'">
-<input type="button" class="btn btn-dark" value="글삭제" onclick="location.href='buyDelete.jsp?num=<%=dto.getB_num() %>'"> 
-		<%		
-	}
-}
-%>
-	<button type="button" class="btn btn-dark" onclick="location.href='buyList.jsp'" style="float:right">글목록</button>
-</div>
-</div>
-<!-- ***** 푸터 시작 ***** -->
+	<section class="section" id="products">
+
+
+		<!-- 게시판 제목  -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-heading">
+						<h2>아우터</h2>
+						<span>outer</span>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="item">
+						<div class="down-content">
+<!-- 게시판 내용 여기부터 넣으세요  -->
+						
+							<!-- 상품게시글 table  -->
+							<table border="1" class="item_table">
+								<tr>
+									<th colspan="2">사진</th>
+									<th colspan="2">사진2></th>
+									<th colspan="2">사진3</th>
+								<tr>
+									<td>가격1</td>
+									<td>좋아요1</td>
+									<td>가격2</td>
+									<td>좋아요2</td>
+									<td>가격3</td>
+									<td>좋아요3</td>
+								<tr>
+									<td colspan="2">판매자명1</td>
+									<td colspan="2">판매자명2</td>
+									<td colspan="2">판매자명3</td>
+								</tr>
+								<tr>
+									<td colspan="2">선호거래유형1</td>
+									<td colspan="2">선호거래유형2</td>
+									<td colspan="2">선호거래유형3</td>
+								</tr>
+							</table>
+							
+<!-- 게시판 내용 여기 넘어가면 안됨.  -->							
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+
+
+	<!-- ***** 푸터 시작 ***** -->
 <jsp:include page="../bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
@@ -128,6 +151,7 @@ if(M_id != null){
 
     </script> 
    
+
 
 </body>
 </html>
