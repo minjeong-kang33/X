@@ -9,29 +9,14 @@
     <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
-   <link href="../assets/css/sell.css" rel="stylesheet" type="text/css">
+   <link href="../assets/css/reviewWrite.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
-<title>중고 의류거래: 옺장</title>
+<title>중고 의류거래: 옺장 - 리뷰작성</title>
 
    <script type="text/javascript">     
-   	 <%-- 토글 --%>
-    	var set_state = true;
-    	var img_icon = new Array(); 
-    	img_icon[0] = new Image(); 
-    	img_icon[1] = new Image();
-    	img_icon[0].src = "hart.png"; 
-    	img_icon[1].src = "fullhart.png"; 
-    	
-    function hartToggle(){
-    	document.all.icon_btn.src = (set_state ? img_icon[0].src : img_icon[1].src);
-    	   if(set_state){ 
-    		   set_state = false;
-    	   } else {
-    	       set_state = true;
-    	   }
-    }
-    
+
     </script>
+    
 </head>
 
    <body>
@@ -50,54 +35,45 @@
 
 	<section class="section" id="products">
 
-
-		<!-- 게시판 제목  -->
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="section-heading">
-						<h2>아우터</h2>
-						<span>outer</span>
+					<!--  게시판제목 -->
+						<h2>후기 작성</h2>
+						<span>review Write</span>
 					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-4">
-					<div class="item">
-						<div class="down-content">
-<!-- 게시판 내용 여기부터 넣으세요  -->
-						
-							<!-- 상품게시글 table  -->
-							<table border="1" class="item_table">
-								<tr>
-									<th colspan="2">사진</th>
-									<th colspan="2">사진2></th>
-									<th colspan="2">사진3</th>
-								<tr>
-									<td>가격1</td>
-									<td>좋아요1</td>
-									<td>가격2</td>
-									<td>좋아요2</td>
-									<td>가격3</td>
-									<td>좋아요3</td>
-								<tr>
-									<td colspan="2">판매자명1</td>
-									<td colspan="2">판매자명2</td>
-									<td colspan="2">판매자명3</td>
-								</tr>
-								<tr>
-									<td colspan="2">선호거래유형1</td>
-									<td colspan="2">선호거래유형2</td>
-									<td colspan="2">선호거래유형3</td>
-								</tr>
-							</table>
+					
+					<!--  리뷰작성 입력상자 시작 -->
+					
+					
+					
+					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox">
+					
+						<div class="RE_checkbox">
+						<input type="checkbox" id="RE_checkbox_btn" name="RE_checkbox" value="1">
+							<label for="RE_checkbox_btn">배송이 빨라요</label>
 							
-<!-- 게시판 내용 여기 넘어가면 안됨.  -->							
-					</div>
-					</div>
+						
+						</div>
+						
+						<table>
+							<tr>
+								<th> 제목 </th>
+								<th><input type="text" id="RE_title" name="RE_title" class="RE_title" placeholder="제목을 입력하세요"></th>
+							</tr>
+							<tr class="space"></tr>
+							<tr>
+								<th> 내용 </th>
+								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
+							</tr>
+						</table>
+						<div class="btn">
+							<input type="submit" value="등록"/>
+							<input type="reset" value="초기화"/>
+						</div>
+					</form> 
+					
 				</div>
 			</div>
 		</div>
