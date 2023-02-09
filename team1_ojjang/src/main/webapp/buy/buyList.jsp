@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
@@ -45,6 +46,8 @@ int currentPage=Integer.parseInt(pageNum);
 int startRow=(currentPage-1)*pageSize+1;
 int endRow = startRow+pageSize-1;
 ArrayList<BuyDTO> buyList=dao.getList(startRow, pageSize);
+
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 %>
 
 <section class="notice">
@@ -60,6 +63,7 @@ ArrayList<BuyDTO> buyList=dao.getList(startRow, pageSize);
 		<thead>
 			<tr>
 					<th scope="col" class="th-num">글번호</th>
+					<th scope="col" class="th-category">카테고리</th>
 					<th scope="col" class="th-title">제목</th>
                     <th scope="col" class="th-writer">작성자</th>
                     <th scope="col" class="th-date">등록일</th>
@@ -73,10 +77,11 @@ ArrayList<BuyDTO> buyList=dao.getList(startRow, pageSize);
 			%>
 			<tr>
 				<td><%= dto.getB_num() %></td>
+				<td><%= dto. %>
 				<td><a href="buyDetails.jsp?B_num=<%=dto.getB_num() %>">
 					<%=dto.getB_title() %></a></td>
 				<td><%= dto.getM_id() %></td>
-				<td><%= dto.getB_time() %></td>
+				<td><%= dateFormat.format(dto.getB_time()) %></td>
 				<td><%= dto.getB_view() %></td>
 			</tr>
 			<%
