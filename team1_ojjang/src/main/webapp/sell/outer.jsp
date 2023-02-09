@@ -1,3 +1,4 @@
+<%@page import="sell.SellDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -72,18 +73,36 @@
 <!-- 게시판 내용 여기부터 넣으세요  -->
 						
 							<!-- 상품게시글 table  -->
-							
+	<%
+	SellDAO dao =new SellDAO();
+	
+	int pageSize = 9;
+	
+	String pageNum = request.getParameter("pageNum");
+	
+	if(pageNum==null){
+		pageNum="1";
+	}
+	
+	
+	int currentPage=Integer.parseInt(pageNum);
+	int startRow = (currentPage-1)*pageSize+1;
+	
+	int endRow = startRow + pageSize -1;
+	
+	ArrayList<BoardDTO> boardList = dao.getBoardList(startRow,pageSize);
+	
+	%>						
 						 <table>
-						 
 						  <tr> <!--  테이블................1칸 -->
 							<td>
 							<table class="item-table">
 								<tr>
 									<th colspan="2"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></th>
 								<tr>
-									<td colspan="2" class="title">제목</td>
+									<td colspan="2" class="S_title">제목</td>
 								<tr>
-									<td class="price">가격1</td><td class="like">좋아요1</td>
+									<td class="price">가격1</td><td class="like_id">좋아요1</td>
 								<tr>
 									<td colspan="2" class="M_id">판매자명1</td>
 								</tr>

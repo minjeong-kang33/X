@@ -18,6 +18,8 @@ public class reviewDTO {
 	private String RE_fast;
 	private String RE_time;
 	
+
+	
 	
 	public int getRE_id() {
 		return RE_id;
