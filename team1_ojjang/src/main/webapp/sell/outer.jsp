@@ -1,3 +1,5 @@
+<%@page import="sell.SellDTO"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="sell.SellDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -84,36 +86,61 @@
 		pageNum="1";
 	}
 	
-	
 	int currentPage=Integer.parseInt(pageNum);
 	int startRow = (currentPage-1)*pageSize+1;
 	
 	int endRow = startRow + pageSize -1;
 	
-	ArrayList<BoardDTO> boardList = dao.getBoardList(startRow,pageSize);
+	ArrayList<SellDTO> getOuterSellBoard = dao.getOuterSellBoard(startRow,pageSize);
 	
 	%>						
-						 <table>
-						  <tr> <!--  테이블................1칸 -->
-							<td>
-							<table class="item-table">
-								<tr>
-									<th colspan="2"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></th>
-								<tr>
-									<td colspan="2" class="S_title">제목</td>
-								<tr>
-									<td class="price">가격1</td><td class="like_id">좋아요1</td>
-								<tr>
-									<td colspan="2" class="M_id">판매자명1</td>
-								</tr>
-								<tr>
-									<td colspan="2">선호거래유형1</td>
-								</tr>
-							</table>
-							</td>
-						  </tr>
-						  
-						</table>
+<table>
+	<tr> <!--  테이블................1칸 -->
+	<%
+	 for (int i=0; i < sellouterList.size(); i++){
+		 SellDTO dto = sellouterList.get(i);
+	%>
+		<td>
+			<table class="item-table" border ="1">
+				<tr>
+					<td colspan="2" class="S_img"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
+				</tr>
+				<tr>
+					<td class="price">가격1</td> <td class="like_id"><%=dto.getS_like()%></td> <!-- 찜하기 -->
+				</tr>
+				<tr>
+					<td class="S_sido1"><%=dto.getS_sido1()%></td> <td class="S_gugun1"><%=dto.getS_gugun1()%></td> <!-- 구군 -->
+				</tr>
+				<tr>
+					<td colspan="2" class="S_createdate" ><%=dto.getS_createdate()%></td> <!-- 게시글 생성일자 -->
+				</tr>
+				<tr>
+					<td colspan="2" class="S_send"> <%=dto.getS_send()%> </td> <!-- 선호거래유형 -->
+				</tr>
+			</table>
+		</td>		
+			<%
+			if((i+1) %3 ==0){
+			%>
+				</tr>
+				<tr>
+				
+			<%
+			 }
+			%>
+	<%
+	 }
+	%>	
+	
+</tr>
+</table>
+		
+
+
+
 							
 <!-- 게시판 내용 여기 넘어가면 안됨.  -->							
 					</div>

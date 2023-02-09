@@ -135,33 +135,32 @@ public class SellDAO {
 	} // getSellBoardCount 끝
 	
 	
-	public SellDTO getSellBoard(String S_category){
+	public ArrayList<SellDTO> getOuterSellBoard(int startRow, int pageSize){
+		ArrayList<SellDTO> OuterSellList = new ArrayList<SellDTO>();
 		SellDTO dto = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			con = getConnection();
-			String sql = "select * from sell where S_category=?";
+			String sql = "select * from sell where S_category='outer' order by desc";
 			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, S_category);
 			rs = pstmt.executeQuery();
+			
 			if(rs.next()) {
 				dto = new SellDTO();
-
 				//TO.승민 **여기서 게시판에 출력되는 결과만 남기고 지울것! **
 						
-				dto.setS_num(rs.getInt("S_num"));//판매번호
-				dto.setM_id(rs.getString("M_id"));//회원아이디
-				dto.setS_title(rs.getString("S_title"));//
-				dto.setS_price(rs.getInt("S_price"));//
-				dto.setS_like(rs.getInt("S_like"));//좋아요
+				dto.setS_title(rs.getString("S_title"));//제목
+				dto.setS_price(rs.getInt("S_price"));//가격
+				dto.setS_like(rs.getInt("S_like"));//찜하기
 				dto.setS_send(rs.getString("S_send"));//선호하는 거래형태
 				dto.setS_sido1(rs.getString("S_sido1"));//시도
 				dto.setS_gugun1(rs.getString("S_gugun1"));//구군
-				dto.setS_createdate(rs.getTimestamp("S_createdate"));
-				dto.setS_category(rs.getString("S_category"));
-				dto.setS_img(rs.getString("S_img"));
+				dto.setS_createdate(rs.getTimestamp("S_createdate"));//생성일자
+				
+				OuterSellList.add(dto);
+				
 			}else {
 		}
 		} catch (Exception e) {
@@ -171,9 +170,9 @@ public class SellDAO {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
-		return dto;
+		return OuterSellList;
 		
-	} // getSellBoard 판매게시판
+	} // 아우터 판매게시판
 	
 	public ArrayList<SellDTO> sellHistory(String M_id){
 		ArrayList<SellDTO> sellHistory=new ArrayList<SellDTO>();

@@ -1,52 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-   <link rel="stylesheet" type="text/css" href="../assets/css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="../assets/css/font-awesome.css">
-    <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
-    <link rel="stylesheet" href="../assets/css/owl-carousel.css">
-    <link rel="stylesheet" href="../assets/css/lightbox.css"> 
-   <link href="../assets/css/sell.css" rel="stylesheet" type="text/css">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" type="text/css"
+	href="../assets/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css"
+	href="../assets/css/font-awesome.css">
+<link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
+<link rel="stylesheet" href="../assets/css/owl-carousel.css">
+<link rel="stylesheet" href="../assets/css/lightbox.css">
+<link href="../assets/css/sell.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
 
-   <script type="text/javascript">     
-   	 <%-- 토글 --%>
-    	var set_state = true;
-    	var img_icon = new Array(); 
-    	img_icon[0] = new Image(); 
-    	img_icon[1] = new Image();
-    	img_icon[0].src = "hart.png"; 
-    	img_icon[1].src = "fullhart.png"; 
-    	
-    function hartToggle(){
-    	document.all.icon_btn.src = (set_state ? img_icon[0].src : img_icon[1].src);
-    	   if(set_state){ 
-    		   set_state = false;
-    	   } else {
-    	       set_state = true;
-    	   }
-    }
-    
-    </script>
+<script type="text/javascript">
+	
+<%-- 토글 --%>
+	var set_state = true;
+	var img_icon = new Array();
+	img_icon[0] = new Image();
+	img_icon[1] = new Image();
+	img_icon[0].src = "hart.png";
+	img_icon[1].src = "fullhart.png";
+
+	function hartToggle() {
+		document.all.icon_btn.src = (set_state ? img_icon[0].src
+				: img_icon[1].src);
+		if (set_state) {
+			set_state = false;
+		} else {
+			set_state = true;
+		}
+	}
+</script>
 </head>
 
-   <body>
-    <!-- ***** 로딩 일단 지금은 비어있음***** -->
-    <div id="preloader">
-        <div class="jumper">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
-    </div>  
-    
-    <!-- ***** 헤더 ***** -->
-  <jsp:include page="../top.jsp" />
-    <!-- ***** 헤더 끝 ***** -->
+<body>
+	<!-- ***** 로딩 일단 지금은 비어있음***** -->
+	<div id="preloader">
+		<div class="jumper">
+			<div></div>
+			<div></div>
+			<div></div>
+		</div>
+	</div>
+
+	<!-- ***** 헤더 ***** -->
+	<jsp:include page="../top.jsp" />
+	<!-- ***** 헤더 끝 ***** -->
 
 	<section class="section" id="products">
 
@@ -68,35 +72,30 @@
 				<div class="col-lg-4">
 					<div class="item">
 						<div class="down-content">
-<!-- 게시판 내용 여기부터 넣으세요  -->
-						
+							<!-- 게시판 내용 여기부터 넣으세요  -->
+
 							<!-- 상품게시글 table  -->
-							<table border="1" class="item_table">
+							<table class="item-table" border ="1">
 								<tr>
-									<th colspan="2">사진</th>
-									<th colspan="2">사진2></th>
-									<th colspan="2">사진3</th>
-								<tr>
-									<td>가격1</td>
-									<td>좋아요1</td>
-									<td>가격2</td>
-									<td>좋아요2</td>
-									<td>가격3</td>
-									<td>좋아요3</td>
-								<tr>
-									<td colspan="2">판매자명1</td>
-									<td colspan="2">판매자명2</td>
-									<td colspan="2">판매자명3</td>
+									<td colspan="2" class="S_img" name="S_img"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></td>
 								</tr>
 								<tr>
-									<td colspan="2">선호거래유형1</td>
-									<td colspan="2">선호거래유형2</td>
-									<td colspan="2">선호거래유형3</td>
+									<td colspan="2" class="S_title" name="S_title">제목</td>
+								<tr>
+									<td class="price">가격1</td> <td class="like_id" name="like_id">좋아요1</td>
+								<tr>
+								<tr>
+									<td class="S_sido1" name="S_sido1">시도</td> <td class="S_gugun1" name="S_gugun1">구군</td>
+								<tr>
+									<td colspan="2" class="S_createdate" name="S_createdate">생성일자</td>
+								</tr>
+								<tr>
+									<td colspan="2" class="S_send" name="S_send">선호거래유형1</td>
 								</tr>
 							</table>
-							
-<!-- 게시판 내용 여기 넘어가면 안됨.  -->							
-					</div>
+
+							<!-- 게시판 내용 여기 넘어가면 안됨.  -->
+						</div>
 					</div>
 				</div>
 			</div>
@@ -107,49 +106,47 @@
 
 
 	<!-- ***** 푸터 시작 ***** -->
-<jsp:include page="../bottom.jsp" />
-    <!-- ***** 푸터 끝 ***** -->
+	<jsp:include page="../bottom.jsp" />
+	<!-- ***** 푸터 끝 ***** -->
 
- <!-- jQuery -->
-    <script src="../assets/js/jquery-2.1.0.min.js"></script>
+	<!-- jQuery -->
+	<script src="../assets/js/jquery-2.1.0.min.js"></script>
 
- <!--  Bootstrap -->
-    <script src="../assets/js/popper.js"></script>
-    <script src="../assets/js/bootstrap.min.js"></script>
+	<!--  Bootstrap -->
+	<script src="../assets/js/popper.js"></script>
+	<script src="../assets/js/bootstrap.min.js"></script>
 
- <!-- Plugins -->
-    <script src="../assets/js/owl-carousel.js"></script>
-    <script src="../assets/js/accordions.js"></script>
-    <script src="../assets/js/datepicker.js"></script>
-    <script src="../assets/js/scrollreveal.min.js"></script>
-    <script src="../assets/js/waypoints.min.js"></script>
-    <script src="../assets/js/jquery.counterup.min.js"></script>
-    <script src="../assets/js/imgfix.min.js"></script> 
-    <script src="../assets/js/slick.js"></script> 
-    <script src="../assets/js/lightbox.js"></script> 
-    <script src="../assets/js/isotope.js"></script> 
-    
-<!-- Global Init -->
-    <script src="../assets/js/custom.js"></script>
+	<!-- Plugins -->
+	<script src="../assets/js/owl-carousel.js"></script>
+	<script src="../assets/js/accordions.js"></script>
+	<script src="../assets/js/datepicker.js"></script>
+	<script src="../assets/js/scrollreveal.min.js"></script>
+	<script src="../assets/js/waypoints.min.js"></script>
+	<script src="../assets/js/jquery.counterup.min.js"></script>
+	<script src="../assets/js/imgfix.min.js"></script>
+	<script src="../assets/js/slick.js"></script>
+	<script src="../assets/js/lightbox.js"></script>
+	<script src="../assets/js/isotope.js"></script>
 
-    <script>
+	<!-- Global Init -->
+	<script src="../assets/js/custom.js"></script>
 
-        $(function() {
-            var selectedClass = "";
-            $("p").click(function(){
-            selectedClass = $(this).attr("data-rel");
-            $("#portfolio").fadeTo(50, 0.1);
-                $("#portfolio div").not("."+selectedClass).fadeOut();
-            setTimeout(function() {
-              $("."+selectedClass).fadeIn();
-              $("#portfolio").fadeTo(50, 1);
-            }, 500);
-                
-            });
-        });
+	<script>
+		$(function() {
+			var selectedClass = "";
+			$("p").click(function() {
+				selectedClass = $(this).attr("data-rel");
+				$("#portfolio").fadeTo(50, 0.1);
+				$("#portfolio div").not("." + selectedClass).fadeOut();
+				setTimeout(function() {
+					$("." + selectedClass).fadeIn();
+					$("#portfolio").fadeTo(50, 1);
+				}, 500);
 
-    </script> 
-   
+			});
+		});
+	</script>
+
 
 
 </body>
