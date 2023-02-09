@@ -259,5 +259,35 @@ public class MemberDAO {
 		}
 		return cnt;
 	}//nick체크
+	public String findId(String M_name, String M_phone) {
+		String M_id = null;
+		
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			con=getConnection();
+			String sql = "select M_id from member where M_name=? and M_phone=? ";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, M_name);
+			pstmt.setString(2, M_phone);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				M_id=rs.getString("M_id");
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
+			if(con!=null)try {con.close();} catch (Exception e2) {}
+			if(rs!=null)try {rs.close();} catch (Exception e2) {}
+
+		}
+		return M_id;
+	}//ID찾기
 	
 }
