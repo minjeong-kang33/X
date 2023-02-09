@@ -45,34 +45,32 @@
 					</div>
 					
 					<!--  리뷰작성 입력상자 시작 -->
-					
-					
-					
 					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox">
-					
-						
 						<table>
 							<tr>
 								<th> 제목 </th>
 								<th><input type="text" id="RE_title" name="RE_title" class="RE_title" placeholder="제목을 입력하세요"></th>
 							</tr>
 							<tr>
+								<th> 내용 </th>
+								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
+							</tr>
+							<tr>
 								<th></th>
 								<th>
 								<div class="RE_checkbox">
-							<input type="checkbox" id="checkbox-btn-1" name="RE_delivery"  value="delivery">
+							<input type="checkbox" id="checkbox-btn-1" name="RE_delivery"  value="배송이 빨라요">
 								<label for="checkbox-btn-1" class="btn">배송이 빨라요</label>
-							<input type="checkbox" id="checkbox-btn-2" name="RE_manner" value="manner">
+							<input type="checkbox" id="checkbox-btn-2" name="RE_manner" value="친절해요">
 								<label for="checkbox-btn-2" class="btn">친절해요</label>
-							<input type="checkbox" id="checkbox-btn-3" name="RE_ProductStatus" value="ProductStatus">
-								<label for="checkbox-btn-3" class="btn">상품이 설명과 같아요</label>	
+							<input type="checkbox" id="checkbox-btn-3" name="RE_ProductStatus" value="상품이 설명과 같아요">
+								<label for="checkbox-btn-3" class="btn">상품이 설명과 같아요</label><br>
+							<input type="checkbox" id="checkbox-btn-4" name="RE_fast"  value="응답이 빨라요">
+								<label for="checkbox-btn-4" class="btn">응답이 빨라요</label>
+							<input type="checkbox" id="checkbox-btn-5" name="RE_time" value="약속시간을 잘 지켜요">
+								<label for="checkbox-btn-5" class="btn">약속시간을 잘 지켜요</label>
 								</div>
 								</th>
-							
-							</tr>
-							<tr>
-								<th> 내용 </th>
-								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
 							</tr>
 						</table>
 						<div class="btn">
@@ -85,9 +83,6 @@
 			</div>
 		</div>
 	</section>
-
-
-
 
 	<!-- ***** 푸터 시작 ***** -->
 <jsp:include page="../bottom.jsp" />
