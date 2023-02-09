@@ -33,9 +33,10 @@ function fun1() {
 		} } }
 
 function fun2() {
-	if(ck==0) {
-// 	 $("input[type='checkbox'][name='ck']").removeAttr("checked"); 
-	 $("input[type='checkbox'][name='ck']").attr("checked", "checked"); 
+	if($("input:checked[id='ckAll']").prop("checked")) {
+	 $("input[type=checkbox]").prop("checked", true); 
+	}else {
+	 $("input[type=checkbox]").prop("checked", false); 
 	}
 }
 </script>
