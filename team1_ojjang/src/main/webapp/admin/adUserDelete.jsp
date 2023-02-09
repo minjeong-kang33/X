@@ -14,5 +14,5 @@ if(M_idArr!=null){
 %>
 	<script type="text/javascript">
 		alert("탈퇴완료");
-		location.href="adUserList_check.jsp";
+		location.href="adUserList.jsp";
 	</script>

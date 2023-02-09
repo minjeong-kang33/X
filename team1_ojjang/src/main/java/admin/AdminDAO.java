@@ -358,6 +358,23 @@ public class AdminDAO {
 			if(rs!=null) try {rs.close();} catch (Exception e2) {}
 		} return count;
 	}//adSellCount()
+	
+	public void adSellDelete(int S_num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=getConnection();
+			String sql="delete from sell where S_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, S_num);
+			pstmt.execute();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(con!=null) try {con.close();} catch (Exception e2) {}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
+		}
+	}//adSellDelete()
 		
 		
 	//    ----Buy----

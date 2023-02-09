@@ -62,21 +62,18 @@ ArrayList<MemberDTO> adOutListPro=dao.adOutListPro(info, search);
 		검색결과 : <%=adOutListPro.size() %>명 / 총 <%=adOutList.size() %>명
 		</div>
 	</div>
-<form action="#.jsp" method="post">
 <table border="1">
-<tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td><td>관리</td></tr>
+<tr><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td></tr>
 <%
 for(int i=0;i<adOutListPro.size();i++){
 	dto=adOutListPro.get(i);
 %>
-	<tr><td><input type="checkbox" id="ck" name="id" value="<%=dto.getM_id() %>"></td>
-		<td><%=i+1 %></td>
+	<tr><td><%=i+1 %></td>
 		<td><%=dto.getM_id() %></td>
 		<td><%=dto.getM_name() %></td>
 		<td><%=dto.getM_nick() %></td>
 		<td><%=dateFormat.format(dto.getM_createdate()) %></td>
-		<td><%=dto.getM_play() %></td>
-		<td><a href="#">관리</a></td></tr>
+		<td><%=dto.getM_play() %></td></tr>
 <%
 }
 %>
@@ -104,10 +101,6 @@ if(endPage < pageCount){
 <%
 }
 %>
-<div>
-회원 처리 <input type="submit" value="탈퇴">
-</div>
-</form>
 </div>
 </section>
              </div>
