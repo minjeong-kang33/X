@@ -16,6 +16,30 @@
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
 <meta charset="UTF-8">
 </head>
+<script>
+function fun1() {
+	let check = false;
+	with(document.ckDelete) {
+		if(ck.length==undefined) {
+			if(ck.checked) { check = true; }
+		} else {
+			for(let i=0;i<ck.length;i++) {
+				if(ck[i].checked) { check = true; } }
+		} if(!check) {
+		alert("강퇴할 멤버를 선택하세요");
+			return;
+		} else {
+			if(confirm("강퇴처리 하시겠습니까?")) { submit(); }
+		} } }
+
+function fun2() {
+	if($("input:checked[id='ckAll']").prop("checked")) {
+	 $("input[type=checkbox]").prop("checked", true); 
+	}else {
+	 $("input[type=checkbox]").prop("checked", false); 
+	}
+}
+</script>
 <body>
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../admin_top.jsp" />
@@ -59,14 +83,14 @@ ArrayList<MemberDTO> adUserReportList=dao.adUserReportList(startRow, pageSize);
 		<div>
 		총 멤버 <%=dao.adUserReportCount() %>명
 		</div>
-<form action="adUserReportDeletePro.jsp" method="post">
+<form name="ckDelete" action="adUserReportDelete.jsp" method="post">
 <table border="1">
-<tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td></tr>
+<tr><td><input type="checkbox" id="ckAll" name="ckAll" onclick="fun2()"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td></tr>
 <%
 for(int i=0;i<adUserReportList.size();i++){
 	dto=adUserReportList.get(i);
 %>
-	<tr><td><input type="checkbox" id="ck" name="id" value="<%=dto.getM_id() %>"></td>
+	<tr><td><input type="checkbox" id="ck" name="ck" value="<%=dto.getM_id() %>"></td>
 		<td><%=i+1 %></td>
 		<td><%=dto.getM_id() %></td>
 		<td><%=dto.getM_name() %></td>
@@ -101,8 +125,7 @@ if(endPage < pageCount){
 }
 %>
 <div>
-회원 처리 <input type="submit" value="강퇴">
-<!-- 회원 처리 <input type="button" value="수정요청"> <input type="button" value="경고"> <input type="button" value="강퇴"> -->
+회원 처리 <input type="button" value="강퇴" onclick="fun1()">
 </div>
 </form>
 </div>
