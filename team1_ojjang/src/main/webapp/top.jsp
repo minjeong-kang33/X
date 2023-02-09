@@ -13,6 +13,11 @@
                </a>
                <!-- ***** 로고 끝 ***** -->
                
+	           <form action="" class="form-inline">
+	               <input type="text" name="Keyword" placeholder="검색어를 입력하세요" class="form-e">
+	               <button class="btn btn-success">검 색</button>
+	           </form>                     
+               
                <!-- ***** 상단 바 메뉴 시작 ***** -->
                <ul class="nav">
                   <li><a href="#" class="active">홈</a></li>
@@ -42,12 +47,6 @@
                         <li><a href="../chat/Testbox.jsp">채팅</a></li>
                      </ul></li>   
                         </ul>
-                     <form action="" class="form-inline">
-               <input type="text" name="Keyword" placeholder="검색어를 입력하세요" 
-                                             class="form-e">
-                                                      
-                     <button class="btn btn-success">검 색</button>
-                     </form>                     
          
                <!-- ***** 상단 바 메뉴 끝 ***** -->
             </nav>
