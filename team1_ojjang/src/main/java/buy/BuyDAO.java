@@ -37,15 +37,17 @@ public class BuyDAO {
 				B_num = rs.getInt("max(B_num)") + 1;
 			}
 			
-			sql="insert into Buy(B_num, M_id, B_title, B_text, B_time, B_view)"
-					+ "values(?,?,?,?,?,?)";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setInt(1, B_num);  
-			pstmt.setString(2, dto.getM_id()); 
-			pstmt.setString(3, dto.getB_title()); 
-			pstmt.setString(4, dto.getB_text());
-			pstmt.setTimestamp(5, dto.getB_time());
-			pstmt.setInt(6, dto.getB_view());
+			sql="insert into Buy(M_id, B_num, B_title, B_text, B_view, B_time, B_imgname, B_imgsize)"
+		               + "values(?,?,?,?,?,?,?,?)";
+		         pstmt=con.prepareStatement(sql);
+		         pstmt.setString(1, dto.getM_id());  
+		         pstmt.setInt(2, B_num); 
+		         pstmt.setString(3, dto.getB_title()); 
+		         pstmt.setString(4, dto.getB_text());
+		         pstmt.setInt(5, dto.getB_view()); 
+		         pstmt.setTimestamp(6, dto.getB_time());
+		         pstmt.setString(7, dto.getB_imgname());
+		         pstmt.setString(8, dto.getB_imgsize());
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
