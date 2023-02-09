@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.sql.DataSource;
 
 import buy.BuyDTO;
@@ -39,8 +38,8 @@ public class SellDAO {
 					S_num = rs.getInt("max(S_num)") + 1;
 				}
 				
-				sql="insert into Buy(S_num,M_id,S_title,S_price,S_text,S_like,S_view,S_send,S_sido1,S_gugun1,S_createdate,S_category,S_img"
-						+ "values(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+				sql="insert into Buy(S_num,M_id,S_title,S_price,S_text,S_like,S_view,S_send,S_sido1,S_gugun1,S_createdate,S_category"
+						+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, S_num);  
 				pstmt.setString(2, dto.getM_id()); 
@@ -54,7 +53,6 @@ public class SellDAO {
 				pstmt.setString(10, dto.getS_gugun1());
 				pstmt.setTimestamp(11, dto.getS_createdate());
 				pstmt.setString(12, dto.getS_category());
-				pstmt.setString(13, dto.getS_img());
 				
 				pstmt.executeUpdate();
 			} catch (Exception e) {
@@ -134,33 +132,33 @@ public class SellDAO {
 		return count;
 	} // getSellBoardCount 끝
 	
-	
-	public ArrayList<SellDTO> getOuterSellBoard(int startRow, int pageSize){
-		ArrayList<SellDTO> OuterSellList = new ArrayList<SellDTO>();
+	public SellDTO getSellBoard(int S_num){
 		SellDTO dto = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
+		
 		try {
 			con = getConnection();
-			String sql = "select * from sell where S_category='outer' order by desc";
+			String sql = "select * from sell where S_num=?";
 			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1,S_num);
 			rs = pstmt.executeQuery();
-			
 			if(rs.next()) {
 				dto = new SellDTO();
 				//TO.승민 **여기서 게시판에 출력되는 결과만 남기고 지울것! **
-						
-				dto.setS_title(rs.getString("S_title"));//제목
-				dto.setS_price(rs.getInt("S_price"));//가격
-				dto.setS_like(rs.getInt("S_like"));//찜하기
-				dto.setS_send(rs.getString("S_send"));//선호하는 거래형태
-				dto.setS_sido1(rs.getString("S_sido1"));//시도
-				dto.setS_gugun1(rs.getString("S_gugun1"));//구군
-				dto.setS_createdate(rs.getTimestamp("S_createdate"));//생성일자
-				
-				OuterSellList.add(dto);
-				
+				dto.setS_num(rs.getInt("S_num"));
+				dto.setM_id(rs.getString("M_id"));
+				dto.setS_title(rs.getString("S_title"));
+				dto.setS_price(rs.getInt("S_price"));
+				dto.setS_text(rs.getString("S_text"));
+				dto.setS_like(rs.getInt("S_like"));
+				dto.setS_view(rs.getInt("S_view"));
+				dto.setS_send(rs.getString("S_send"));		
+				dto.setS_sido1(rs.getString("S_sido1"));	
+				dto.setS_gugun1(rs.getString("S_gugun1"));	
+				dto.setS_createdate(rs.getTimestamp("S_createdate"));
+				dto.setS_category(rs.getString("S_category"));
 			}else {
 		}
 		} catch (Exception e) {
@@ -170,9 +168,9 @@ public class SellDAO {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
-		return OuterSellList;
+		return dto;
 		
-	} // 아우터 판매게시판
+	} // getSellBoard 끝
 	
 	public ArrayList<SellDTO> sellHistory(String M_id){
 		ArrayList<SellDTO> sellHistory=new ArrayList<SellDTO>();
@@ -213,42 +211,49 @@ public class SellDAO {
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return sellHistory;
-	} //sellHistory 끝 판매내역
+	} //sellHistory 끝
 	
 	
 	
 	
-	//구매내역
-	public ArrayList<SellDTO> dealListS(String M_id) {
-		ArrayList<SellDTO> dealListS2=new ArrayList<SellDTO>();
+	//구매내역 수정해야함..
+	public ArrayList<SellDTO> dealListS(String M_id){ 
+		ArrayList<SellDTO> dealListS=new ArrayList<SellDTO>();
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
+		
 		try {
-			con=getConnection();
-			String sql="select M_id, S_title, S_price, S_category from sell where S_num = ( select S_num from deal where D_buy=?)";
+			con = getConnection();
+			String sql="select s.M_id, s.S_title, s.S_price"
+					+ "from sell s join deal d"
+					+ "on s.M_id=d.M_id"
+					+ "where d.D_buy=?";				
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, M_id);
-			rs=pstmt.executeQuery();
+			
+			rs=pstmt.executeQuery();	
+
 			while(rs.next()) {
+				
 				SellDTO dto=new SellDTO();
 				dto.setM_id(rs.getString("M_id"));
 				dto.setS_title(rs.getString("S_title"));
 				dto.setS_price(rs.getInt("S_price"));		
 				dto.setS_category(rs.getString("S_category"));
-				dealListS2.add(dto);
+				
+				dealListS.add(dto);
 			}
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
-			if(con!=null) try {con.close();} catch (Exception e2) {}
-			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
-			if(rs!=null) try {rs.close();} catch (Exception e2) {}
+			
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
-		return dealListS2;
-	}// dealListS 끝 구매내역
-	
-
+		return dealListS;
+	} // dealListS 끝 구매내역
 	
 	
 }
