@@ -110,37 +110,6 @@ public class AdminDAO {
 		return adUserListPro;
 	}//adUserListPro()
 	
-	public ArrayList<MemberDTO> adUserDetail(String M_id) {
-		ArrayList<MemberDTO> adUserDetail=new ArrayList<MemberDTO>();
-		Connection con=null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		MemberDTO dto=null;
-		try {
-			con=getConnection();
-			String sql="select * from member where M_id=?";
-			pstmt=con.prepareStatement(sql);
-			pstmt.setString(1, M_id);
-			rs=pstmt.executeQuery();
-			while(rs.next()) {
-				dto=new MemberDTO();
-				dto.setM_id(rs.getString("M_id"));
-				dto.setM_name(rs.getString("M_name"));
-				dto.setM_nick(rs.getString("M_nick"));
-				dto.setM_createdate(rs.getTimestamp("M_createdate"));
-				dto.setM_play(rs.getInt("M_play"));
-				adUserDetail.add(dto);
-			}
-		}catch(Exception e) {
-			e.printStackTrace();
-		}finally {
-			if(con!=null) try {con.close();} catch (Exception e2) {}
-			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
-			if(rs!=null) try {rs.close();} catch (Exception e2) {}
-		}
-		return adUserDetail;
-	}//adUserDetail()
-	
 	public ArrayList<MemberDTO> adOutList(int startRow, int pageSize) {
 		ArrayList<MemberDTO> adOutList=new ArrayList<MemberDTO>();
 		Connection con=null;
