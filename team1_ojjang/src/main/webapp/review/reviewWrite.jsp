@@ -50,19 +50,26 @@
 					
 					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox">
 					
-						<div class="RE_checkbox">
-						<input type="checkbox" id="RE_checkbox_btn" name="RE_checkbox" value="1">
-							<label for="RE_checkbox_btn">배송이 빨라요</label>
-							
-						
-						</div>
 						
 						<table>
 							<tr>
 								<th> 제목 </th>
 								<th><input type="text" id="RE_title" name="RE_title" class="RE_title" placeholder="제목을 입력하세요"></th>
 							</tr>
-							<tr class="space"></tr>
+							<tr>
+								<th></th>
+								<th>
+								<div class="RE_checkbox">
+							<input type="checkbox" id="checkbox-btn-1" name="RE_delivery"  value="delivery">
+								<label for="checkbox-btn-1" class="btn">배송이 빨라요</label>
+							<input type="checkbox" id="checkbox-btn-2" name="RE_manner" value="manner">
+								<label for="checkbox-btn-2" class="btn">친절해요</label>
+							<input type="checkbox" id="checkbox-btn-3" name="RE_ProductStatus" value="ProductStatus">
+								<label for="checkbox-btn-3" class="btn">상품이 설명과 같아요</label>	
+								</div>
+								</th>
+							
+							</tr>
 							<tr>
 								<th> 내용 </th>
 								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>

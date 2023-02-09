@@ -66,3 +66,29 @@ table{
 }
 
 
+input[type=checkbox] {
+	display: none;
+}
+
+input[type=checkbox]+label.btn {
+	padding: 5px 10px;
+	margin: 5px 0;
+	margin-right : 10px;
+	display: inline-block;
+	text-transform: uppercase;
+	font-weight: 500;
+	outline: none;
+	position: relative;
+	transition: all 0.3s;
+	background: #F2F2F2;
+	color: black;
+	transition: none;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+input[type=checkbox]:checked+label.btn {
+	background: #9FC9F3;
+}
+
