@@ -1,11 +1,8 @@
-<%@page import="admin.MypageDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="sell.SellDAO"%>
 <%@page import="sell.SellDTO"%>
 <%@page import="deal.DealDAO"%>
 <%@page import="deal.DealDTO"%>
-<%@page import="member.MemberDTO"%>
-<%@page import="member.MemberDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
@@ -44,10 +41,8 @@ DealDAO dao=new DealDAO();
 SellDTO sdto=new SellDTO();
 SellDAO sdao=new SellDAO();
 
-// SellDAO sdao=new SellDAO();
 
 ArrayList<DealDTO> dealListB=dao.dealListB(M_id);
-
 ArrayList<SellDTO> dealListS=sdao.dealListS(M_id);
 
 SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
@@ -59,9 +54,12 @@ SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 <%
 System.out.println(dealListS.size());
 System.out.println(dealListB.size());
-for(int i=0;i<dealListB.size();i++){
+for(int i=0;i<dealListS.size();i++){
  	sdto=dealListS.get(i);
 	dto=dealListB.get(i);
+	
+	
+	
 %>
 
 	<tr>
