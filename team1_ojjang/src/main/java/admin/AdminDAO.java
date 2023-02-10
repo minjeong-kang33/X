@@ -392,6 +392,7 @@ public class AdminDAO {
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				BuyDTO dto=new BuyDTO();
+				dto.setB_num(rs.getInt("B_num"));
 				dto.setM_id(rs.getString("M_id"));
 				dto.setB_title(rs.getString("B_title"));
 				dto.setB_time(rs.getTimestamp("B_time"));
@@ -428,6 +429,23 @@ public class AdminDAO {
 			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
 			if(rs!=null) try {rs.close();} catch (Exception e2) {}
 		} return count;
-	}//adBuyCount()	
+	}//adBuyCount()
+	
+	public void adBuyDelete(int B_num) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try {
+			con=getConnection();
+			String sql="delete from buy where B_num=?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, B_num);
+			pstmt.execute();
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(con!=null) try {con.close();} catch (Exception e2) {}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
+		}
+	}//adBuyDelete()
 	
 }//class
