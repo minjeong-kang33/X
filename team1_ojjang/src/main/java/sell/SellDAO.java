@@ -219,6 +219,7 @@ public class SellDAO {
 	
 	
 	
+	
 	//구매내역
 	public ArrayList<SellDTO> dealListS(String M_id) {
 		ArrayList<SellDTO> dealListS2=new ArrayList<SellDTO>();
@@ -248,6 +249,7 @@ public class SellDAO {
 		}
 		return dealListS2;
 	}// dealListS 끝 구매내역
+	
 	
 
 	

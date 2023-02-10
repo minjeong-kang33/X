@@ -23,7 +23,7 @@ public class MypageDAO {
 		return con;
 	}
 	
-	//deal 테이블에 값 넣기(값이 들어가는지 확인해봐야하는데..)
+	//deal 테이블에 값 넣기(값이 들어가는지 확인해봐야하는데..) //승민
 	public void insertDeal(SellDTO selldto, MemberDTO memberdto) {
 		Connection con = null;
 		PreparedStatement pstmt=null;
@@ -116,7 +116,7 @@ public class MypageDAO {
 
 
 
-
+	
 
 
 
