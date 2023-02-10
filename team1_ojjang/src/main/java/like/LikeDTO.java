@@ -1,6 +1,6 @@
 package like;
 
-public class likeDTO {
+public class LikeDTO {
 	private int like_id;
 	private int S_num;
 	private String M_id;
