@@ -49,12 +49,11 @@
 				
 				commentDAO.write(B_num, Co_text, M_id);
 				
-// 				PrintWriter script= response.getWriter();
-// 				String url="buyDetails.jsp?B_num="+B_num;
-// 				script.println("<script>");
-// 				script.println("location.href='"+url+"'");
-// 				script.println("</script>");
-				response.sendRedirect("buyDetails.jsp?B_num=" + B_num);
+				String url = "buyDetails.jsp?B_num=" + B_num;
+				PrintWriter script= response.getWriter();
+				script.println("<script>");
+				script.println("location.href='"+url+"'");
+				script.println("</script>");
 
 				}
 			}

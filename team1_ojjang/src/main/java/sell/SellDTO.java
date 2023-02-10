@@ -18,6 +18,7 @@ public class SellDTO {
 		private String S_category;
 		private String S_img;
 		
+
 		public int getS_num() {
 			return S_num;
 		}
