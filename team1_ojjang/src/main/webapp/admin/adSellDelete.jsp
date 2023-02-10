@@ -2,15 +2,15 @@
     pageEncoding="UTF-8"%>
 <%@page import="admin.AdminDAO"%>
 <%
-// int S_numArr[]=Integer.valueOf(request.getParameterValues("ck"));
-// AdminDAO dao=new AdminDAO();
-// int S_num=0;
-// if(S_numArr!=null){
-// 	for(int i=0;i<S_numArr.length;i++){
-// 		S_num=S_numArr[i];
-// 		dao.adSellDelete(S_num);
-// 	}
-// }
+String S_numArr[]=request.getParameterValues("ck");
+AdminDAO dao=new AdminDAO();
+String S_num=null;
+if(S_numArr!=null){
+	for(int i=0;i<S_numArr.length;i++){
+		S_num=S_numArr[i];
+		dao.adSellDelete(Integer.parseInt(S_num));
+	}
+}
 %>
 	<script type="text/javascript">
 		alert("삭제완료");
