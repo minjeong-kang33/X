@@ -45,7 +45,12 @@ public class CommentDAO {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}finally {
+			// 예외 상관없이 마무리작업 => 객체생성한 기억장소 해제
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+	}
 		return List;
 	}
 	
@@ -66,7 +71,12 @@ public class CommentDAO {
 			return 1;
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}finally {
+			// 예외 상관없이 마무리작업 => 객체생성한 기억장소 해제
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+	}
 		return -1;
 	}
 	
@@ -95,15 +105,14 @@ public class CommentDAO {
 		return -1;
 	}
 	
-	public int delete( int B_num, int Co_num) {
+	public int delete(int Co_num) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 		con = getConnection();
-		String SQL="update comment set Co_availavle=0 where Co_num=?, B_num=?";
+		String SQL="update comment set Co_availavle=0 where Co_num=?";
 		pstmt=con.prepareStatement(SQL);
 		pstmt.setInt(1, Co_num);
-		pstmt.setInt(2, B_num);
 		} catch (Exception e) {
 		e.printStackTrace();
 		}finally {
