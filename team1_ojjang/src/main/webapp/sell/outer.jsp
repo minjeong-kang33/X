@@ -91,17 +91,18 @@
 	
 	int endRow = startRow + pageSize -1;
 	
-	ArrayList<SellDTO> getOuterSellBoard = dao.getOuterSellBoard(startRow,pageSize);
-	
+	ArrayList<SellDTO> sellList = dao.getsellList(startRow, pageSize);
+			
 	%>						
 <table>
 	<tr> <!--  테이블................1칸 -->
 	<%
-	 for (int i=0; i < sellouterList.size(); i++){
-		 SellDTO dto = sellouterList.get(i);
+	for(int i=0; i<sellList.size();i++){
+		SellDTO dto = sellList.get(i);
+	
 	%>
 		<td>
-			<table class="item-table" border ="1">
+			<table class="item-table">
 				<tr>
 					<td colspan="2" class="S_img"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></td>
 				</tr>
@@ -109,7 +110,7 @@
 					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
 				</tr>
 				<tr>
-					<td class="price">가격1</td> <td class="like_id"><%=dto.getS_like()%></td> <!-- 찜하기 -->
+					<td class="price"><%=dto.getS_price()%></td> <td class="like_id"><input type="image" name="button"  class="hart" src="hart.png" onclick="hartToggle()">
 				</tr>
 				<tr>
 					<td class="S_sido1"><%=dto.getS_sido1()%></td> <td class="S_gugun1"><%=dto.getS_gugun1()%></td> <!-- 구군 -->
