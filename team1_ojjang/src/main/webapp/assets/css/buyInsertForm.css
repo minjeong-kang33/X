@@ -59,6 +59,10 @@ input[type=checkbox]:checked+label.btn {
 }
 
 
-.buttons {
+.button1 {
 	margin-left: 43%;
+}
+.button2 {
+	margin-left: 80%;
+	background-color: pink;
 }

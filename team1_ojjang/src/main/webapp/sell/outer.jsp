@@ -1,3 +1,6 @@
+<%@page import="sell.SellDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="sell.SellDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -72,29 +75,73 @@
 <!-- 게시판 내용 여기부터 넣으세요  -->
 						
 							<!-- 상품게시글 table  -->
-							
-						 <table>
-						 
-						  <tr> <!--  테이블................1칸 -->
-							<td>
-							<table class="item-table">
-								<tr>
-									<th colspan="2"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></th>
-								<tr>
-									<td colspan="2" class="title">제목</td>
-								<tr>
-									<td class="price">가격1</td><td class="like">좋아요1</td>
-								<tr>
-									<td colspan="2" class="M_id">판매자명1</td>
-								</tr>
-								<tr>
-									<td colspan="2">선호거래유형1</td>
-								</tr>
-							</table>
-							</td>
-						  </tr>
-						  
-						</table>
+	<%
+	SellDAO dao =new SellDAO();
+	
+	int pageSize = 9;
+	
+	String pageNum = request.getParameter("pageNum");
+	
+	if(pageNum==null){
+		pageNum="1";
+	}
+	
+	int currentPage=Integer.parseInt(pageNum);
+	int startRow = (currentPage-1)*pageSize+1;
+	
+	int endRow = startRow + pageSize -1;
+	
+	ArrayList<SellDTO> sellList = dao.getsellList(startRow, pageSize);
+			
+	%>						
+<table>
+	<tr> <!--  테이블................1칸 -->
+	<%
+	for(int i=0; i<sellList.size();i++){
+		SellDTO dto = sellList.get(i);
+	
+	%>
+		<td>
+			<table class="item-table">
+				<tr>
+					<td colspan="2" class="S_img"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
+				</tr>
+				<tr>
+					<td class="price"><%=dto.getS_price()%></td> <td class="like_id"><input type="image" name="button"  class="hart" src="hart.png" onclick="hartToggle()">
+				</tr>
+				<tr>
+					<td class="S_sido1"><%=dto.getS_sido1()%></td> <td class="S_gugun1"><%=dto.getS_gugun1()%></td> <!-- 구군 -->
+				</tr>
+				<tr>
+					<td colspan="2" class="S_createdate" ><%=dto.getS_createdate()%></td> <!-- 게시글 생성일자 -->
+				</tr>
+				<tr>
+					<td colspan="2" class="S_send"> <%=dto.getS_send()%> </td> <!-- 선호거래유형 -->
+				</tr>
+			</table>
+		</td>		
+			<%
+			if((i+1) %3 ==0){
+			%>
+				</tr>
+				<tr>
+				
+			<%
+			 }
+			%>
+	<%
+	 }
+	%>	
+	
+</tr>
+</table>
+		
+
+
+
 							
 <!-- 게시판 내용 여기 넘어가면 안됨.  -->							
 					</div>

@@ -1,3 +1,4 @@
+<%@page import="comment.CommentDTO"%>
 <%@page import="buy.BuyDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -5,16 +6,16 @@
 <%@ page import="java.io.PrintWriter" %>
 
 <% request.setCharacterEncoding("UTF-8"); %>
-<jsp:useBean id="comment" class="comment.CommentDTO" scope="page"/>
-<jsp:setProperty name="comment" property="Co_text"/>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>JSP 게시판 웹 사이트</title>
+<title>댓글</title>
 </head>
 <body>
 	<%
+	
+	
 		int B_num=1;
 		if(request.getParameter("B_num")!=null){
 			B_num=Integer.parseInt(request.getParameter("B_num"));
@@ -31,8 +32,12 @@
 			script.println("location.href='login.jsp'");
 			script.println("</script>");	
 		}
+		
 		else{
-			if(comment.getCo_text()==null){
+			CommentDTO comment = new CommentDTO();	
+			String Co_text=request.getParameter("Co_text");
+			if(
+				Co_text == null ){
 				PrintWriter script= response.getWriter();
 				script.println("<script>");
 				script.println("alert('댓글을 입력해주세요.')");
@@ -41,23 +46,20 @@
 			}
 			else{
 				CommentDAO commentDAO=new CommentDAO();
-				int result = commentDAO.write(B_num, comment.getCo_text(), M_id);
-				if(result==-1){
-					PrintWriter script= response.getWriter();
-					script.println("<script>");
-					script.println("alert('댓글쓰기에 실패했습니다.')");
-					script.println("history.back()");
-					script.println("</script>");
-				}
-				else{
-					String url="view.jsp?B_num="+B_num;
-					PrintWriter script= response.getWriter();
-					script.println("<script>");
-					script.println("location.href='"+url+"'");
-					script.println("</script>");
+				
+				commentDAO.write(B_num, Co_text, M_id);
+				
+// 				PrintWriter script= response.getWriter();
+// 				String url="buyDetails.jsp?B_num="+B_num;
+// 				script.println("<script>");
+// 				script.println("location.href='"+url+"'");
+// 				script.println("</script>");
+				response.sendRedirect("buyDetails.jsp?B_num=" + B_num);
+
 				}
 			}
-		}
+		
 	%>
+
 </body>
 </html>

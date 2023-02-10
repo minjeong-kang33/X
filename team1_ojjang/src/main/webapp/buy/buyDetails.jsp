@@ -99,17 +99,19 @@ String M_id = (String)session.getAttribute("M_id");
 						<tr>
 							<td style="text-align: left;"><%=List.get(i).getCo_text() %></td>
 							<td style="text-align: right;"><%=List.get(i).getM_id() %>
-							<a href="update.jsp?B_num=<%=B_num %>" class="btn">수정</a>
-							<a href="update.jsp?B_num=<%=B_num %>" class="btn ">삭제</a>
-							</td>
+							<a href="commentUpdate.jsp?B_num=<%=B_num %>" class="btn">수정</a>
+							<a href="commentdeleteAction.jsp?B_num=<%=B_num %>" class="btn ">삭제</a>
+							</td> 
 						</tr>
 					
 						<%
 								}
 						%>
-						<td><textarea type="text" class="form-control"
-								placeholder="댓글을 입력하세요." name="replyContent" maxlength="2048"></textarea></td>
-						<td></td>
+			<td>
+				<textarea type="text" class="form-control"
+				placeholder="댓글을 입력하세요." name="Co_text" maxlength="2048"></textarea>
+			</td>
+
 					
 					</tbody>
 				</table>
@@ -177,6 +179,8 @@ if(M_id != null){
 
     </script> 
    
-
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	
 </body>
 </html>

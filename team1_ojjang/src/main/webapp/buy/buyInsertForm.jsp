@@ -37,18 +37,24 @@ $(function(){
           fCreator: "createSEditor2"
       });
       
-      $("#save").click(function(){
-          oEditors.getById["B_text"].exec("UPDATE_CONTENTS_FIELD", []);
-          $("#frm").submit();
-      });    
+	$("#save").click(function(){
+		oEditors.getById["B_text"].exec("UPDATE_CONTENTS_FIELD", []);
+		$("#frm").submit();
+	});    
+      
 });
 
+<%-- function pasteHTML(filepath){
+	  var sHTML = '<img src="<%=request.getContextPath()%>/uploadFolder/'+filepath+'">';
+	  oEditors.getById["content"].exec("PASTE_HTML", [sHTML]);
+} --%>
+	  
 $('document').ready(function() {
 	 var area0 = ["시/도 선택","서울특별시","인천광역시","대전광역시","광주광역시","대구광역시","울산광역시","부산광역시","경기도","강원도","충청북도","충청남도","전라북도","전라남도","경상북도","경상남도","제주도"];
 	  var area1 = ["강남구","강동구","강북구","강서구","관악구","광진구","구로구","금천구","노원구","도봉구","동대문구","동작구","마포구","서대문구","서초구","성동구","성북구","송파구","양천구","영등포구","용산구","은평구","종로구","중구","중랑구"];
 	   var area2 = ["계양구","남구","남동구","동구","부평구","서구","연수구","중구","강화군","옹진군"];
 	   var area3 = ["대덕구","동구","서구","유성구","중구"];
-	   var area4 = ["광산구","남구","동구",     "북구","서구"];
+	   var area4 = ["광산구","남구","동구","북구","서구"];
 	   var area5 = ["남구","달서구","동구","북구","서구","수성구","중구","달성군"];
 	   var area6 = ["남구","동구","북구","중구","울주군"];
 	   var area7 = ["강서구","금정구","남구","동구","동래구","부산진구","북구","사상구","사하구","서구","수영구","연제구","영도구","중구","해운대구","기장군"];
@@ -135,7 +141,7 @@ $('document').ready(function() {
 	</div>
 	<!-- ** 선호거래 체크박스 끝 **-->
 <%
-String M_id = (String)session.getAttribute("M_id");
+String M_id = (String)session.getAttribute("M_id");									 					
 %>	
 <!-- 입력상자 시작  -->    
 <form id="frm" action="buyInsertPro.jsp" method="post" >
@@ -149,12 +155,13 @@ String M_id = (String)session.getAttribute("M_id");
         <th>내용</th>
         <td>
         <textarea rows="10" cols="30" id="B_text" name="B_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
+        <div id="B_img1"></div>
         </td>
      </tr>
 	  <tr>
          <td colspan="2">
               <div class="buttons">
-            	 <input type="submit" value="등록"/>
+            	 <input type="button" id="save" value="등록"/>
             	 <input type="reset" value="초기화"/>
               </div>
          </td>
