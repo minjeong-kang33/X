@@ -110,7 +110,7 @@ public class CommentDAO {
 		PreparedStatement pstmt = null;
 		try {
 		con = getConnection();
-		String SQL="update comment set Co_availavle=0 where Co_num=?";
+		String SQL="update comment set Co_available=0 where Co_num=?";
 		pstmt=con.prepareStatement(SQL);
 		pstmt.setInt(1, Co_num);
 		} catch (Exception e) {
@@ -122,6 +122,26 @@ public class CommentDAO {
 		}
 			return -1;
 		}
+	
+	public int update(int Co_num, String Co_text) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = getConnection();
+			String SQL="update comment set Co_text=? where Co_num=?";
+			pstmt=con.prepareStatement(SQL);
+			pstmt.setString(1, Co_text);
+			pstmt.setInt(2, Co_num);
+		}catch (Exception e) {
+			e.printStackTrace();
+			}finally {
+			// 예외 상관없이 마무리작업 => 객체생성한 기억장소 해제
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+			}
+				return -1;
+			}
+	
 	
 	
 	

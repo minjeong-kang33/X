@@ -17,6 +17,7 @@ public class SellDTO {
 		private Timestamp S_updatedate;
 		private String S_category;
 		
+
 		public int getS_num() {
 			return S_num;
 		}
