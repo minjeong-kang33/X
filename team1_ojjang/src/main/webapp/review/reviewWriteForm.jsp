@@ -25,9 +25,6 @@
    <%
 String M_id=(String)session.getAttribute("M_id");
 
-if(M_id==null){
-	response.sendRedirect("../login/loginForm.jsp");
-}
 %>
 
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
@@ -54,7 +51,7 @@ if(M_id==null){
 					</div>
 					
 					<!--  리뷰작성 입력상자 시작 -->
-					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox">
+					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox" enctype="multipart/form-data">
 						<table>
 						
 						
@@ -83,6 +80,10 @@ if(M_id==null){
 							<tr>
 								<th> 내용 </th>
 								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
+							</tr>
+							<tr>
+								<th> 첨부파일 </th>
+								<th><input type="file" name="RE_img1" ></th>
 							</tr>
 						</table>
 						<div class="btn">

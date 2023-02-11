@@ -71,20 +71,36 @@ public class reviewDAO {
 	}//reviewWriteBoard 끝 (리뷰글쓰기)
 	
 	
-	public ArrayList<reviewDTO> getReviewList(){
-		ArrayList<reviewDTO> reviewList = new ArrayList<reviewDTO>();
+	public ArrayList<reviewDTO> getReviewList(int startRow,int pageSize){
 		
-		reviewDTO dto = null;
+		System.out.println("reviewDTO getReviewList");
 		PreparedStatement pstmt = null;
 		Connection con = null;
 		ResultSet rs = null;
 		
+		ArrayList<reviewDTO> reviewList = new ArrayList<>();
+		
 		try {
 			con = getConnection();
 			
-			String sql="select * from review where S_id=?";
+			String sql="select * from review order by RE_num desc limit ?,?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow-1);
+			pstmt.setInt(2, pageSize);
 			
+			rs=pstmt.executeQuery();
 			
+			while(rs.next()) {
+				reviewDTO dto = new reviewDTO();
+				dto.setRE_num(rs.getInt("RE_num"));
+				dto.setRE_img1(rs.getString("RE_img"));
+				dto.setRE_title(rs.getString("RE_title"));
+				dto.setRE_createtime(rs.getTimestamp("RE_createtime"));
+				dto.setRE_view(rs.getInt("RE_view"));
+				dto.setRE_img1(rs.getString("RE_img"));
+				
+				reviewList.add(dto);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -96,7 +112,10 @@ public class reviewDAO {
 		return reviewList;
 	} //getReviewList() 끝 (리스트 가져오기)
 	
-	public reviewDTO getBoard(int RE_num) {
+	
+	
+	
+/*	public reviewDTO getBoard(int RE_num) {
 		
 		reviewDTO dto = null;
 		PreparedStatement pstmt = null;
@@ -109,22 +128,11 @@ public class reviewDAO {
 			String sql = "select * from board where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, RE_num);
-			
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
 				dto=new reviewDTO();
-				dto.setRE_title(rs.getString("RE_title"));
-				dto.setRE_text(rs.getString("RE_text"));
-				dto.setRE_createtime(rs.getTimestamp("RE_createtime"));
-				dto.setRE_view(rs.getInt("RE_view"));
-				dto.setRE_img1(rs.getString("RE_img1"));//수정예정
-				dto.setRE_delivery(rs.getString("RE_delivery"));
-				dto.setRE_manner(rs.getString("RE_manner"));
-				dto.setRE_ProductStatus(rs.getString("RE_ProductStatus"));
-				dto.setRE_fast(rs.getString("RE_fast"));
-				dto.setRE_time(rs.getString("RE_time"));
-				dto.setRE_writer(rs.getString("RE_fast"));
+				
 			}
 			
 			
@@ -133,7 +141,9 @@ public class reviewDAO {
 		}
 		
 		return;
-	} // getBoard() 끝 (게시글 내용 가져오기)
+	} // getBoard() 끝 (게시글 내용 가져오기)  */
+	
+	
 	
 	
 }
