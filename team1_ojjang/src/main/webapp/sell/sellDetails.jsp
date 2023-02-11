@@ -41,19 +41,29 @@ SellDAO dao = new SellDAO();
 SellDTO dto = dao.getSellBoard(S_num);
 String M_id = (String)session.getAttribute("M_id");
 
-String category = "엥";
-if(dto.getS_category().equals("1")){
-	category = "아우터";
-}
-if(dto.getS_category().equals("2")){
-	category = "상의";
-}
-if(dto.getS_category().equals("3")){
-	category = "하의";
-}
-if(dto.getS_category().equals("4")){
-	category = "원피스";
-}
+// String category1;
+
+// if(dto.getS_category().equals("1")){
+// 	category1 = "아우터";
+// }
+// else if(dto.getS_category().equals("2")){
+// 	category1 = "상의";
+// }
+// else if(dto.getS_category().equals("3")){
+// 	category1 = "하의";
+// }
+// else if(dto.getS_category().equals("4")){
+// 	category1 = "원피스";
+// }
+
+// String like1;
+
+// if(dto.getS_like() == 1){
+// 	like1 = "직거래";
+// }
+// else if(dto.getS_like() == 2){
+// 	like1 = "택배";
+// }
 %>
 <div class="container2">
 	<div class="row">
@@ -67,21 +77,30 @@ if(dto.getS_category().equals("4")){
 		<tbody>
 			<tr>
 				<td style="width:20%;">글제목</td>
-				<td colspan="2"><%= dto.getS_title()%></td>
+				<td colspan="2"><%=dto.getS_title()%></td>
 			</tr>
 			<tr>
-				<td style="width:20%;">카테고리 - </td>
-				<td colspan="2"><%= category %></td>
-				<td style="width:20%;">거래유형 - </td>
-				<td colspan="2"><%=	1이면 직거래 2면 택배거래?%></td>
+
+				<td style="width:20%;">거래유형</td>
+				<td colspan="2">
+				<%
+				
+				if(dto.getS_like() == 1){
+					out.println("직거래");
+					}
+				else if(dto.getS_like() == 2){
+					out.println("택배거래");
+					}
+				%>
+					</td>
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td colspan="2"> <%= dto.getM_id() %></td>
+				<td colspan="2"> <%=dto.getM_id() %></td>
 			</tr>
 			<tr>
 				<td>작성일자</td>
-				<td colspan="2"> <%= dto.getS_createdate()%> </td>
+				<td colspan="2"> <%=dto.getS_createdate()%> </td>
 			</tr>
 			<tr>
 				<td>글내용</td>
