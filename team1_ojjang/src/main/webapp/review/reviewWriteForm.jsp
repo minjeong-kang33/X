@@ -20,6 +20,16 @@
 </head>
 
    <body>
+   
+   
+   <%
+String M_id=(String)session.getAttribute("M_id");
+
+if(M_id==null){
+	response.sendRedirect("../login/loginForm.jsp");
+}
+%>
+
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
         <div class="jumper">
@@ -46,14 +56,8 @@
 					<!--  리뷰작성 입력상자 시작 -->
 					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox">
 						<table>
-							<tr>
-								<th> 제목 </th>
-								<th><input type="text" id="RE_title" name="RE_title" class="RE_title" placeholder="제목을 입력하세요"></th>
-							</tr>
-							<tr>
-								<th> 내용 </th>
-								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
-							</tr>
+						
+						
 							<tr>
 								<th></th>
 								<th>
@@ -70,6 +74,15 @@
 								<label for="checkbox-btn-5" class="btn">약속시간을 잘 지켜요</label>
 								</div>
 								</th>
+							</tr>
+						
+							<tr>
+								<th> 제목 </th>
+								<th><input type="text" id="RE_title" name="RE_title" class="RE_title" placeholder="제목을 입력하세요"></th>
+							</tr>
+							<tr>
+								<th> 내용 </th>
+								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
 							</tr>
 						</table>
 						<div class="btn">

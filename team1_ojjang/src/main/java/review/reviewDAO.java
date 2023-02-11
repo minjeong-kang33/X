@@ -20,7 +20,7 @@ public class reviewDAO {
 	} // getConnection끝
 	
 	
-	public void reviewWriteBoard(reviewDTO dto) {
+	public void insertreview(reviewDTO dto) {
 		
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -31,23 +31,23 @@ public class reviewDAO {
 			
 			//게시판 번호 자동 넘버링
 			int rE_id=1;
-			String sql= "select max(num) from review";
+			String sql= "select max(RE_num) from review";
 			pstmt = con.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
-				rE_id=rs.getInt("max(num)")+1;
+				rE_id=rs.getInt("max(RE_num)")+1;
 			}
 			
 			
 			//게시판 DB입력
 			
-			sql = "insert into board(RE_num,S_id,RE_writer,RE_title,RE_text,RE_createtime,RE_view"
+			sql = "insert into review(RE_num,S_id,RE_writer,RE_title,RE_text,RE_createtime,RE_view,"
 					+ "RE_img1,RE_delivery,RE_manner,RE_ProductStatus,RE_fast,RE_time) value (?,?,?,?,?,?,?,?,?,?,?,?,?)";//13개
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, rE_id);
-			pstmt.setString(2, dto.getS_id());
+			pstmt.setInt(2, 1);//test값
 			pstmt.setString(3, dto.getRE_writer());
 			pstmt.setString(4, dto.getRE_title());
 			pstmt.setString(5, dto.getRE_text());
@@ -82,7 +82,7 @@ public class reviewDAO {
 		try {
 			con = getConnection();
 			
-			String sql="select * from board where id=?";
+			String sql="select * from review where S_id=?";
 			
 			
 		} catch (Exception e) {
@@ -106,12 +106,26 @@ public class reviewDAO {
 		try {
 			
 			con = getConnection();
-			String sql = "select * from board where num=?, id=?";
+			String sql = "select * from board where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, RE_num);
-			pstmt.setString(2, );
 			
 			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				dto=new reviewDTO();
+				dto.setRE_title(rs.getString("RE_title"));
+				dto.setRE_text(rs.getString("RE_text"));
+				dto.setRE_createtime(rs.getTimestamp("RE_createtime"));
+				dto.setRE_view(rs.getInt("RE_view"));
+				dto.setRE_img1(rs.getString("RE_img1"));//수정예정
+				dto.setRE_delivery(rs.getString("RE_delivery"));
+				dto.setRE_manner(rs.getString("RE_manner"));
+				dto.setRE_ProductStatus(rs.getString("RE_ProductStatus"));
+				dto.setRE_fast(rs.getString("RE_fast"));
+				dto.setRE_time(rs.getString("RE_time"));
+				dto.setRE_writer(rs.getString("RE_fast"));
+			}
 			
 			
 		} catch (Exception e) {
@@ -119,7 +133,7 @@ public class reviewDAO {
 		}
 		
 		return;
-	}
+	} // getBoard() 끝 (게시글 내용 가져오기)
 	
 	
 }
