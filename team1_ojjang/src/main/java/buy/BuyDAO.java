@@ -37,17 +37,21 @@ public class BuyDAO {
 				B_num = rs.getInt("max(B_num)") + 1;
 			}
 			
-			sql="insert into Buy(M_id, B_num, B_title, B_text, B_view, B_time, B_imgname, B_imgsize)"
-		               + "values(?,?,?,?,?,?,?,?)";
+			sql="insert into Buy(M_id, B_num, B_category, B_title, B_text, B_send1, B_send2, B_sido1, B_gugun1, B_view, B_time, B_img)"
+		               + "value(?,?,?,?,?,?,?,?,?,?,?,?)";
 		         pstmt=con.prepareStatement(sql);
 		         pstmt.setString(1, dto.getM_id());  
 		         pstmt.setInt(2, B_num); 
-		         pstmt.setString(3, dto.getB_title()); 
-		         pstmt.setString(4, dto.getB_text());
-		         pstmt.setInt(5, dto.getB_view()); 
-		         pstmt.setTimestamp(6, dto.getB_time());
-		         pstmt.setString(7, dto.getB_imgname());
-		         pstmt.setString(8, dto.getB_imgsize());
+		         pstmt.setString(3, dto.getB_category()); 
+		         pstmt.setString(4, dto.getB_title()); 
+		         pstmt.setString(5, dto.getB_text());
+		         pstmt.setString(6, dto.getB_send1());
+		         pstmt.setString(7, dto.getB_send2());
+		         pstmt.setString(8, dto.getB_sido1());
+		         pstmt.setString(9, dto.getB_gugun1());
+		         pstmt.setInt(10, dto.getB_view()); 
+		         pstmt.setTimestamp(11, dto.getB_time());
+		         pstmt.setString(12, dto.getB_img());
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -152,47 +156,5 @@ public class BuyDAO {
 		
 	}
 	
-	
-	
-	// 페이징 처리
-//	public boolean nextPage(int pageNumber) {
-//		String SQL = "select * from Buy where B_num < ?";
-//		try {
-//			conn = getConnection();
-//			PreparedStatement pstmt = conn.prepareStatement(SQL);
-//			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
-//			rs = pstmt.executeQuery();
-//			if(rs.next()) {
-//				return true;
-//				// 결과가 하나라도 존재하면 다음페이지로 넘어갈수있음
-//			}
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
-	
-	
-//	public BuyDTO getbuy(int B_num) {
-//		BuyDTO buy=null;
-//		String SQL="select * from Buy where B_num=?";
-//		try {
-//			conn = getConnection();
-//			PreparedStatement pstmt = conn.prepareStatement(SQL);
-//			pstmt.setInt(1, B_num);
-//			rs = pstmt.executeQuery();
-//			if(rs.next()) {
-//				buy.setB_num(rs.getInt(1));
-//				buy.setM_id(rs.getString(2));
-//				buy.setB_title(rs.getString(3));
-//				buy.setB_time(rs.getString(4));
-//				buy.setB_view(rs.getInt(5));
-//				return buy;
-//			}
-//		}catch (Exception e){
-//			e.printStackTrace();
-//			}
-//		return null;
-//		}
 	
 }
