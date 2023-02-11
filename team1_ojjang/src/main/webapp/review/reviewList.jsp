@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="review.reviewDAO"%>
+<%@page import="review.reviewDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -26,8 +29,22 @@
    
 String M_id=(String)session.getAttribute("M_id");
 
+
+reviewDAO dao = new reviewDAO();
+
+int pageSize=10;
    
-   
+String pageNum=request.getParameter("pageNum");
+if(pageNum==null){
+   	pageNum="1";		
+   }
+ 
+int currentPage=Integer.parseInt(pageNum);
+int startRow=(currentPage-1)*pageSize+1;
+int endRow = startRow+pageSize-1;
+
+ArrayList<reviewDTO> reviewList= dao.getReviewList(startRow, pageSize);
+
 
 %>
 
@@ -59,9 +76,20 @@ String M_id=(String)session.getAttribute("M_id");
 							<tr>
 								<th> 사진 </th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
 							</tr>
+							
+							<%
+							
+							for(int i=0; i<reviewList.size();i++){
+								reviewDTO dto = reviewList.get(i);
+								
+							%>
 							<tr>
-								<td> 사진 </td><td> 사진 </td><td> 사진 </td><td>등록일</td><td> 조회수 </td>
+								<td><%=dto.getRE_img1() %> </td><td> <%=dto.getRE_title() %> </td><td> <%=dto.getRE_writer() %> </td><td><%=dto.getRE_createtime() %></td><td> <%=dto.getRE_view() %> </td>
 							</tr>
+							
+							<%
+							}
+							%>
 						</table>
 				</div>
 			</div>
