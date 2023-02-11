@@ -67,12 +67,13 @@ public class SellDTO {
 		public void setS_send(String s_send) {
 			S_send = s_send;
 		}
-		public Timestamp getS_createdate() {
-			return S_createdate;
-		}
 		public void setS_createdate(Timestamp s_createdate) {
 			S_createdate = s_createdate;
 		}
+		public Timestamp getS_createdate() {
+			return S_createdate;
+		}
+
 		public Timestamp getS_updatedate() {
 			return S_updatedate;
 		}
