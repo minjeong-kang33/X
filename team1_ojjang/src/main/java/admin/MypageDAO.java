@@ -181,7 +181,35 @@ public class MypageDAO {
 		return likeHistory;
 	}
 
-
+	//buyHistory
+	public ArrayList<SellDTO> dealListS(String M_id) {
+		ArrayList<SellDTO> dealListS=new ArrayList<SellDTO>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=getConnection();
+			String sql="select M_id, S_title, S_price, S_category from sell where S_num = ( select S_num from deal where D_buy=?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, M_id);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				SellDTO dto=new SellDTO();
+				dto.setM_id(rs.getString("M_id"));
+				dto.setS_title(rs.getString("S_title"));
+				dto.setS_price(rs.getInt("S_price"));		
+				dto.setS_category(rs.getString("S_category"));
+				dealListS.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(con!=null) try {con.close();} catch (Exception e2) {}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
+			if(rs!=null) try {rs.close();} catch (Exception e2) {}
+		}
+		return dealListS;
+	}
 
 
 
