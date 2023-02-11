@@ -20,6 +20,17 @@
 </head>
 
    <body>
+   
+   
+   <%
+   
+String M_id=(String)session.getAttribute("M_id");
+
+   
+   
+
+%>
+
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
         <div class="jumper">
@@ -39,45 +50,19 @@
 				<div class="col-lg-12">
 					<div class="section-heading">
 					<!--  게시판제목 -->
-						<h2>후기 작성</h2>
-						<span>review Write</span>
+						<h2>리뷰 내역</h2>
+						<span>review list</span>
 					</div>
 					
 					<!--  리뷰작성 입력상자 시작 -->
-					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox">
 						<table>
 							<tr>
-								<th> 제목 </th>
-								<th><input type="text" id="RE_title" name="RE_title" class="RE_title" placeholder="제목을 입력하세요"></th>
+								<th> 사진 </th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
 							</tr>
 							<tr>
-								<th> 내용 </th>
-								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
-							</tr>
-							<tr>
-								<th></th>
-								<th>
-								<div class="RE_checkbox">
-							<input type="checkbox" id="checkbox-btn-1" name="RE_delivery"  value="배송이 빨라요">
-								<label for="checkbox-btn-1" class="btn">배송이 빨라요</label>
-							<input type="checkbox" id="checkbox-btn-2" name="RE_manner" value="친절해요">
-								<label for="checkbox-btn-2" class="btn">친절해요</label>
-							<input type="checkbox" id="checkbox-btn-3" name="RE_ProductStatus" value="상품이 설명과 같아요">
-								<label for="checkbox-btn-3" class="btn">상품이 설명과 같아요</label><br>
-							<input type="checkbox" id="checkbox-btn-4" name="RE_fast"  value="응답이 빨라요">
-								<label for="checkbox-btn-4" class="btn">응답이 빨라요</label>
-							<input type="checkbox" id="checkbox-btn-5" name="RE_time" value="약속시간을 잘 지켜요">
-								<label for="checkbox-btn-5" class="btn">약속시간을 잘 지켜요</label>
-								</div>
-								</th>
+								<td> 사진 </td><td> 사진 </td><td> 사진 </td><td>등록일</td><td> 조회수 </td>
 							</tr>
 						</table>
-						<div class="btn">
-							<input type="submit" value="등록"/>
-							<input type="reset" value="초기화"/>
-						</div>
-					</form> 
-					
 				</div>
 			</div>
 		</div>
