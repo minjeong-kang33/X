@@ -32,7 +32,7 @@ int RE_view = 0;
 Timestamp RE_createtime = new Timestamp(System.currentTimeMillis());
 
 reviewDTO dto = new reviewDTO();
- 
+dto.setRE_writer(M_id); // M_id;
 dto.setRE_title(RE_title);
 dto.setRE_text(RE_text);
 dto.setRE_delivery(RE_delivery);

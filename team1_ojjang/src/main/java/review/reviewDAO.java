@@ -47,7 +47,7 @@ public class reviewDAO {
 			pstmt = con.prepareStatement(sql);
 			
 			pstmt.setInt(1, rE_id);
-			pstmt.setInt(2, 1);//test값
+			pstmt.setInt(2, 1);//test값 (판매번호)
 			pstmt.setString(3, dto.getRE_writer());
 			pstmt.setString(4, dto.getRE_title());
 			pstmt.setString(5, dto.getRE_text());
@@ -88,16 +88,16 @@ public class reviewDAO {
 			pstmt.setInt(1, startRow-1);
 			pstmt.setInt(2, pageSize);
 			
-			rs=pstmt.executeQuery();
+			rs=pstmt.executeQuery();                      
 			
 			while(rs.next()) {
 				reviewDTO dto = new reviewDTO();
 				dto.setRE_num(rs.getInt("RE_num"));
-				dto.setRE_img1(rs.getString("RE_img"));
+				dto.setRE_img1(rs.getString("RE_img1"));
 				dto.setRE_title(rs.getString("RE_title"));
 				dto.setRE_createtime(rs.getTimestamp("RE_createtime"));
 				dto.setRE_view(rs.getInt("RE_view"));
-				dto.setRE_img1(rs.getString("RE_img"));
+				dto.setRE_writer(rs.getString("RE_writer"));
 				
 				reviewList.add(dto);
 			}
@@ -115,7 +115,7 @@ public class reviewDAO {
 	
 	
 	
-/*	public reviewDTO getBoard(int RE_num) {
+	public reviewDTO getBoard(int RE_num) {
 		
 		reviewDTO dto = null;
 		PreparedStatement pstmt = null;
@@ -125,23 +125,32 @@ public class reviewDAO {
 		try {
 			
 			con = getConnection();
-			String sql = "select * from board where num=?";
+			String sql = "select * from review where num=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, RE_num);
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
 				dto=new reviewDTO();
-				
+				dto.setRE_img1(rs.getString("RE_img1"));
+				dto.setRE_title(rs.getString("RE_title"));
+				dto.setRE_writer(rs.getString("RE_writer"));
+				dto.setRE_createtime(rs.getTimestamp("RE_createtime"));
+				dto.setRE_view(rs.getInt("RE_view"));
 			}
-			
 			
 		} catch (Exception e) {
 			e.printStackTrace();
+			
+		}finally {
+			
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try {con.close();} catch (Exception e2) {}
+			if(rs!=null) try {rs.close();} catch (Exception e2) {}
 		}
 		
-		return;
-	} // getBoard() 끝 (게시글 내용 가져오기)  */
+		return dto;
+	} // getBoard() 끝 (게시글 내용 가져오기)  
 	
 	
 	
