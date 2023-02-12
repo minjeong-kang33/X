@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="sell.SellDTO"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="sell.SellDAO"%>
@@ -92,7 +93,8 @@
 	int endRow = startRow + pageSize -1;
 	
 	ArrayList<SellDTO> sellList = dao.getsellList(startRow, pageSize);
-			
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+	
 	%>						
 <table>
 	<tr> <!--  테이블................1칸 -->
@@ -110,18 +112,22 @@
 					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
 				</tr>
 				<tr>
-					<td class="price"><%=dto.getS_price()%></td> <td class="like_id"><input type="image" name="button"  class="hart" src="hart.png" onclick="hartToggle()">
+					<td class="price"><%=dto.getS_price()%>원</td> <td align="right" class="like_id"><input type="image" name="button"  class="hart" src="hart.png" onclick="hartToggle()">
 				</tr>
 				<%-- <tr>
 					<td class="S_sido1"><%=dto.getS_sido1()%></td> <td class="S_gugun1"><%=dto.getS_gugun1()%></td> <!-- 구군 -->
 				</tr> --%>
 				<tr>
-					<td colspan="2" class="S_createdate" ><%=dto.getS_createdate()%></td> <!-- 게시글 생성일자 -->
+					<td colspan="2" class="S_createdate" ><%= dateFormat.format(dto.getS_createdate())%></td> <!-- 게시글 생성일자 -->
 				</tr>
 				<tr>
-					<td colspan="2" class="S_send"> <% if(dto.getS_send1()!=null&&dto.getS_send2()!=null){%> <%= "<b>택배거래</b>, ("+dto.getS_sido1()+") <b>직거래</b>"%><%}
+					<td colspan="2" class="S_send"> <% if(dto.getS_send1()!=null&&dto.getS_send2()!=null){%> <%= "<b>택배거래</b>, <b>직거래</b>"%><%}
 						else if(dto.getS_send1()!=null){%> <%= "<b>택배거래</b>"%><%}
 						else if(dto.getS_send2()!=null){%> <%= "<b>직거래</b>"%><%}%> </td> <!-- 선호거래유형 -->
+				</tr>
+				<tr>
+					<td colspan="2"> <% if(dto.getS_send2()!=null){%> <img src="location_icon.png" class="location"><%= dto.getS_sido1()%><%} else { %>　<%}%> </td>
+					<!-- else에 안보이는 공백문자있어요 지우지마세요 지우면 정렬깨짐 -->
 				</tr>
 			</table>
 		</td>		
@@ -140,13 +146,33 @@
 	
 </tr>
 </table>
-		
-
-
-
 							
 <!-- 게시판 내용 여기 넘어가면 안됨.  -->							
 					</div>
+				<!--  페이지 번호  -->
+				<%
+					int pageBlock = 10;
+				int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+				int endPage=startPage+pageBlock-1;
+				int count = dao.getSellBoardCount();
+				int pageCount=count/pageSize+(count%pageSize==0?0:1);
+				if(endPage > pageCount){
+					endPage = pageCount;
+				}
+				
+				if(startPage>pageBlock){
+					%>
+					<a href="reviewList.jsp?pageNum=<%=startPage-pageBlock%>"> [10페이지 이전]</a>
+					<%
+				}
+				
+				for(int i=startPage;i<=endPage;i++){
+					%>
+					<a href="reviewList.jsp?pageNum=<%=i%>"><%=i%></a>
+					<%
+				}
+				
+				%>
 					</div>
 				</div>
 			</div>
