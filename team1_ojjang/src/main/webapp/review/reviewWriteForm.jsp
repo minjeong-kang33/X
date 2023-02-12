@@ -56,19 +56,18 @@ String M_id=(String)session.getAttribute("M_id");
 						
 						
 							<tr>
-								<th></th>
-								<th>
-								<div class="RE_checkbox">
-							<input type="checkbox" id="checkbox-btn-1" name="RE_delivery"  value="배송이 빨라요">
-								<label for="checkbox-btn-1" class="btn">배송이 빨라요</label>
-							<input type="checkbox" id="checkbox-btn-2" name="RE_manner" value="친절해요">
-								<label for="checkbox-btn-2" class="btn">친절해요</label>
-							<input type="checkbox" id="checkbox-btn-3" name="RE_ProductStatus" value="상품이 설명과 같아요">
-								<label for="checkbox-btn-3" class="btn">상품이 설명과 같아요</label><br>
-							<input type="checkbox" id="checkbox-btn-4" name="RE_fast"  value="응답이 빨라요">
-								<label for="checkbox-btn-4" class="btn">응답이 빨라요</label>
-							<input type="checkbox" id="checkbox-btn-5" name="RE_time" value="약속시간을 잘 지켜요">
-								<label for="checkbox-btn-5" class="btn">약속시간을 잘 지켜요</label>
+								<th colspan="4">
+								<div class="RE_radio">
+									<input type="radio" id="radio-btn-1" name="RE_delivery"  value="배송이 빨라요">배송이 빨라요
+									<input type="radio" id="radio-btn-1" name="RE_delivery"  value="배송이 느려터졌어요 ">배송이 느려터졌어요
+									<input type="radio" id="radio-btn-4" name="RE_fast"  value="응답이 빨라요">응답이 빨라요
+									<input type="radio" id="radio-btn-4" name="RE_fast"  value="응답이 느려요">응답이 느려요<br>
+									<input type="radio" id="radio-btn-3" name="RE_ProductStatus" value="상품이 설명과 같아요">상품이 설명과 같아요
+									<input type="radio" id="radio-btn-3" name="RE_ProductStatus" value="동일 상품이 맞나요?">동일 상품이 맞나요?
+									<input type="radio" id="radio-btn-2" name="RE_manner" value="친절해요">친절해요
+									<input type="radio" id="radio-btn-2" name="RE_manner" value="불친절해요">불친절해요<br>
+									<input type="radio" id="radio-btn-5" name="RE_time" value="약속시간을 잘 지켜요">약속시간을 잘 지켜요
+									<input type="radio" id="radio-btn-5" name="RE_time" value="약속시간을 지키지 않아요">약속시간을 지키지 않아요
 								</div>
 								</th>
 							</tr>
