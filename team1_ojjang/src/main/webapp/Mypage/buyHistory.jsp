@@ -33,7 +33,10 @@
  <!-- ***** 구매내역조회***** -->
     
     <h3>구매내역조회</h3>
+    
+    
 <%
+
 String M_id=(String)session.getAttribute("M_id");
 DealDTO dto=new DealDTO();
 SellDTO sdto=new SellDTO();
@@ -66,14 +69,13 @@ for(int i=0;i<dealListS.size();i++){
 		<td><%=sdto.getS_price() %></td>
 		<td><%=sdto.getS_category() %></td>
 		<td><%=dto.getD_buy() %></td>
-		<td><%=dateFormat.format(dto.getD_date()) %></td>
-		
-		
+		<td><%=dateFormat.format(dto.getD_date()) %></td>				
 	</tr>
-	</table>
+	
 <%
 }
 %>
+</table>
 </section>
 	<!-- ***** 구매내역조회 끝 ***** -->
 	       
