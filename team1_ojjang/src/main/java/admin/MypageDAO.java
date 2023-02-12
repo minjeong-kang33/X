@@ -25,7 +25,7 @@ public class MypageDAO {
 	}
 	
 	//deal 테이블에 값 넣기(값이 들어가는지 확인해봐야하는데..) //승민
-	public void insertDeal(SellDTO selldto, String id) {
+	public void insertDeal(SellDTO selldto, String M_id) {
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -34,16 +34,18 @@ public class MypageDAO {
 			con=getConnection();
 			int D_num=1;
 			String sql="select max(D_num) from deal";
-			
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				D_num=rs.getInt("max(D_num)")+1;
+				
 			}						
 			sql="insert into deal(D_num,S_num,M_id,D_buy,D_date) values(?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1,D_num);
 			pstmt.setInt(2, selldto.getS_num());
 			pstmt.setString(3, selldto.getM_id());
-			pstmt.setString(4, rs.getString("id"));			
+			pstmt.setString(4, M_id);			
 			pstmt.setTimestamp(5,new Timestamp(System.currentTimeMillis()));
 			pstmt.executeUpdate();	
 		} catch (Exception e) {
@@ -117,7 +119,7 @@ public class MypageDAO {
 
 	
 	//insertlike
-	public void insertlike(SellDTO selldto, String M_id) {
+	public void insertlike(int S_num, String M_id, int like_id) {
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -126,16 +128,17 @@ public class MypageDAO {
 			con=getConnection();
 		
 			int Like_id=1;
-			String sql="select max(Like_id) from deal";			
+			String sql="select max(Like_id) from likes";			
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				Like_id=rs.getInt("max(Like_id)")+1;}
 			
-			sql="insert into like(Like_id,S_num,M_id) values(?,?,?)";
-			pstmt=con.prepareStatement(sql);
+			sql="insert into likes(Like_id,S_num,M_id) values(?,?,?)";
+			pstmt=con.prepareStatement(sql);	
 			pstmt.setInt(1,Like_id);
-			pstmt.setInt(2, selldto.getS_num());
-			pstmt.setString(3, selldto.getM_id());			
-
+			pstmt.setInt(2, S_num);
+			pstmt.setString(3, M_id);			
 			pstmt.executeUpdate();	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -211,7 +214,37 @@ public class MypageDAO {
 		return dealListS;
 	}
 
+	public LikeDTO getLike(String M_id, int S_num) {
+		LikeDTO dto=null;
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con = getConnection();
+		     String sql="select * from likes where M_id=? and S_num=?";
+			 pstmt=con.prepareStatement(sql);
+			 pstmt.setString(1,M_id);
+			 pstmt.setInt(2,S_num);
+			 rs=pstmt.executeQuery(); 
+			 
+			 if(rs.next()){
+				dto=new LikeDTO(); 
+				dto.setM_id(rs.getString("M_id"));
+				dto.setS_num(rs.getInt("S_num"));
+			 }else{
+				 
+			 }
+		}catch (Exception e) {	
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
+			if(con!=null)try {con.close();} catch (Exception e2) {}
+			if(rs!=null)try {rs.close();} catch (Exception e2) {}
 
+		}
+		return dto;
+	}
 
 }
 
