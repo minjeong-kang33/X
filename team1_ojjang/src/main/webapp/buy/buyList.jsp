@@ -78,11 +78,14 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 			%>
 			<tr>
 				<td><%= dto.getB_num() %></td>
-				<td><%= dto.getB_category()%></td>
+				<td><%= dto.getB_category() %>
+					<%-- <% if(dto.getB_category().equals("outer")){%> <%= "아우터"%><%}%> --%> 
+					<%-- <% if(dto.getB_category()=="outer"){%> <%= "아우터"%><%}%> --%>
+				</td>
 				<td><a href="buyDetails.jsp?B_num=<%=dto.getB_num() %>">
 					<%=dto.getB_title() %></a></td>
 				<td><% if(dto.getB_send1()!=null){%> <%= "<b>택배거래</b><br>"%><%}%>
-					<% if(dto.getB_send2()!=null){%> <%= dto.getB_sido1()+"<br><b>직거래</b>"%><%}%></td>
+					<% if(dto.getB_send2()!=null){%> <%= "("+dto.getB_sido1()+")<br><b>직거래</b>"%><%}%></td>
 				<td><%= dto.getM_id()%></td>
 				<td><%= dateFormat.format(dto.getB_time()) %></td>
 				<td><%= dto.getB_view() %></td>
