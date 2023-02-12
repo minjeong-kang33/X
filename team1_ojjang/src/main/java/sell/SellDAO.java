@@ -261,6 +261,50 @@ public class SellDAO {
 		return dealListS;
 	} // dealListS 끝 구매내역
 	
+	public void updateSellBoard(SellDTO dto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = getConnection();
+			String sql = "update sell set S_title=?, S_price=?, S_category=?, S_text=?, S_send1=?, S_send2=?, S_sido1=?, S_gugun1=?, S_img=? where S_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getS_title());
+			pstmt.setInt(2, dto.getS_price());
+			pstmt.setString(3, dto.getS_category());
+			pstmt.setString(4, dto.getS_text());
+			pstmt.setString(5, dto.getS_send1());
+			pstmt.setString(6, dto.getS_send2());
+			pstmt.setString(7, dto.getS_sido1());
+			pstmt.setString(8, dto.getS_gugun1());
+			pstmt.setString(9, dto.getS_img());
+			pstmt.setInt(10, dto.getS_num());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+		}
+		
+	} //update 수정 (제목, 내용, 카테고리, 거래유형, 시도, 구군, 이미지 변경가능)
+	
+	public void deleteSellBoard(int S_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = getConnection();
+			String sql = "delete from sell where S_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, S_num);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+		}
+	} //delete (글삭제)
 	
 }
 
