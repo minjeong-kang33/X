@@ -99,7 +99,11 @@ String M_id = (String)session.getAttribute("M_id");
 							<td style="text-align: left;"><%=List.get(i).getCo_text() %></td>
 							<td style="text-align: right;"><%=List.get(i).getM_id() %>
 							<a href="javascript:CoUpdate()" class="btn">수정</a>
-							<a href="commentdeleteAction.jsp?B_num=<%=B_num %>&Co_num=<%=List.get(i).getCo_num() %>" class="btn ">삭제</a>
+							<a href="commentdeleteAction.jsp?B_num=<%=B_num %>&Co_num=<%=List.get(i).getCo_num() %>"
+								onclick="return delchk();">삭제</a>
+								<script type="text/javascript">
+								function delchk(){return confirm("삭제하시겠습니까?");}
+								</script>
 							</td> 
 						</tr>
 		

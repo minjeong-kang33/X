@@ -113,6 +113,7 @@ public class CommentDAO {
 		String SQL="update comment set Co_available=0 where Co_num=?";
 		pstmt=con.prepareStatement(SQL);
 		pstmt.setInt(1, Co_num);
+		return pstmt.executeUpdate();
 		} catch (Exception e) {
 		e.printStackTrace();
 		}finally {
