@@ -48,10 +48,20 @@ h3{
 .board-table .th-num {
   width: 100px;
   text-align: center;
+  padding-left: 20px;
+}
+.board-table .th-category {
+  width: 80px;
+  text-align: center;
 }
 
 .board-table .th-title {
-  width: 200px;
+  width: 250px;
+}
+
+.board-table .th-send {
+  width: 50px;
+  text-align: center;
 }
 
 .board-table .th-writer {

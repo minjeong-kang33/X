@@ -65,6 +65,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 					<th scope="col" class="th-num">글번호</th>
 					<th scope="col" class="th-category">카테고리</th>
 					<th scope="col" class="th-title">제목</th>
+					<th scope="col" class="th-send">거래유형</th>
                     <th scope="col" class="th-writer">작성자</th>
                     <th scope="col" class="th-date">등록일</th>
                     <th scope="col" class="th-count">조회수</th>
@@ -77,10 +78,12 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 			%>
 			<tr>
 				<td><%= dto.getB_num() %></td>
-				<td><%= dto. %>
+				<td><%= dto.getB_category()%></td>
 				<td><a href="buyDetails.jsp?B_num=<%=dto.getB_num() %>">
 					<%=dto.getB_title() %></a></td>
-				<td><%= dto.getM_id() %></td>
+				<td><% if(dto.getB_send1()!=null){%> <%= "<b>택배거래</b><br>"%><%}%>
+					<% if(dto.getB_send2()!=null){%> <%= dto.getB_sido1()+"<br><b>직거래</b>"%><%}%></td>
+				<td><%= dto.getM_id()%></td>
 				<td><%= dateFormat.format(dto.getB_time()) %></td>
 				<td><%= dto.getB_view() %></td>
 			</tr>
@@ -104,27 +107,27 @@ if(endPage > pageCount){
 // 10페이지 이전
 if(startPage > pageBlock){
 	%>
-<a href="buylist.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
+<a href="buyList.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
 	<%
 }
 
 for(int i=startPage;i<=endPage;i++){
 	%>
-	<a href="buylist.jsp?pageNum=<%=i%>"><%=i %></a> 
+	<a href="buyList.jsp?pageNum=<%=i%>"><%=i %></a> 
 	<%
 }
 
 //10페이지 다음
 if(endPage < pageCount){
 	%>
-<a href="buylist.jsp?pageNum=<%=startPage+pageBlock%>">[10페이지 다음]</a>
+<a href="buyList.jsp?pageNum=<%=startPage+pageBlock%>">[10페이지 다음]</a>
 	<%
 }
 
 %>
 <!-- 	글 작성 버튼을 오른쪽 아래에 고정 -->
 	</div>
-	<button type="button" class="btn btn-dark" onclick="location.href='NewbuyInsertForm.jsp'" style="float:right">글쓰기</button>
+	<button type="button" class="btn btn-dark" onclick="location.href='buyInsertForm.jsp'" style="float:right">글쓰기</button>
 </section>
 
 
