@@ -33,7 +33,7 @@ String M_id=(String)session.getAttribute("M_id");
 
 reviewDAO dao = new reviewDAO();
 
-int pageSize=10;
+int pageSize=5;
    
 String pageNum=request.getParameter("pageNum");
 if(pageNum==null){
@@ -85,15 +85,23 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 								<td rowspan="4" ><%=dto.getRE_img1() %> </td><td> 제목 : <%=dto.getRE_title() %> </td>
 								<td> 작성일 : <%=dateFormat.format(dto.getRE_createtime())%></td>
 							</tr>
-							<tr>	
-								<td colspan="2"> 내용 : <%=dto.getRE_text() %> </td>
-							</tr>
 							<tr>
 								<td> 글쓴이 : <%=dto.getRE_writer() %> </td>
 								<td> 조회수 : <%=dto.getRE_view() %> </td>
 							</tr>
+							<tr>	
+								<td colspan="2"> 내용 : <%=dto.getRE_text() %> </td>
+							</tr>
 							<tr>
-								<td> 
+								<td colspan="2">
+									<span> <%=dto.getRE_delivery()%> </span>
+									<span> <%=dto.getRE_manner()%> </span>
+									<span> <%=dto.getRE_ProductStatus()%> </span>
+									<span> <%=dto.getRE_fast()%> </span>
+									<span> <%=dto.getRE_time()%> </span>
+								</td> 
+							</tr>
+							<tr>
 							</tr>
 							<tr><td colspan="3" class="line"></td> <tr>
 							<%
@@ -136,7 +144,8 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->
-    <script src="../assets/js/jquery-2.1.0.min.js"></script>
+    <script src="../assets/js/jquery-2.1.0.min.js">
+    </script>
 
  <!--  Bootstrap -->
     <script src="../assets/js/popper.js"></script>
