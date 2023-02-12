@@ -6,7 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-String uploadPath = request.getRealPath("/buyimg");
+String uploadPath = request.getRealPath("/img/buy");
 System.out.println(uploadPath);
 int maxSize = 10*1024*1024;
 MultipartRequest multi=new MultipartRequest

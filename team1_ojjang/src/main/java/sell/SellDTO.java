@@ -10,15 +10,14 @@ public class SellDTO {
 		private String S_text;
 		private int S_like;
 		private int S_view;
-		private String S_send;
+		private String S_send1;
+		private String S_send2;
 		private String S_sido1;
 		private String S_gugun1;
 		private Timestamp S_createdate;
-		private Timestamp S_updatedate;
 		private String S_category;
 		private String S_img;
 		
-
 		public int getS_num() {
 			return S_num;
 		}
@@ -61,30 +60,17 @@ public class SellDTO {
 		public void setS_view(int s_view) {
 			S_view = s_view;
 		}
-		public String getS_send() {
-			return S_send;
+		public String getS_send1() {
+			return S_send1;
 		}
-		public void setS_send(String s_send) {
-			S_send = s_send;
+		public void setS_send1(String s_send1) {
+			S_send1 = s_send1;
 		}
-		public void setS_createdate(Timestamp s_createdate) {
-			S_createdate = s_createdate;
+		public String getS_send2() {
+			return S_send2;
 		}
-		public Timestamp getS_createdate() {
-			return S_createdate;
-		}
-
-		public Timestamp getS_updatedate() {
-			return S_updatedate;
-		}
-		public void setS_updatedate(Timestamp s_updatedate) {
-			S_updatedate = s_updatedate;
-		}
-		public String getS_category() {
-			return S_category;
-		}
-		public void setS_category(String s_category) {
-			S_category = s_category;
+		public void setS_send2(String s_send2) {
+			S_send2 = s_send2;
 		}
 		public String getS_sido1() {
 			return S_sido1;
@@ -98,13 +84,23 @@ public class SellDTO {
 		public void setS_gugun1(String s_gugun1) {
 			S_gugun1 = s_gugun1;
 		}
+		public Timestamp getS_createdate() {
+			return S_createdate;
+		}
+		public void setS_createdate(Timestamp s_createdate) {
+			S_createdate = s_createdate;
+		}
+		public String getS_category() {
+			return S_category;
+		}
+		public void setS_category(String s_category) {
+			S_category = s_category;
+		}
 		public String getS_img() {
 			return S_img;
 		}
 		public void setS_img(String s_img) {
 			S_img = s_img;
 		}
-		
-		
 		
 	}

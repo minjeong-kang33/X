@@ -3,6 +3,7 @@ package buy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.naming.Context;
@@ -132,6 +133,7 @@ public class BuyDAO {
 	} //getBuyBoardCount (페이징에서 사용)
 	
 	public BuyDTO getBuyBoard(int B_num){
+		System.out.println("getBuyBoard");
 		BuyDTO dto = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -147,9 +149,17 @@ public class BuyDAO {
 				dto = new BuyDTO();
 				dto.setB_num(rs.getInt("B_num"));
 				dto.setM_id(rs.getString("M_id"));
+				dto.setB_category(rs.getString("B_category"));
+				dto.setB_text(rs.getString("B_text"));
+				dto.setB_send1(rs.getString("B_send1"));
+				dto.setB_send2(rs.getString("B_send2"));
+				dto.setB_sido1(rs.getString("B_sido1"));
+				dto.setB_gugun1(rs.getString("B_gugun1"));
 				dto.setB_title(rs.getString("B_title"));
 				dto.setB_time(rs.getTimestamp("B_time"));
 				dto.setB_view(rs.getInt("B_view"));
+				dto.setB_img(rs.getString("B_img"));
+				
 			}else {
 		}
 		} catch (Exception e) {

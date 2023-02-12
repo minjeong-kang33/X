@@ -112,14 +112,16 @@
 				<tr>
 					<td class="price"><%=dto.getS_price()%></td> <td class="like_id"><input type="image" name="button"  class="hart" src="hart.png" onclick="hartToggle()">
 				</tr>
-				<tr>
+				<%-- <tr>
 					<td class="S_sido1"><%=dto.getS_sido1()%></td> <td class="S_gugun1"><%=dto.getS_gugun1()%></td> <!-- 구군 -->
-				</tr>
+				</tr> --%>
 				<tr>
 					<td colspan="2" class="S_createdate" ><%=dto.getS_createdate()%></td> <!-- 게시글 생성일자 -->
 				</tr>
 				<tr>
-					<td colspan="2" class="S_send"> <%=dto.getS_send()%> </td> <!-- 선호거래유형 -->
+					<td colspan="2" class="S_send"> <% if(dto.getS_send1()!=null&&dto.getS_send2()!=null){%> <%= "<b>택배거래</b>, ("+dto.getS_sido1()+") <b>직거래</b>"%><%}
+						else if(dto.getS_send1()!=null){%> <%= "<b>택배거래</b>"%><%}
+						else if(dto.getS_send2()!=null){%> <%= "<b>직거래</b>"%><%}%> </td> <!-- 선호거래유형 -->
 				</tr>
 			</table>
 		</td>		
@@ -149,8 +151,9 @@
 				</div>
 			</div>
 		</div>
-	</section>
-
+<!-- 	글 작성 버튼을 오른쪽 아래에 고정 -->
+	<button type="button" class="btn btn-dark" onclick="location.href='sellInsertForm.jsp'" style="float:right">글쓰기</button>
+</section>
 
     <!-- ***** 푸터 시작 ***** -->
    <jsp:include page="../bottom.jsp" />

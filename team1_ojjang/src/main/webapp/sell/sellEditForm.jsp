@@ -1,3 +1,5 @@
+<%@page import="sell.SellDTO"%>
+<%@page import="sell.SellDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,37 +64,40 @@ $('document').ready(function() {
 	   var area15 = ["거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
 	   var area16 = ["서귀포시","제주시","남제주군","북제주군"];
 
-	 
+	   $("select[name^=S_sido1]").each(function() {
+		     $selS_sido1 = $(this);
+		     $.each(eval(area0), function() {
+		      $selS_sido1.append("<option value='"+this+"'>"+this+"</option>");
+		     });
+		     $selS_sido1.next().append("<option value=''>구/군 선택</option>");
+		    });
 
-	 // 시/도 선택 박스 초기화
-	 $("select[name^=sido]").each(function() {
-	  $selsido = $(this);
-	  $.each(eval(area0), function() {
-	   $selsido.append("<option value='"+this+"'>"+this+"</option>");
-	  });
-	  $selsido.next().append("<option value=''>구/군 선택</option>");
-	 });
-
-	 // 시/도 선택시 구/군 설정
-	 $("select[name^=sido]").change(function() {
-	  var area = "area"+$("option",$(this)).index($("option:selected",$(this))); // 선택지역의 구군 Array
-	  var $gugun = $(this).next(); // 선택영역 군구 객체
-	  $("option",$gugun).remove(); // 구군 초기화
-	  if(area == "area0")
-	   $gugun.append("<option value=''>구/군 선택</option>");
-	  else {
-	   $.each(eval(area), function() {
-	    $gugun.append("<option value='"+this+"'>"+this+"</option>");
-	   });
-	  }
-	 });
-	});
+		    // 시/도 선택시 구/군 설정
+		    $("select[name^=S_sido1]").change(function() {
+		     var area = "area"+$("option",$(this)).index($("option:selected",$(this))); // 선택지역의 구군 Array
+		     var $S_gugun1 = $(this).next(); // 선택영역 군구 객체
+		     $("option",$S_gugun1).remove(); // 구군 초기화
+		     if(area == "area0")
+		      $S_gugun1.append("<option value=''>구/군 선택</option>");
+		     else {
+		      $.each(eval(area), function() {
+		       $S_gugun1.append("<option value='"+this+"'>"+this+"</option>");
+		      });
+		     }
+		    });
+		   });
 	
 </script>
 </head>
 
 <body>
-    <body>
+<%
+
+String M_id = (String)session.getAttribute("M_id");
+SellDAO dao = new SellDAO();
+SellDTO dto = dao.get
+
+%>
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
         <div class="jumper">
@@ -110,6 +115,7 @@ $('document').ready(function() {
 <img src="../assets/images/sellInsert_title.png" id="sellBoard" width="500px">
 	
 	<!-- ** 옷 카테고리 선택 시작 -->
+<form id="frm" action="sellInsertPro.jsp" method="post" enctype="multipart/form-data">
 	<div class="radio1">
 		<b>카테고리</b>
 		<input type="radio" id="radio-btn-1" name="S_category" value="outer">
@@ -126,12 +132,13 @@ $('document').ready(function() {
 	<!-- ** 선호거래 체크박스 시작 **-->
 	<div class="check1">
 		<b>선호하는 거래형태</b>
-		<input type="checkbox" id="checkbox-btn-1" name="S_send"  value="delivery">
+		<input type="checkbox" id="checkbox-btn-1" name="S_send1"  value="delivery">
 			<label for="checkbox-btn-1" class="btn">택배거래</label>
-		<input type="checkbox" id="checkbox-btn-2" name="S_send" value="direct">
+		<input type="checkbox" id="checkbox-btn-2" name="S_send2" value="direct">
 			<label for="checkbox-btn-2" class="btn" >직거래</label>
-		<select name="sido1" id="sido1"></select>
-		<select name="gugun1" id="gugun1"></select>
+			
+		<select name="S_sido1" id="S_sido1"></select>
+		<select name="S_gugun1" id="S_gugun1"></select>
 	</div>
 	<!-- ** 선호거래 체크박스 끝 **-->
 	
@@ -143,8 +150,9 @@ $('document').ready(function() {
 	<!-- ** 가격 입력 상자 끝 ** -->
 	
 <!-- 입력상자 시작  -->    
-<form id="frm" action="sellInsertPro.jsp" method="post" >
+
 <table>
+<input type="hidden" name="M_id" value="<%=M_id %>"/>
 	<tr>
 		<th>제목</th>
     	<td><input type="text" id="S_title" name="S_title" style="width:650px" placeholder="제목을 입력하세요"/></td>
@@ -155,16 +163,20 @@ $('document').ready(function() {
         <textarea rows="10" cols="30" id="S_text" name="S_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
         </td>
      </tr>
-	  <tr>
-         <td colspan="2">
-              <div class="buttons">
-            	 <input type="button" onclick="location.href = 'sellEditPro.jsp'" value="수정"/>
-            	 <input type="button" onclick="location.href = '#'" value="뒤로가기"/>
-            	 <input type="button" onclick="location.href = 'sellDelete.jsp'" value="삭제"/>
+</table>   
+<table>
+     <tr>
+     	<td colspan="2">
+     		<div class="button1">
+     			<input type="file" name="S_img">
+			</div>
+              <div class="button2">
+            	 <input type="submit" id="save" value="등록"/>
+            	 <input type="reset" value="초기화"/>
               </div>
          </td>
      </tr>
- </table>   
+</table>
 </form>
 </div>
 <!-- 텍스트박스 입력상자 끝  -->  
