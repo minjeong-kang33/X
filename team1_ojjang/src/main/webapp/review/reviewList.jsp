@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="review.reviewDAO"%>
 <%@page import="review.reviewDTO"%>
@@ -12,7 +13,7 @@
     <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
-   <link href="../assets/css/reviewWrite.css" rel="stylesheet" type="text/css">
+   <link href="../assets/css/reviewWriteList.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장 - 리뷰작성</title>
 
@@ -45,6 +46,7 @@ int endRow = startRow+pageSize-1;
 
 ArrayList<reviewDTO> reviewList= dao.getReviewList(startRow, pageSize);
 
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 
 %>
 
@@ -56,16 +58,16 @@ ArrayList<reviewDTO> reviewList= dao.getReviewList(startRow, pageSize);
             <div></div>
         </div>
     </div>  
-    
+    .
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
 
 	<section class="section" id="products">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="section-heading">
+		<div class="container"> <!--  댓글부분  -->
+			<div class="row"> <!--  글쓰기 버튼  -->
+				<div class="col-lg-12"> <!--  테이블부분 -->
+					<div class="section-heading"> <!--  테이블 제목부분 -->
 					<!--  게시판제목 -->
 						<h2>리뷰 내역</h2>
 						<span>review list</span>
@@ -73,10 +75,6 @@ ArrayList<reviewDTO> reviewList= dao.getReviewList(startRow, pageSize);
 					
 					<!--  리뷰작성 입력상자 시작 -->
 						<table>
-							<tr>
-								<th> 사진 </th><th>제목</th><th>작성자</th><th>등록일</th><th>조회수</th>
-							</tr>
-							
 							<%
 							
 							for(int i=0; i<reviewList.size();i++){
@@ -84,15 +82,52 @@ ArrayList<reviewDTO> reviewList= dao.getReviewList(startRow, pageSize);
 								
 							%>
 							<tr>
-								<td><%=dto.getRE_img1() %> </td><td> <%=dto.getRE_title() %> </td><td> <%=dto.getRE_writer() %> </td><td><%=dto.getRE_createtime() %></td><td> <%=dto.getRE_view() %> </td>
+								<td rowspan="4" ><%=dto.getRE_img1() %> </td><td> 제목 : <%=dto.getRE_title() %> </td>
+								<td> 작성일 : <%=dateFormat.format(dto.getRE_createtime())%></td>
 							</tr>
-							
+							<tr>	
+								<td colspan="2"> 내용 : <%=dto.getRE_text() %> </td>
+							</tr>
+							<tr>
+								<td> 글쓴이 : <%=dto.getRE_writer() %> </td>
+								<td> 조회수 : <%=dto.getRE_view() %> </td>
+							</tr>
+							<tr>
+								<td> 
+							</tr>
+							<tr><td colspan="3" class="line"></td> <tr>
 							<%
 							}
 							%>
+							
 						</table>
 				</div>
+				<button type="button" class="btn btn-dark" onclick="location.href='reviewWriteForm.jsp'" style="float:right">글쓰기</button>
 			</div>
+				<!--  페이지 번호  -->
+				<%
+					int pageBlock = 10;
+				int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+				int endPage=startPage+pageBlock-1;
+				int count = dao.getreviewCount();
+				int pageCount=count/pageSize+(count%pageSize==0?0:1);
+				if(endPage > pageCount){
+					endPage = pageCount;
+				}
+				
+				if(startPage>pageBlock){
+					%>
+					<a href="reviewList.jsp?pageNum=<%=startPage-pageBlock%>"> [10페이지 이전]</a>
+					<%
+				}
+				
+				for(int i=startPage;i<=endPage;i++){
+					%>
+					<a href="reviewList.jsp?pageNum=<%=i%>"><%=i%></a>
+					<%
+				}
+				
+				%>
 		</div>
 	</section>
 
