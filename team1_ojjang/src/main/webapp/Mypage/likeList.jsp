@@ -1,9 +1,8 @@
+
+<%@page import="like.LikeDTO"%>
 <%@page import="admin.MypageDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="sell.SellDAO"%>
 <%@page import="sell.SellDTO"%>
-<%@page import="deal.DealDAO"%>
-<%@page import="deal.DealDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@page import="java.util.ArrayList"%>
@@ -30,55 +29,42 @@
         <div class="container">
              <div class="inner-content2">
             
- <!-- ***** 판매내역조회***** -->
+ <!-- ***** 찜목록 조회 ***** -->
     
-    <h3>판매내역조회</h3>
+    <h3>찜목록 조회</h3>
 <%
 String M_id=(String)session.getAttribute("M_id");
-
-DealDTO dto=new DealDTO();
-SellDTO sdto=new SellDTO();
-
+// LikeDTO dto=new LikeDTO();
+SellDTO dto=new SellDTO();
 MypageDAO dao=new MypageDAO();
 
-
-
-ArrayList<DealDTO> dealHistory=dao.dealHistory(M_id);
-ArrayList<SellDTO> sellHistory=dao.sellHistory(M_id);
-
-SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
+ArrayList<SellDTO> likeHistory=dao.likeHistory(M_id);
+// SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>	
 <section>
 <table border="1">
-<tr><td>판매글제목</td><td>판매가격</td><td>카테고리</td><td>구매자</td><td>거래날짜</td></tr>
+<tr><td>판매자</td><td>카테고리</td><td>글제목</td><td>내용</td><td>가격</td></tr>
 
 <%
-// System.out.println(dealListS.size());
+// System.out.println(dealList.size());
 // System.out.println(dealListB.size());
-for(int i=0;i<dealHistory.size();i++){
- 	dto=dealHistory.get(i);
-	sdto=sellHistory.get(i);
-	
-	
-	
+for(int i=0;i<likeHistory.size();i++){
+ 	dto=likeHistory.get(i);
 %>
-
 	<tr>
-		<td><%=sdto.getS_title() %></td>
-		<td><%=sdto.getS_price() %></td>
-		<td><%=sdto.getS_category() %></td>
-		<td><%=dto.getD_buy() %>
-		<td><%=dateFormat.format(dto.getD_date()) %></td>
-		
-		
+		<td><%=dto.getM_id() %></td>
+		<td><%=dto.getS_category() %></td>
+		<td><%=dto.getS_title() %></td>
+		<td><%=dto.getS_text() %></td>
+		<td><%=dto.getS_price() %></td>
 	</tr>
-
+	
 <%
 }
 %>
-	</table>
+</table>
 </section>
-	<!-- ***** 판매내역조회 끝 ***** -->
+	<!-- ***** 찜목록조회 끝 ***** -->
 	       
              </div>
         </div>
@@ -109,7 +95,6 @@ for(int i=0;i<dealHistory.size();i++){
     <script src="../assets/js/custom.js"></script>
 
     <script>
-
         $(function() {
             var selectedClass = "";
             $("p").click(function(){
@@ -123,7 +108,6 @@ for(int i=0;i<dealHistory.size();i++){
                 
             });
         });
-
     </script> 
 
   </body>
