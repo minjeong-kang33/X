@@ -98,6 +98,13 @@ public class reviewDAO {
 				dto.setRE_createtime(rs.getTimestamp("RE_createtime"));
 				dto.setRE_view(rs.getInt("RE_view"));
 				dto.setRE_writer(rs.getString("RE_writer"));
+				dto.setRE_text(rs.getString("RE_text"));
+				dto.setRE_delivery(rs.getString("RE_delivery"));
+				dto.setRE_manner (rs.getString("RE_manner"));
+				dto.setRE_ProductStatus(rs.getString("RE_ProductStatus"));
+				dto.setRE_fast(rs.getString("RE_fast"));
+				dto.setRE_time(rs.getString("RE_time"));
+				dto.setRE_writer(rs.getString("RE_writer"));
 				
 				reviewList.add(dto);
 			}
@@ -137,6 +144,13 @@ public class reviewDAO {
 				dto.setRE_writer(rs.getString("RE_writer"));
 				dto.setRE_createtime(rs.getTimestamp("RE_createtime"));
 				dto.setRE_view(rs.getInt("RE_view"));
+				dto.setRE_text(rs.getString("RE_text"));
+				dto.setRE_delivery(rs.getString("RE_delivery"));
+				dto.setRE_manner (rs.getString("RE_manner"));
+				dto.setRE_ProductStatus(rs.getString("RE_ProductStatus"));
+				dto.setRE_fast(rs.getString("RE_fast"));
+				dto.setRE_time(rs.getString("RE_time"));
+				dto.setRE_writer(rs.getString("RE_writer"));
 			}
 			
 		} catch (Exception e) {

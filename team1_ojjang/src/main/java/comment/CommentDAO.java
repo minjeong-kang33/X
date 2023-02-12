@@ -80,6 +80,32 @@ public class CommentDAO {
 		return -1;
 	}
 	
+	public CommentDTO getComment(int Co_num) {
+		CommentDTO reply = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con =  getConnection();
+			String SQL = "select Co_text from comment where Co_num = ?";
+			pstmt = con.prepareStatement(SQL);
+			pstmt.setInt(1,Co_num);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				reply = new CommentDTO();
+				reply.setCo_text(rs.getString("Co_text"));
+			}else {
+		}
+		}catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+		}
+		return reply;
+		
+	}
 	
 	public int write(int B_num,String Co_text,String M_id) {
 		Connection con = null;
@@ -133,6 +159,7 @@ public class CommentDAO {
 			pstmt=con.prepareStatement(SQL);
 			pstmt.setString(1, Co_text);
 			pstmt.setInt(2, Co_num);
+			return pstmt.executeUpdate();
 		}catch (Exception e) {
 			e.printStackTrace();
 			}finally {

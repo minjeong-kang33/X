@@ -98,7 +98,14 @@ String M_id = (String)session.getAttribute("M_id");
 						<tr>
 							<td style="text-align: left;"><%=List.get(i).getCo_text() %></td>
 							<td style="text-align: right;"><%=List.get(i).getM_id() %>
-							<a href="javascript:CoUpdate()" class="btn">수정</a>
+							<a href=# onclick = "return coupdate();" class="btn">수정</a>
+								<script text="text/javascript">
+								function coupdate(Co_num){
+									window.name ="buydetails";
+									window.open("commentupdateForm.jsp?Co_num="+<%=List.get(i).getCo_num()%>,
+											"updateForm", "width=570, height=350, resizable=no, scrollbars=no");
+								}
+								</script>
 							<a href="commentdeleteAction.jsp?B_num=<%=B_num %>&Co_num=<%=List.get(i).getCo_num() %>"
 								onclick="return delchk();">삭제</a>
 								<script type="text/javascript">

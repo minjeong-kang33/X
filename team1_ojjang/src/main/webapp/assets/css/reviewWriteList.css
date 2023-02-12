@@ -37,9 +37,6 @@ table{
 	margin: 0 auto;
 }
 
-.btn {
-	margin-left: 650px;
-}
 
 
 .row{
@@ -50,5 +47,10 @@ table{
 .line{
 	
 	border-bottom: 1px solid red;
+}
+
+
+.btn {
+	margin-left: 650px;
 }
 
