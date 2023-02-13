@@ -77,19 +77,27 @@ $('document').ready(function() {
     
 
     // 시/도 선택 박스 초기화
-    $("select[name^=B_sido1]").each(function() {
+    /* $("select[name^=B_sido1]").each(function() {
      $selB_sido1 = $(this);
      $.each(eval(area0), function() {
       $selB_sido1.append("<option value='"+this+"'>"+this+"</option>");
      });
-     $selB_sido1.next().append("<option value=''>구/군 선택</option>");
-    });
+      $selB_sido1.next().append("<option value=''>구/군 선택</option>"); 
+    }); */
+
+    $("select[name^=B_sido1]").each(function() {
+        $selB_sido1 = $(this);
+        $.each(eval(area0), function() {
+         $selB_sido1.append("<option value='"+this+"'>"+this+"</option>");
+        });
+        $selB_sido1.next().append("<option value=''>구/군 선택</option>"); 
+       });
 
     // 시/도 선택시 구/군 설정
     $("select[name^=B_sido1]").change(function() {
      var area = "area"+$("option",$(this)).index($("option:selected",$(this))); // 선택지역의 구군 Array
      var $B_gugun1 = $(this).next(); // 선택영역 군구 객체
-     $("option",$B_gugun1).remove(); // 구군 초기화
+     //$("option",$B_gugun1).remove(); // 구군 초기화
      if(area == "area0")
       $B_gugun1.append("<option value=''>구/군 선택</option>");
      else {
@@ -99,7 +107,7 @@ $('document').ready(function() {
      }
     });
    });
-   
+
 </script>
 </head>
 <body>
@@ -110,7 +118,7 @@ $('document').ready(function() {
  <%
 
 int B_num = Integer.parseInt(request.getParameter("B_num"));
-BuyDAO dao = new BuyDAO();
+BuyDAO dao = new BuyDAO(); 
 BuyDTO dto = dao.getBuyBoard(B_num);
 String M_id = (String)session.getAttribute("M_id");
 
@@ -123,13 +131,13 @@ String M_id = (String)session.getAttribute("M_id");
 <form id="frm" action="buyEditPro.jsp" method="post" enctype="multipart/form-data">	
 	<div class="radio1">
 		<b>카테고리</b>
-		<input type="radio" id="radio-btn-1" name="B_category" value="<%=dto.getB_category() %>">
+		<input type="radio" id="radio-btn-1" name="B_category" value="outer">
 			<label for="radio-btn-1" class="btn">아우터</label>
-		<input type="radio" id="radio-btn-2" name="B_category" value="<%=dto.getB_category() %>">
+		<input type="radio" id="radio-btn-2" name="B_category" value="shirts">
 			<label for="radio-btn-2" class="btn">상의</label>
-		<input type="radio" id="radio-btn-3" name="B_category" value="<%=dto.getB_category() %>">
+		<input type="radio" id="radio-btn-3" name="B_category" value="pants">
 			<label for="radio-btn-3" class="btn">하의</label>
-		<input type="radio" id="radio-btn-4" name="B_category" value="<%=dto.getB_category() %>">
+		<input type="radio" id="radio-btn-4" name="B_category" value="dress">
 			<label for="radio-btn-4" class="btn">원피스</label>
 	</div>
 	<!-- ** 옷 카테고리 선택 끝 -->
@@ -137,27 +145,40 @@ String M_id = (String)session.getAttribute("M_id");
 	<!-- ** 선호거래 체크박스 시작 **-->
 	<div class="check1">
 		<b>선호하는 거래형태</b>
-		<input type="checkbox" id="checkbox-btn-1" name="B_send1"  value="<%=dto.getB_send1() %>">
+		<% if(dto.getB_send1()!=null && dto.getB_send2()!=null){%> 
+		<input type="checkbox" id="checkbox-btn-1" name="B_send1" checked>
 			<label for="checkbox-btn-1" class="btn">택배거래</label>
-		<input type="checkbox" id="checkbox-btn-2" name="B_send2" value="<%=dto.getB_send2() %>">
-			<label for="checkbox-btn-2" class="btn" >직거래</label>
+		<input type="checkbox" id="checkbox-btn-2" name="B_send2" checked>
+			<label for="checkbox-btn-2" class="btn" >직거래</label><%}
+		else if(dto.getB_send1()!=null){%> 
+		<input type="checkbox" id="checkbox-btn-1" name="B_send1" checked>
+			<label for="checkbox-btn-1" class="btn">택배거래</label>
+		<input type="checkbox" id="checkbox-btn-2" name="B_send2">
+			<label for="checkbox-btn-2" class="btn" >직거래</label><%}
+		else if(dto.getB_send2()!=null){%> 
+		<input type="checkbox" id="checkbox-btn-1" name="B_send1">
+			<label for="checkbox-btn-1" class="btn">택배거래</label>
+		<input type="checkbox" id="checkbox-btn-2" name="B_send2"  checked>
+			<label for="checkbox-btn-2" class="btn" >직거래</label><%}%>
 			
       <select name="B_sido1" id="B_sido1" ></select>
       <select name="B_gugun1" id="B_gugun1"></select>
    </div>
-	<!-- ** 선호거래 체크박스 끝 **-->
+   
+<!-- ** 선호거래 체크박스 끝 **-->
+	
 <!-- 입력상자 시작  -->    
 
 <table>
 <input type="hidden" name="M_id" value="<%=M_id %>"/>
 	<tr>
 		<th>제목</th>
-    	<td><input type="text" id="B_title" name="B_title" value="<%=dto.getB_title() %>style="width:650px" placeholder="제목을 입력하세요"/></td>
+    	<td><input type="text" id="B_title" name="B_title" value="<%=dto.getB_title() %>" style="width:650px" placeholder="제목을 입력하세요"/></td>
     </tr>
     <tr>
         <th>내용</th>
         <td>
-        <textarea rows="10" cols="30" id="B_text" value="<%=dto.getB_text() %>"name="B_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
+        <textarea rows="10" cols="30" id="B_text" name="B_text" style="width:650px; height:350px;"><%=dto.getB_text() %></textarea>
         </td>
      </tr>
  </table>   
@@ -169,7 +190,7 @@ String M_id = (String)session.getAttribute("M_id");
 			</div>
               <div class="button2">
             	 <input type="submit" id="save" value="글수정"/>
-            	 <input type="button" value="글삭제" onClick="location.href='buyDeletePro.jsp'"/>
+            	 <input type="button" value="글삭제" onclick="location.href='buyDelete.jsp?B_num=<%=dto.getB_num() %>'"/>
               </div>
          </td>
      </tr>
