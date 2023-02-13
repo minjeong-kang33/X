@@ -1,3 +1,7 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="sell.SellDTO"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="sell.SellDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,8 +14,50 @@
     <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
+    <link href="../assets/css/sell.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/main.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
+
+   <script type="text/javascript">     
+   	 <%-- 토글 --%>
+    	var set_state = true;
+    	var img_icon = new Array(); 
+    	img_icon[0] = new Image(); 
+    	img_icon[1] = new Image();
+    	img_icon[0].src = "../sell/heart.png"; 
+    	img_icon[1].src = "../sell/fullheart.png"; 
+    	
+    function hartToggle(){
+    	document.all.icon_btn.src = (set_state ? img_icon[0].src : img_icon[1].src);
+    	   if(set_state){ 
+    		   set_state = false;
+    	   } else {
+    	       set_state = true;
+    	   }
+    }
+    
+    <%-- 검색창 용 --%>
+    $(document).on('ready', function() {
+    	  
+    	  $('.field').on('focus', function() {
+    	    $('body').addClass('is-focus');
+    	  });
+    	  
+    	  $('.field').on('blur', function() {
+    	    $('body').removeClass('is-focus is-type');
+    	  });
+    	  
+    	  $('.field').on('keydown', function(event) {
+    	    $('body').addClass('is-type');
+    	    if((event.which === 8) && $(this).val() === '') {
+    	      $('body').removeClass('is-type');
+    	    }
+    	  });
+    	  
+    	});
+    
+    </script>
 </head>
 <body>
 <%
@@ -42,9 +88,30 @@ String M_id = (String)session.getAttribute("M_id");
     </div>
 <!--     ***** 배너 끝 ***** -->
 
+ <!-- ***** 검색창 시작 ***** -->
+<div class = searchbar>
+  <form class="search-container">
+    <input type="text" id="search-bar" placeholder="찾으시는 상품이 있나요?">
+    <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
+  </form>
+</div>
+ <!-- ***** 검색창 끝 ***** -->
+
+
 <!--     ***** 아우터 최신 글 시작 ***** -->
     <section class="section" id="men">
-        <div class="container">
+    	<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="section-heading">
+						<h2>아우터</h2>
+						<span>outer</span>
+					</div>
+				</div>
+			</div>
+		</div>
+    	
+        <!-- <div class="container">
             <div class="row">
                 <div class="col-lg-6">
                     <div class="section-heading">
@@ -53,13 +120,88 @@ String M_id = (String)session.getAttribute("M_id");
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="container">
+        </div> -->
+        <!-- <div class="container">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="men-item-carousel">
-                        <div class="owl-men-item owl-carousel">
-                            <div class="item">
+                        <div class="owl-men-item owl-carousel"> -->
+        <div class="container">
+			<div class="row">
+				<div class="col-lg-4">
+					<div class="item">
+						<div class="down-content">
+  	<%
+	SellDAO dao =new SellDAO();
+	
+	int pageSize = 3;
+	
+	String pageNum = request.getParameter("pageNum");
+	
+	if(pageNum==null){
+		pageNum="1";
+	}
+	
+	int currentPage=Integer.parseInt(pageNum);
+	int startRow = (currentPage-1)*pageSize+1;
+	
+	int endRow = startRow + pageSize -1;
+	
+	ArrayList<SellDTO> sellList = dao.getsellList(startRow, pageSize);
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+			
+	%>						
+<table>
+	<tr> <!--  테이블................1칸 -->
+	<%
+	for(int i=0; i<sellList.size();i++){
+		SellDTO dto = sellList.get(i);
+	
+	%>
+		<td>
+			<table class="item-table">
+				<tr>
+					<td colspan="2" class="S_img"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></td>
+				</tr>
+				<tr>
+					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
+				</tr>
+				<tr>
+					<td class="price"><%=dto.getS_price()%></td> <td class="like_id"><input type="image" name="button"  class="hart" src="../sell/heart.png" onclick="hartToggle()">
+				</tr>
+				<tr>
+					<td colspan="2" class="S_createdate" ><%=dto.getS_createdate()%></td> <!-- 게시글 생성일자 -->
+				</tr>
+				<tr>
+					<td colspan="2" class="S_send"> <% if(dto.getS_send1()!=null&&dto.getS_send2()!=null){%> <%= "<b>택배거래</b>, <b>직거래</b>"%><%}
+						else if(dto.getS_send1()!=null){%> <%= "<b>택배거래</b>"%><%}
+						else if(dto.getS_send2()!=null){%> <%= "<b>직거래</b>"%><%}%> </td> <!-- 선호거래유형 -->
+				</tr>
+				<tr>
+					<td colspan="2"> <% if(dto.getS_send2()!=null){%> <img src="../sell/location_icon.png" class="location"><%= dto.getS_sido1()%><%} else { %>　<%}%> </td>
+					<!-- else에 안보이는 공백문자있어요 지우지마세요 지우면 정렬깨짐 -->
+				</tr>
+			</table>
+		</td>		
+			 <%
+			if((i+1) %3 ==0)
+				break;
+			%>
+				</tr>
+				<tr>
+				
+			<%
+	 }
+	 	%>
+	
+</tr>
+</table>      
+        
+        
+        
+        
+
+<!--                             <div class="item">
                                 <div class="thumb">
                                     <div class="hover-content">
                                         <ul>
@@ -150,12 +292,12 @@ String M_id = (String)session.getAttribute("M_id");
                                         <li><i class="fa fa-star"></i></li>
                                     </ul>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </div> 
     </section>
 
     <section class="section" id="women">
