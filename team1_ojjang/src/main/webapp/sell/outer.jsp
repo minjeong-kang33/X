@@ -24,8 +24,8 @@
     	var img_icon = new Array(); 
     	img_icon[0] = new Image(); 
     	img_icon[1] = new Image();
-    	img_icon[0].src = "hart.png"; 
-    	img_icon[1].src = "fullhart.png"; 
+    	img_icon[0].src = "heart.png"; 
+    	img_icon[1].src = "fullheart.png"; 
     	
     function hartToggle(){
     	document.all.icon_btn.src = (set_state ? img_icon[0].src : img_icon[1].src);
