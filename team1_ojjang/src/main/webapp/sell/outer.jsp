@@ -106,10 +106,10 @@
 		<td>
 			<table class="item-table">
 				<tr>
-					<td colspan="2" class="S_img"><img src="/img/sell/<%=dto.getS_img()%>" width=300px height=300px class="goodsImg"></td>
+					<td colspan="2" class="S_img"> <a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" ><img src="/img/sell/<%=dto.getS_img()%>" width=300px height=300px class="goodsImg"></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
+					<td colspan="2" class="S_title" > <a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" > <%=dto.getS_title()%></td> <!-- 제목 -->
 				</tr>
 				<tr>
 					<td class="price"><%=dto.getS_price()%>원</td> <td align="right" class="like_id"><input type="image" name="button"  class="heart" src="heart.png" onclick="hartToggle()">
@@ -162,13 +162,13 @@
 				
 				if(startPage>pageBlock){
 					%>
-					<a href="reviewList.jsp?pageNum=<%=startPage-pageBlock%>"> [10페이지 이전]</a>
+					<a href="outer.jsp?pageNum=<%=startPage-pageBlock%>"> [10페이지 이전]</a>
 					<%
 				}
 				
 				for(int i=startPage;i<=endPage;i++){
 					%>
-					<a href="reviewList.jsp?pageNum=<%=i%>"><%=i%></a>
+					<a href="outer.jsp?pageNum=<%=i%>"><%=i%></a>
 					<%
 				}
 				

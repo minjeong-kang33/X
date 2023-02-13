@@ -82,7 +82,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 							%>
 							<tr>
 								<td rowspan="4" ><img src="../reviewFile/<%=dto.getRE_img1() %>" class="RE_img_st"></td><td> 제목 : <%=dto.getRE_title() %> </td>
-								<td> 작성일 : <%=dateFormat.format(dto.getRE_createtime())%></td>
+								<td align="right"> 작성일 : <%=dateFormat.format(dto.getRE_createtime())%></td>
 							</tr>
 							<tr>
 								<td colspan="2"> 글쓴이 : <%=dto.getRE_writer() %> </td>

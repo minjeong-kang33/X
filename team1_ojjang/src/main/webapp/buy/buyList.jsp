@@ -53,7 +53,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 <section class="notice">
   <div class="page-title">
         <div class="container">
-            <h3>삽니다요</h3>
+            <h3>삽니다</h3>
         </div>
     </div>
     
