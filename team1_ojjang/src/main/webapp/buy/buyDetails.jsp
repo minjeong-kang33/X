@@ -1,3 +1,4 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@page import="comment.CommentDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -41,6 +42,7 @@ BuyDAO dao = new BuyDAO();
 BuyDTO dto = dao.getBuyBoard(B_num);
 String M_id = (String)session.getAttribute("M_id");
 
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 %>
 <div class="container2">
 	<div class="row">
@@ -62,7 +64,7 @@ String M_id = (String)session.getAttribute("M_id");
 			</tr>
 			<tr>
 				<td>작성일자</td>
-				<td colspan="2"> <%= dto.getB_time()%> </td>
+				<td colspan="2"> <%= dateFormat.format(dto.getB_time())%> </td>
 			</tr>
 			<tr>
 				<td>글내용</td>
