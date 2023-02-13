@@ -28,9 +28,12 @@
          <div class="col-lg-3">
             <h4>Useful Links</h4>
             <ul>
-               <li><a href="#">프로필</a></li>
-               <li><a href="#">찜 목록</a></li>
-               <li><a href="#">거래 내역</a></li>
+               <li><a href="../Mypage/profile.jsp">프로필</a></li>
+               <li><a href="../Mypage/likeList.jsp">찜목록</a></li>
+               <li><a href="../Mypage/sellHistory.jsp">판매내역</a></li>
+               <li><a href="../Mypage/buyHistory.jsp">구매내역</a></li>
+               <li><a href="../Mypage/WriteHistoryB.jsp">구매글내역</a></li>
+               <li><a href="../Mypage/WriteHistoryS.jsp">판매글내역</a></li>
                <li><a href="#">거래 후기</a></li>
             </ul>
          </div>

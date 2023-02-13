@@ -30,8 +30,11 @@
                   <li class="submenu"><a>마이페이지</a>
                      <ul>
                         <li><a href="../Mypage/profile.jsp">프로필</a></li>
-                        <li><a href="#">찜목록</a></li>
-                        <li><a href="#">거래내역</a></li>
+                        <li><a href="../Mypage/likeList.jsp">찜목록</a></li>
+                        <li><a href="../Mypage/sellHistory.jsp">판매내역</a></li>
+                        <li><a href="../Mypage/buyHistory.jsp">구매내역</a></li>
+                        <li><a href="../Mypage/WriteHistoryB.jsp">구매글내역</a></li>
+                        <li><a href="../Mypage/WriteHistoryS.jsp">판매글내역</a></li>
                         <li><a href="#">거래후기</a></li>
                         <li><a href="#">로그아웃</a></li>
                      </ul></li>
