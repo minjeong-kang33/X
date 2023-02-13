@@ -10,7 +10,6 @@
 
 <script type="text/javascript">
 
-
 function fun2() {
 	window.close();
 } 
@@ -31,7 +30,7 @@ if(M_id==null){
 
 <%-- 신고하기 폼 --%>
 <div class="reportForm">
-	<form action="reportWritePro.jsp" method="post">
+	<form action="reportWritePro.jsp" method="post" name="reportWriteBox">
 	<input type="hidden" name="M_id" value="<%=M_id %>">
 	<span class="reportInfo"><img src="danger.png" class="dangerIcon">  클릭하여 신고 이유를 선택해 주세요. </span> 
 	<select id="selectBox" name="R_type">
