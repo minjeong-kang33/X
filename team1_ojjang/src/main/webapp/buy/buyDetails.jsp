@@ -45,7 +45,7 @@ String M_id = (String)session.getAttribute("M_id");
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 %>
 <div class="container2">
-	<div class="row">
+	<div class="row" style="text-align: center; ">
 	<!--보내지는 내용 숨겨지도록(post) 작성한 글을 writeAction으로 보냄 -->
 	<table class = "table table-striped" style="text-align:center; border:1px solid #dddddd">
 		<thead>
@@ -74,7 +74,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 </tbody>		
 </table>
 <!-- 댓글시작 -->
-<div class="comment">
+<div id="comment"  style="text-align: center;" >
 <form method="post" action="commentAction.jsp?B_num=<%=B_num%>">
 				<table class="table table-striped"
 					style="text-align: center; border: 1px solid #dddddd">
@@ -99,20 +99,22 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 
 						<tr>
 							<td style="text-align: left;"><%=List.get(i).getCo_text() %></td>
-							<td style="text-align: right;"><%=List.get(i).getM_id() %>
-							<a href=# onclick = "return coupdate();" class="btn">수정</a>
-								<script text="text/javascript">
+							<td style="text-align: right;"><%=List.get(i).getM_id() %></td>
+							<td><a href=# onclick = "return coupdate();" class="btn">수정</a>
+									<script text="text/javascript">
 								function coupdate(Co_num){
 									window.name ="buydetails";
 									window.open("commentupdateForm.jsp?Co_num="+<%=List.get(i).getCo_num()%>,
 											"updateForm", "width=570, height=350, resizable=no, scrollbars=no");
 								}
-								</script>
+									</script>
+							</td>
+							<td>
 							<a href="commentdeleteAction.jsp?B_num=<%=B_num %>&Co_num=<%=List.get(i).getCo_num() %>"
-								onclick="return delchk();">삭제</a>
-								<script type="text/javascript">
+								onclick="return delchk();" class="btn">삭제</a>
+									<script type="text/javascript">
 								function delchk(){return confirm("삭제하시겠습니까?");}
-								</script>
+									</script>
 							</td> 
 						</tr>
 		
@@ -120,18 +122,23 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 								}
 						%>
 			<td>
+			<div class="btn-naran">
 				<textarea type="text" class="form-control"
-				placeholder="댓글을 입력하세요." name="Co_text" maxlength="2048"></textarea>
+				placeholder="댓글을 입력하세요." name="Co_text" 
+				maxlength="2048" style="width:800px;height:100px;font-size:15px;"></textarea>
+				<input type="submit" class="btn btn-dark" value="댓글입력">
+			</div>
 			</td>
 
 					
 					</tbody>
 				</table>
-				<input type="submit" class="btn" value="댓글입력">
+				
 			</form>
 			</div>
+	</div>
 <!-- 댓글끝 -->
-</div>
+
 			<div class="btn-naran">
 <%
 if(M_id != null){
@@ -144,7 +151,7 @@ if(M_id != null){
 	}
 }
 %>
-	<button type="button" class="btn btn-dark" onclick="location.href='buyList.jsp'" style="float:right">글목록</button>
+	<button type="button" class="btn btn-dark" onclick="location.href='buyList.jsp'" ">글목록</button>
 </div>
 </div>
 <!-- ***** 푸터 시작 ***** -->
