@@ -1,8 +1,14 @@
-<%@page import="member.MemberDTO"%>
-<%@page import="member.MemberDAO"%>
+<%@page import="buy.BuyDTO"%>
+<%@page import="admin.MypageDAO"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="sell.SellDAO"%>
+<%@page import="sell.SellDTO"%>
+<%@page import="deal.DealDAO"%>
+<%@page import="deal.DealDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!DOCTYPE html>
+<%@page import="java.util.ArrayList"%>
+    
 <html>
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -17,51 +23,59 @@
 </head>
 <body>
     <body>
-
-    <!-- ***** 헤더 ***** -->
+     <!-- ***** 헤더 ***** -->
   <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
-     <div class="page-heading about-page-heading" id="top">
+    <div class="page-heading about-page-heading" id="top">
         <div class="container">
              <div class="inner-content2">
-             	
-    <!-- ***** 비밀번호 ***** -->
-
-
-<h3>비밀번호수정</h3>
-	
-
-
-
+            
+ <!-- ***** 판매내역조회***** -->
+    
+    <h3>구매글내역조회</h3>
 <%
 String M_id=(String)session.getAttribute("M_id");
-MemberDAO dao=new MemberDAO();
-MemberDTO dto=dao.getMember(M_id);
+
+BuyDTO dto=new BuyDTO();
+MypageDAO dao=new MypageDAO();
 
 
+ArrayList<BuyDTO> WriteHistoryB=dao.WriteHistoryB(M_id);
 
+SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
+%>	
+<section>
+<table border="1">
+<tr><td>구매글제목</td><td>내용</td><td>카테고리</td><td>이미지</td><td>조회수</td></tr>
+
+<%
+// System.out.println(dealListS.size());
+// System.out.println(dealListB.size());
+for(int i=0;i<WriteHistoryB.size();i++){
+	dto=WriteHistoryB.get(i);
+	
 %>
-<section>	
-<form action="pwUpdatePro.jsp" method="post" name="fr">
-아이디 : <input type="text" name="M_id" value="<%=M_id%>" readonly><br>
-비밀번호 : <input type="password" name="M_pw"><br>
-변경 비밀번호: <input type="password" name="M_pw2"><br>
 
-<input type="button" value="회원정보수정" onclick="fun1()">
-</form>
+	<tr>		
+		<td><%=dto.getB_title() %></td>
+		<td><%=dto.getB_text() %></td>
+		<td><%=dto.getB_category() %></td>
+		<td><%=dto.getB_img() %>
+		<td><%=dto.getB_view() %>	
+		
+	</tr>
 
-<a href="main.jsp">메인으로 이동</a>
-
+<%
+}
+%>
+	</table>
 </section>
-               
-	<!-- ***** 회원정보수정 끝 ***** -->        
-            
+	<!-- ***** 판매내역조회 끝 ***** -->
+	       
              </div>
         </div>
-    </div>
-    
-       <!-- ***** 푸터 시작 ***** -->
+    </div>     <!-- ***** 푸터 시작 ***** -->
    <jsp:include page="../bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
@@ -106,28 +120,4 @@ MemberDTO dto=dao.getMember(M_id);
     </script> 
 
   </body>
-  <script>
-  function fun1(){
-		if(document.fr.M_pw2.value.length<8){
-			alert("수정할 비밀번호를 8자 이상 입력하세요.")
-			document.fr.M_pw2.focus();
-			return;
-		}
-		document.fr.submit();
-	}
-  </script>
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 </html>

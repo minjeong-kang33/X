@@ -113,6 +113,7 @@ public class SellDAO {
 		return sellList;
 	} // getsellList 끝 (글목록에서 사용)
 	
+	
 	public int getSellBoardCount() {
 		int count = 0;
 		Connection con = null;
@@ -292,6 +293,21 @@ public class SellDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
+		//	찜 삭제 먼저
+			try {
+				con = getConnection();
+				String sql = "delete from likes where S_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, S_num);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+				if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			}
+			
+		//	그 다음 글 삭제 	
 		try {
 			con = getConnection();
 			String sql = "delete from sell where S_num=?";
@@ -305,6 +321,82 @@ public class SellDAO {
 			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
 	} //delete (글삭제)
+	
+	//검색리스트
+		public ArrayList<SellDTO> getSearch(String searchText){
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			ArrayList<SellDTO> list=new ArrayList<>();
+
+
+			try {			
+				con=getConnection();
+				// 3단계 sql
+				// 기본 num기준 오름차순 => 최근글 위로 올라오게 정렬 (num 내림차순)
+				String sql = "SELECT * FROM SELL WHERE S_TITLE LIKE ?"  ;
+				pstmt = con.prepareStatement(sql);
+				pstmt.setString(1, "%"+searchText+"%");
+				rs=pstmt.executeQuery();
+				//5
+				while(rs.next()) {
+					// 하나의 글의 바구니에 저장
+					SellDTO dto=new SellDTO();
+					dto.setS_img(rs.getString("S_img"));
+					dto.setS_title(rs.getString("S_title"));
+					dto.setS_price(rs.getInt("S_price"));
+					dto.setS_sido1(rs.getString("S_sido1"));
+					dto.setS_gugun1(rs.getString("S_gugun1"));
+					dto.setS_send1(rs.getString("S_send1"));
+					dto.setS_createdate(rs.getTimestamp("S_createdate"));
+					// 바구니의 주소값을 배열 한칸에 저장
+					list.add(dto);
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+			}finally {
+				// 예외 상관없이 마무리작업 => 객체생성한 기억장소 해제
+				if(rs!=null) try { rs.close();} catch (Exception e2) {}
+				if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+				if(con!=null) try { con.close();} catch (Exception e2) {}
+			}
+			return list;
+		
+	}
+		//현재 페이지 숫자세기
+		public int getSellCount() {
+			Connection con=null;
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			SellDTO dto=null;
+			int count=0;
+			try {
+				// 1~2 단계
+				con=getConnection();
+				// 3단계 sql
+				String sql="select * from Sell where S_num=?";
+				pstmt=con.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				//5
+				while(rs.next()) {
+					// 하나의 글의 바구니에 저장
+					dto=new SellDTO();
+					dto.setS_img(rs.getString("S_img"));
+					dto.setS_title(rs.getString("S_title"));
+					dto.setS_price(rs.getInt("S_price"));
+					dto.setS_sido1(rs.getString("S_sido1"));
+					dto.setS_gugun1(rs.getString("S_gugun1"));
+					dto.setS_send1(rs.getString("S_send1"));
+					dto.setS_createdate(rs.getTimestamp("S_createdate"));
+					// 바구니의 주소값을 배열 한칸에 저장
+				}
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			
+			return count;	
+		}
 	
 }
 

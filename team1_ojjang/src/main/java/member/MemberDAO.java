@@ -168,35 +168,6 @@ public class MemberDAO {
 		}
 	} //updatePw()
 	
-	//회원인지 아닌지 체크하는 매서드
-	public int registerCheck(String M_id) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rs = null;
-		String SQL = "SELECT * FROM MEMBER WHERE M_id = ?";
-		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(SQL);
-			pstmt.setString(1, M_id);
-			rs = pstmt.executeQuery();
-			if (rs.next() || M_id.equals("")) {
-				return 0; // 이미 존재하는 회원
-			} else {
-				return 1; // 가입 가능한 회원 아이디
-			}
-		} catch(Exception e) {
-			e.printStackTrace();
-		} finally {
-			try {
-				if(rs != null) rs.close();
-				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
-			} catch (Exception e) {
-			    e.printStackTrace();
-			}
-		}
-		return -1;  // 데이터베이스 오류
-	}
 	public int duplecateID(String M_id){
 		int cnt=0;
 		Connection con =null;
@@ -259,35 +230,203 @@ public class MemberDAO {
 		}
 		return cnt;
 	}//nick체크
-	public String findId(String M_name, String M_phone) {
+	public String findID(String M_name, String M_email) {
 		String M_id = null;
-		
-		Connection con =null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 		try {
-			con=getConnection();
-			String sql = "select M_id from member where M_name=? and M_phone=? ";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setString(1, M_name);
-			pstmt.setString(2, M_phone);
-			rs=pstmt.executeQuery();
+			con = getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append(" SELECT M_id ");
+			sql.append(" FROM member ");
+			sql.append(" WHERE M_name=? and M_email=?");
 			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, M_name);
+			pstmt.setString(2, M_email);
+			
+			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				M_id=rs.getString("M_id");
-			}
+				M_id = rs.getString("M_id");
+			
+			}//if end
+			
+		} catch (Exception e) {
+			System.out.println("이메일 중복확인 실패:" + e);
+			e.printStackTrace();
+		} finally {
+			if (pstmt != null)try {pstmt.close();} catch (Exception e2) {}
+			if (con != null)try {con.close();} catch (Exception e2) {}
+			if (rs != null)try {rs.close();} catch (Exception e2) {}
+		}//end			
+		return M_id;
+	}//findID() end
+
+	public String randomPasswd(int length){
+		int index = 0;
+		char[] charset = new char[] {
+			'0','1','2','3','4','5','6','7','8','9'
+			,'A','B','C','D','E','F','G','H','I','J','K','L','M'
+			,'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'
+			,'a','b','c','d','e','f','g','h','i','j','k','l','m'
+			,'n','o','p','q','r','s','t','u','v','w','x','y','z'
+		};
+
+		StringBuffer sb = new StringBuffer();
+		for(int i = 0 ; i<length ; i++){
+			index = (int) (charset.length * Math.random());
+			sb.append(charset[index]);
+		}//for end
+		return sb.toString();
+	}//randomPasswd() end
+
+	public int updatePasswd(MemberDTO dto) {
+		int cnt = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = getConnection();
+			StringBuilder sql = new StringBuilder();
+			sql.append(" UPDATE member ");
+			sql.append(" SET M_pw = ? ");
+			sql.append(" WHERE M_id = ? ");
+			
+			pstmt = con.prepareStatement(sql.toString());
+			pstmt.setString(1, dto.getM_pw());
+			pstmt.setString(2, dto.getM_id());
+			pstmt.executeUpdate();
+
 			
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
-		finally {
-			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
-			if(con!=null)try {con.close();} catch (Exception e2) {}
-			if(rs!=null)try {rs.close();} catch (Exception e2) {}
-
-		}
-		return M_id;
-	}//ID찾기
+		} finally {
+			if (pstmt != null)try {pstmt.close();} catch (Exception e2) {}
+			if (con != null)try {con.close();} catch (Exception e2) {}
+			if (rs != null)try {rs.close();} catch (Exception e2) {}
+		}		
+		//end		
+		return cnt;
+	}//updateProc() end
 	
+
+	
+	//profile 인트값 있는지 없는지
+	public int profile(String M_id, String M_Profile) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		String SQL = "UPDATE member SET M_Profile = ? WHERE M_id = ?";
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
+			pstmt.setString(1, M_Profile);
+			pstmt.setString(2, M_id);
+            return pstmt.executeUpdate();
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
+		return -1;  // 데이터베이스 오류
+	}
+	
+	// 프로필 기본값
+	public String getProfile(String M_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "SELECT M_Profile FROM Member WHERE M_id = ?";
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
+			pstmt.setString(1, M_id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if(rs.getString("M_Profile").equals("")) {
+					return "http://localhost:8080/images/icon.png";
+				}
+				return "http://localhost:8080/upload/" + rs.getString("M_Profile");
+			} 
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
+		return "http://localhost:8080/images/icon.png";
+	}
+	
+	//회원가입여부
+	public int registerCheck(String M_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "SELECT * FROM Member WHERE M_id = ?";
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
+			pstmt.setString(1, M_id);
+			rs = pstmt.executeQuery();
+			if (rs.next() || M_id.equals("")) {
+				return 0; // 이미 존재하는 회원
+			} else {
+				return 1; // 가입 가능한 회원 아이디
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
+		return -1;  // 데이터베이스 오류
+}
+	
+	// 로그인 1 = 로그인 , 2 = 실패 , 0 = 해당 사용자 존재X
+	public int login(String M_id, String M_pw) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		String SQL = "SELECT * FROM Member WHERE M_id = ?";
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
+			pstmt.setString(1, M_id);
+			rs = pstmt.executeQuery();
+			if (rs.next()) {
+				if(rs.getString("M_pw").equals(M_pw)) {
+					return 1; // 로그인에 성공
+				}
+				return 2; // 비밀번호가 틀림 
+			} else {
+				return 0; // 해당 사용자가 존재하지 않음
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				if(rs != null) rs.close();
+				if(pstmt != null) pstmt.close();
+				if(con != null) con.close();
+			} catch (Exception e) {
+			    e.printStackTrace();
+			}
+		}
+		return -1;  // 데이터 베이스 오류
+	}
 }

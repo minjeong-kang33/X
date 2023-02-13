@@ -15,6 +15,36 @@
 
    <script type="text/javascript">     
 
+
+  function fun1() {
+	if(document.reviewWriteBox.RE_delivery[0].checked==false && document.reviewWriteBox.RE_delivery[1].checked==false){
+		alert("배송 후기를 선택하세요");
+		return false;
+	}
+	
+	if(document.reviewWriteBox.RE_fast[0].checked==false && document.reviewWriteBox.RE_fast[1].checked==false){
+		alert("응답속도 후기를 선택하세요");
+		return false;
+	}
+	
+	if(document.reviewWriteBox.RE_ProductStatus[0].checked==false && document.reviewWriteBox.RE_ProductStatus[1].checked==false){
+		alert("상품상태 후기를 선택하세요");
+		return false;
+	}
+	
+	if(document.reviewWriteBox.RE_manner[0].checked==false && document.reviewWriteBox.RE_manner[1].checked==false){
+		alert("매너 후기를 선택하세요");
+		return false;
+	}
+	
+	if(document.reviewWriteBox.RE_time[0].checked==false && document.reviewWriteBox.RE_time[1].checked==false){
+		alert("약속시간 후기를 선택하세요");
+		return false;
+	}
+	
+	document.reviewWriteBox.submit();
+} 
+   
     </script>
     
 </head>
@@ -51,15 +81,15 @@ String M_id=(String)session.getAttribute("M_id");
 					</div>
 					
 					<!--  리뷰작성 입력상자 시작 -->
-					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox" enctype="multipart/form-data">
+					<form id="review" action="reviewWritePro.jsp" method="post" name="reviewWriteBox" class="reviewWriteBox" enctype="multipart/form-data">
 						<table>
 						
 						
 							<tr>
 								<th colspan="4">
 								<div class="RE_radio">
-									<input type="radio" id="radio-btn-1" name="RE_delivery"  value="배송이 빨라요">배송이 빨라요
-									<input type="radio" id="radio-btn-1" name="RE_delivery"  value="배송이 느려터졌어요 ">배송이 느려터졌어요
+									<input type="radio" id="radio-btn-1" name="RE_delivery"  value="배송이 빨라요" for="radio-btn-1">배송이 빨라요
+									<input type="radio" id="radio-btn-1" name="RE_delivery"  value="배송이 느려터졌어요" for="radio-btn-1">배송이 느려터졌어요
 									<input type="radio" id="radio-btn-4" name="RE_fast"  value="응답이 빨라요">응답이 빨라요
 									<input type="radio" id="radio-btn-4" name="RE_fast"  value="응답이 느려요">응답이 느려요<br>
 									<input type="radio" id="radio-btn-3" name="RE_ProductStatus" value="상품이 설명과 같아요">상품이 설명과 같아요
@@ -78,7 +108,7 @@ String M_id=(String)session.getAttribute("M_id");
 							</tr>
 							<tr>
 								<th> 내용 </th>
-								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
+								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" name="RE_text" placeholder="내용을 입력하세요"></textarea></th>
 							</tr>
 							<tr>
 								<th> 첨부파일 </th>
@@ -86,7 +116,7 @@ String M_id=(String)session.getAttribute("M_id");
 							</tr>
 						</table>
 						<div class="btn">
-							<input type="submit" value="등록"/>
+							<input type="button" value="등록" onclick="fun1()"/>
 							<input type="reset" value="초기화"/>
 						</div>
 					</form> 

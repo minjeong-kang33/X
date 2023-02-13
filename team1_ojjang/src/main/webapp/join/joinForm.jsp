@@ -8,6 +8,7 @@
 </head>
 <body>
 <body>
+<!-- 회원가입 -->
 	<form action="joinpro.jsp" method="post">
 		<div>
 			아이디 <input type="text" id="M_id" name="M_id" size="15" required onclick="idCheck()">
@@ -74,6 +75,7 @@
 
 		<input type="submit" value="회원가입" class="btn btn-primary" /> <input
 			type="reset" value="취소" class="btn btn-primary" />
+	<!-- 회원가입 -->
 	</form>
 </body>
 
