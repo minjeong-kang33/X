@@ -54,3 +54,14 @@ table{
 	margin-left: 650px;
 }
 
+span {
+	border-radius: 3px;
+	margin-left: 3px;
+	margin-bottom : 10px;
+	padding: 0px 3px;
+}
+
+.RE_img_st {
+	width: 250px;
+	height: 250px;
+}

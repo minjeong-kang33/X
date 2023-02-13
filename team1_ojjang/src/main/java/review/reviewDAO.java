@@ -61,6 +61,7 @@ public class reviewDAO {
 			pstmt.setString(13, dto.getRE_time());
 			
 			pstmt.executeUpdate();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
