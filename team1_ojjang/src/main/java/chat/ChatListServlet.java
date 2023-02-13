@@ -2,6 +2,9 @@ package chat;
 
 import java.io.IOException;
 import java.net.URLDecoder;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -28,7 +31,7 @@ public class ChatListServlet extends HttpServlet {
         else {
         	try {
 				HttpSession session = request.getSession();
-				if(!URLDecoder.decode(fromID, "UTF-8").equals((String) session.getAttribute("M_id"))) {
+				if(!URLDecoder.decode(fromID, "UTF-8").equals((String) session.getAttribute("userID"))) {
 					response.getWriter().write("");
 					return;
 				}
@@ -39,6 +42,7 @@ public class ChatListServlet extends HttpServlet {
         }
 	}
 	
+
 	// 목록10개까지만 보여지는 함수
 	public String getTen(String fromID, String toID) {
 		StringBuffer result = new StringBuffer("");
@@ -53,18 +57,16 @@ public class ChatListServlet extends HttpServlet {
 			result.append("{\"value\": \"" + chatList.get(i).getChatTime() + "\"}]");
 			if(i != chatList.size() -1) result.append(",");
 		}
-		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getCH_num() + "\"}");
+		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
 		chatDAO.readChat(fromID, toID); //채팅 내역 읽었다.
 		return result.toString();
 	}
-	
-	
 	// 목록 아이디값 불러오는 함수
-	public String getID(String fromID, String toID, String CH_num) {
+	public String getID(String fromID, String toID, String chatID) {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");
 		ChatDAO chatDAO = new ChatDAO();
-		ArrayList<ChatDTO> chatList = chatDAO.getChatListByID(fromID, toID, CH_num);
+		ArrayList<ChatDTO> chatList = chatDAO.getChatListByID(fromID, toID, chatID);
 		if(chatList.size() == 0) return "";
 		for(int i=0; i<chatList.size(); i++) {
 			result.append("[{\"value\": \"" + chatList.get(i).getFromID() + "\"},");
@@ -73,9 +75,9 @@ public class ChatListServlet extends HttpServlet {
 			result.append("{\"value\": \"" + chatList.get(i).getChatTime() + "\"}]");
 			if(i != chatList.size() -1) result.append(",");
 		}
-		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getCH_num() + "\"}");
+		result.append("], \"last\":\"" + chatList.get(chatList.size() - 1).getChatID() + "\"}");
 		chatDAO.readChat(fromID, toID); //채팅 내역 읽었다.
 		return result.toString();
 	}
-
+	
 }
