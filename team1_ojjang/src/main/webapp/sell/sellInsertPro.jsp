@@ -7,7 +7,7 @@
 	pageEncoding="UTF-8"%>
 
 <%
-String uploadPath = request.getRealPath("/img/sell");
+String uploadPath = request.getRealPath("../img/sell");
 System.out.println(uploadPath);
 int maxSize = 10 * 1024 * 1024;
 MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf-8", new DefaultFileRenamePolicy());

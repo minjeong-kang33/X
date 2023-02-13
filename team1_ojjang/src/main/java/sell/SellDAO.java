@@ -113,48 +113,6 @@ public class SellDAO {
 		return sellList;
 	} // getsellList 끝 (글목록에서 사용)
 	
-	public ArrayList<SellDTO> getsellListforMainOuter(){
-		Connection con =null;
-		PreparedStatement pstmt=null;
-		ResultSet rs=null;
-		
-		ArrayList<SellDTO> sellListforMainOuter=new ArrayList<SellDTO>();
-		try {
-			con=getConnection();
-			String sql="select * from sell where S_category = 'outer' order by S_createdate desc limit 4";
-			
-			pstmt=con.prepareStatement(sql);
-			rs=pstmt.executeQuery();	
-
-			while(rs.next()) {
-				SellDTO dto=new SellDTO();
-				dto.setS_num(rs.getInt("S_num"));
-				dto.setM_id(rs.getString("M_id"));
-				dto.setS_title(rs.getString("S_title"));
-				dto.setS_price(rs.getInt("S_price"));
-				dto.setS_text(rs.getString("S_text"));
-				dto.setS_like(rs.getInt("S_like"));
-				dto.setS_view(rs.getInt("S_view"));
-				dto.setS_send1(rs.getString("S_send1"));		
-				dto.setS_send2(rs.getString("S_send2"));	
-				dto.setS_sido1(rs.getString("S_sido1"));	
-				dto.setS_gugun1(rs.getString("S_gugun1"));	
-				dto.setS_createdate(rs.getTimestamp("S_createdate"));
-				dto.setS_category(rs.getString("S_category"));
-				dto.setS_category(rs.getString("S_img"));
-				
-				sellListforMainOuter.add(dto);
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			
-			if(rs!=null) try { rs.close();} catch (Exception e2) {}
-			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { con.close();} catch (Exception e2) {}
-		}
-		return sellListforMainOuter;
-	} // sellListforMainOuter 끝 (main에서 아우터 최신글 불러오는 용도)
 	
 	public int getSellBoardCount() {
 		int count = 0;
@@ -335,6 +293,21 @@ public class SellDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
+		//	찜 삭제 먼저
+			try {
+				con = getConnection();
+				String sql = "delete from likes where S_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, S_num);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+				if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			}
+			
+		//	그 다음 글 삭제 	
 		try {
 			con = getConnection();
 			String sql = "delete from sell where S_num=?";
