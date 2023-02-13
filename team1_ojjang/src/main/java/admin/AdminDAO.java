@@ -318,13 +318,8 @@ public class AdminDAO {
 				dto.setM_id(rs.getString("M_id"));
 				dto.setS_title(rs.getString("S_title"));
 				dto.setS_price(rs.getInt("S_price"));
-				dto.setS_text(rs.getString("S_text"));
-				dto.setS_like(rs.getInt("S_like"));
-				dto.setS_view(rs.getInt("S_view"));
 				dto.setS_createdate(rs.getTimestamp("S_createdate"));
-				dto.setS_createdate(rs.getTimestamp("S_updatedate"));
 				dto.setS_category(rs.getString("S_category"));
-				dto.setS_view(rs.getInt("S_num"));
 				adSellList.add(dto);
 			}
 		}catch(Exception e) {

@@ -16,6 +16,21 @@
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
 <meta charset="UTF-8">
 </head>
+<script>
+function fun3() {
+	if(document.scfr.info.value=="") {
+		alert("검색목록을 선택하세요")
+		document.scfr.info.focus();
+		return;
+	}
+	if(document.scfr.search.value==0) {
+		alert("검색어를 입력하세요");
+		document.scfr.search.focus();
+		return;
+		}
+		document.scfr.submit();
+}
+</script>
 <body>
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../admin_top.jsp" />
@@ -43,16 +58,16 @@ ArrayList<MemberDTO> adOutList=dao.adOutList(startRow,pageSize);
 <section>
 <div class="container">
 	<div>
-	<form action="adOutListPro.jsp" method="post">
+	<form action="adOutListPro.jsp" method="post" name="scfr">
 		<ul>
-		<li><label>검색어</label>
+		<li>
 		<select name="info">
-		<option value="null">선택</option>
+		<option value="">선택</option>
 		<option value="M_id">아이디</option>
 		<option value="M_name">이름</option>
 		<option value="M_nick">닉네임</option>
 		</select>
-		<input type="text" name="search"> <input type="submit" value="검색"></li>
+		<input type="text" name="search"> <input type="button" value="검색" onclick="fun3()"></li>
 		</ul><br>
 	</form>
 	</div>
