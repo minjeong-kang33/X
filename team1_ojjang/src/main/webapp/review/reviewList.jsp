@@ -1,6 +1,6 @@
+<%@page import="review.reviewDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.ArrayList"%>
-<%@page import="review.reviewDAO"%>
 <%@page import="review.reviewDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -29,7 +29,6 @@
    <%
    
 String M_id=(String)session.getAttribute("M_id");
-
 
 reviewDAO dao = new reviewDAO();
 
@@ -82,23 +81,22 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
 								
 							%>
 							<tr>
-								<td rowspan="4" ><%=dto.getRE_img1() %> </td><td> 제목 : <%=dto.getRE_title() %> </td>
+								<td rowspan="4" ><img src="../reviewFile/<%=dto.getRE_img1() %>" class="RE_img_st"></td><td> 제목 : <%=dto.getRE_title() %> </td>
 								<td> 작성일 : <%=dateFormat.format(dto.getRE_createtime())%></td>
 							</tr>
 							<tr>
-								<td> 글쓴이 : <%=dto.getRE_writer() %> </td>
-								<td> 조회수 : <%=dto.getRE_view() %> </td>
+								<td colspan="2"> 글쓴이 : <%=dto.getRE_writer() %> </td>
 							</tr>
 							<tr>	
 								<td colspan="2"> 내용 : <%=dto.getRE_text() %> </td>
 							</tr>
 							<tr>
 								<td colspan="2">
-									<span> <%=dto.getRE_delivery()%> </span>
-									<span> <%=dto.getRE_manner()%> </span>
-									<span> <%=dto.getRE_ProductStatus()%> </span>
-									<span> <%=dto.getRE_fast()%> </span>
-									<span> <%=dto.getRE_time()%> </span>
+									<span> <% if(dto.getRE_delivery()!=null){%> <%=dto.getRE_delivery()%> <%}%> </span>
+									<span> <% if(dto.getRE_manner()!=null){%> <%=dto.getRE_manner()%> <%}%> </span>
+									<span> <% if(dto.getRE_ProductStatus()!=null){%> <%=dto.getRE_ProductStatus()%> <%}%></span>
+									<span> <% if(dto.getRE_fast()!=null){%> <%=dto.getRE_fast()%> <%}%> </span>
+									<span> <% if(dto.getRE_time()!=null){%> <%=dto.getRE_time()%> <%}%> </span>
 								</td> 
 							</tr>
 							<tr>

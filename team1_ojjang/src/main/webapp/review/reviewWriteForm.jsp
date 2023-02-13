@@ -78,7 +78,7 @@ String M_id=(String)session.getAttribute("M_id");
 							</tr>
 							<tr>
 								<th> 내용 </th>
-								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
+								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" name="RE_text" placeholder="내용을 입력하세요"></textarea></th>
 							</tr>
 							<tr>
 								<th> 첨부파일 </th>

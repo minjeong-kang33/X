@@ -106,13 +106,13 @@
 		<td>
 			<table class="item-table">
 				<tr>
-					<td colspan="2" class="S_img"><img src="../assets/images/sample_img.jpg" width=300px height=300px class="goodsImg"></td>
+					<td colspan="2" class="S_img"><img src="/img/sell/<%=dto.getS_img()%>" width=300px height=300px class="goodsImg"></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
 				</tr>
 				<tr>
-					<td class="price"><%=dto.getS_price()%>원</td> <td align="right" class="like_id"><input type="image" name="button"  class="hart" src="hart.png" onclick="hartToggle()">
+					<td class="price"><%=dto.getS_price()%>원</td> <td align="right" class="like_id"><input type="image" name="button"  class="heart" src="heart.png" onclick="hartToggle()">
 				</tr>
 				<%-- <tr>
 					<td class="S_sido1"><%=dto.getS_sido1()%></td> <td class="S_gugun1"><%=dto.getS_gugun1()%></td> <!-- 구군 -->
@@ -126,7 +126,7 @@
 						else if(dto.getS_send2()!=null){%> <%= "<b>직거래</b>"%><%}%> </td> <!-- 선호거래유형 -->
 				</tr>
 				<tr>
-					<td colspan="2"> <% if(dto.getS_send2()!=null){%> <img src="location_icon.png" class="location"><%= dto.getS_sido1()%><%} else { %>　<%}%> </td>
+					<td colspan="2"> <% if(dto.getS_send2()!=null){%> <img src="location_icon.png" class="location"><%= dto.getS_sido1()%> <%= dto.getS_gugun1()%><%} else { %>　<%}%> </td>
 					<!-- else에 안보이는 공백문자있어요 지우지마세요 지우면 정렬깨짐 -->
 				</tr>
 			</table>
