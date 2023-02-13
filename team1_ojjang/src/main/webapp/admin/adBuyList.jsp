@@ -96,10 +96,20 @@ if(startPage > pageBlock){
 <a href="adBuyList.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
 <%
 }
+if(currentPage>1) {
+	%>
+	<a href="adBuyList.jsp?pageNum=<%=currentPage-1 %>">[1페이지 이전]</a>
+	<%
+}
 for(int i=startPage;i<=endPage;i++){
 %>
 <a href="adBuyList.jsp?pageNum=<%=i %>"><%=i %></a>
 <%
+}
+if(currentPage<pageCount) {
+	%>
+	<a href="adBuyList.jsp?pageNum=<%=currentPage+1 %>">[1페이지 다음]</a>
+	<%
 }
 if(endPage < pageCount){
 %>
