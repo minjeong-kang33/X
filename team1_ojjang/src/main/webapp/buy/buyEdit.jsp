@@ -1,6 +1,12 @@
+<%@page import="buy.BuyDTO"%>
+<%@page import="buy.BuyDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+
+<!-- 왜..  112행 int B_num = Integer.parseInt(request.getParameter("B_num"));에서
+	java.lang.NumberFormatException: null이 나올까... -->
+
 <html>
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -97,29 +103,33 @@ $('document').ready(function() {
 </script>
 </head>
 <body>
-<%
 
-String M_id = (String)session.getAttribute("M_id");
-
-%>
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
-    
+ <%
+
+int B_num = Integer.parseInt(request.getParameter("B_num"));
+BuyDAO dao = new BuyDAO();
+BuyDTO dto = dao.getBuyBoard(B_num);
+String M_id = (String)session.getAttribute("M_id");
+
+%>   
+
 <div class="BuyInsert"> 
 <img src="../assets/images/buyInsert_title.png" id="buyBoard" width="500px">
 	
 	<!-- ** 옷 카테고리 선택 시작 -->
-<form id="frm" action="buyInsertPro.jsp" method="post" enctype="multipart/form-data">	
+<form id="frm" action="buyEditPro.jsp" method="post" enctype="multipart/form-data">	
 	<div class="radio1">
 		<b>카테고리</b>
-		<input type="radio" id="radio-btn-1" name="B_category" value="outer">
+		<input type="radio" id="radio-btn-1" name="B_category" value="<%=dto.getB_category() %>">
 			<label for="radio-btn-1" class="btn">아우터</label>
-		<input type="radio" id="radio-btn-2" name="B_category" value="shirts">
+		<input type="radio" id="radio-btn-2" name="B_category" value="<%=dto.getB_category() %>">
 			<label for="radio-btn-2" class="btn">상의</label>
-		<input type="radio" id="radio-btn-3" name="B_category" value="pants">
+		<input type="radio" id="radio-btn-3" name="B_category" value="<%=dto.getB_category() %>">
 			<label for="radio-btn-3" class="btn">하의</label>
-		<input type="radio" id="radio-btn-4" name="B_category" value="dress">
+		<input type="radio" id="radio-btn-4" name="B_category" value="<%=dto.getB_category() %>">
 			<label for="radio-btn-4" class="btn">원피스</label>
 	</div>
 	<!-- ** 옷 카테고리 선택 끝 -->
@@ -127,12 +137,12 @@ String M_id = (String)session.getAttribute("M_id");
 	<!-- ** 선호거래 체크박스 시작 **-->
 	<div class="check1">
 		<b>선호하는 거래형태</b>
-		<input type="checkbox" id="checkbox-btn-1" name="B_send1"  value="delivery">
+		<input type="checkbox" id="checkbox-btn-1" name="B_send1"  value="<%=dto.getB_send1() %>">
 			<label for="checkbox-btn-1" class="btn">택배거래</label>
-		<input type="checkbox" id="checkbox-btn-2" name="B_send2" value="direct">
+		<input type="checkbox" id="checkbox-btn-2" name="B_send2" value="<%=dto.getB_send2() %>">
 			<label for="checkbox-btn-2" class="btn" >직거래</label>
 			
-      <select name="B_sido1" id="B_sido1"></select>
+      <select name="B_sido1" id="B_sido1" ></select>
       <select name="B_gugun1" id="B_gugun1"></select>
    </div>
 	<!-- ** 선호거래 체크박스 끝 **-->
@@ -142,12 +152,12 @@ String M_id = (String)session.getAttribute("M_id");
 <input type="hidden" name="M_id" value="<%=M_id %>"/>
 	<tr>
 		<th>제목</th>
-    	<td><input type="text" id="B_title" name="B_title" style="width:650px" placeholder="제목을 입력하세요"/></td>
+    	<td><input type="text" id="B_title" name="B_title" value="<%=dto.getB_title() %>style="width:650px" placeholder="제목을 입력하세요"/></td>
     </tr>
     <tr>
         <th>내용</th>
         <td>
-        <textarea rows="10" cols="30" id="B_text" name="B_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
+        <textarea rows="10" cols="30" id="B_text" value="<%=dto.getB_text() %>"name="B_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
         </td>
      </tr>
  </table>   
@@ -155,11 +165,11 @@ String M_id = (String)session.getAttribute("M_id");
      <tr>
      	<td colspan="2">
      		<div class="button1">
-     			<input type="file" name="B_img">
+     			<input type="file" name="B_img" value="<%=dto.getB_img() %>">
 			</div>
               <div class="button2">
-            	 <input type="submit" id="save" value="등록"/>
-            	 <input type="reset" value="초기화"/>
+            	 <input type="submit" id="save" value="글수정"/>
+            	 <input type="button" value="글삭제" onClick="location.href='buyDeletePro.jsp'"/>
               </div>
          </td>
      </tr>

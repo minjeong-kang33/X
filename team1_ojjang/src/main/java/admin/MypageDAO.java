@@ -11,6 +11,7 @@ import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
 import deal.DealDTO;
+import like.LikeDTO;
 import member.MemberDTO;
 import sell.SellDTO;
 
@@ -23,8 +24,8 @@ public class MypageDAO {
 		return con;
 	}
 	
-	//deal 테이블에 값 넣기(값이 들어가는지 확인해봐야하는데..)
-	public void insertDeal(SellDTO selldto, MemberDTO memberdto) {
+	//deal 테이블에 값 넣기(값이 들어가는지 확인해봐야하는데..) //승민
+	public void insertDeal(SellDTO selldto, String M_id) {
 		Connection con = null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -33,16 +34,18 @@ public class MypageDAO {
 			con=getConnection();
 			int D_num=1;
 			String sql="select max(D_num) from deal";
-			
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				D_num=rs.getInt("max(D_num)")+1;
+				
 			}						
 			sql="insert into deal(D_num,S_num,M_id,D_buy,D_date) values(?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1,D_num);
 			pstmt.setInt(2, selldto.getS_num());
 			pstmt.setString(3, selldto.getM_id());
-			pstmt.setString(4, memberdto.getM_id());			
+			pstmt.setString(4, M_id);			
 			pstmt.setTimestamp(5,new Timestamp(System.currentTimeMillis()));
 			pstmt.executeUpdate();	
 		} catch (Exception e) {
@@ -113,16 +116,159 @@ public class MypageDAO {
 		}
 		return dealHistory;
 	}
+	
+
+	//buyHistory_dealListS
+	public ArrayList<SellDTO> dealListS(String M_id) {
+		ArrayList<SellDTO> dealListS=new ArrayList<SellDTO>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=getConnection();
+			String sql="select M_id, S_title, S_price, S_category from sell where S_num = ( select S_num from deal where D_buy=?)";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, M_id);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				SellDTO dto=new SellDTO();
+				dto.setM_id(rs.getString("M_id"));
+				dto.setS_title(rs.getString("S_title"));
+				dto.setS_price(rs.getInt("S_price"));		
+				dto.setS_category(rs.getString("S_category"));
+				dealListS.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(con!=null) try {con.close();} catch (Exception e2) {}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
+			if(rs!=null) try {rs.close();} catch (Exception e2) {}
+		}
+		return dealListS;
+	}
+
+	//================like===========================================
+	
+	//likePro_insertlike
+	public void insertlike(int S_num, String M_id, int like_id) {
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			con=getConnection();
+		
+			int Like_id=1;
+			String sql="select max(Like_id) from likes";			
+			pstmt=con.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				Like_id=rs.getInt("max(Like_id)")+1;}
+			
+			sql="insert into likes(Like_id,S_num,M_id) values(?,?,?)";
+			pstmt=con.prepareStatement(sql);	
+			pstmt.setInt(1,Like_id);
+			pstmt.setInt(2, S_num);
+			pstmt.setString(3, M_id);			
+			pstmt.executeUpdate();	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {				
+				if (con != null) try {con.close();} catch (Exception e2) {}
+				if (pstmt != null) try {pstmt.close();} catch (Exception e2) {}
+				if (rs != null) try {rs.close();} catch (Exception e2) {}
+			}
+		
+	}	//insertlike
 
 
+	//likelist
+	public ArrayList<SellDTO> likeHistory(String M_id) {
+		ArrayList<SellDTO> likeHistory=new ArrayList<SellDTO>();
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=getConnection();
+			String sql= "select s.S_num, s.M_id, s.S_category, s.S_title, s.S_text, s.S_price from sell s join likes l on s.S_num=l.S_num where l.M_id=?"; 
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, M_id);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				SellDTO dto=new SellDTO();
+				dto.setS_num(rs.getInt("S_num"));
+				dto.setM_id(rs.getString("M_id"));
+				dto.setS_category(rs.getString("S_category"));
+				dto.setS_title(rs.getString("S_title"));
+				dto.setS_text(rs.getString("S_text"));
+				dto.setS_price(rs.getInt("S_price"));
+			
+				likeHistory.add(dto);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(con!=null) try {con.close();} catch (Exception e2) {}
+			if(pstmt!=null) try {pstmt.close();} catch (Exception e2) {}
+			if(rs!=null) try {rs.close();} catch (Exception e2) {}
+		}
+		return likeHistory;
+	}
 
+	
+	//likePro_getLike
+	public LikeDTO getLike(String M_id, int S_num) {
+		LikeDTO dto=null;
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con = getConnection();
+		     String sql="select * from likes where M_id=? and S_num=?";
+			 pstmt=con.prepareStatement(sql);
+			 pstmt.setString(1,M_id);
+			 pstmt.setInt(2,S_num);
+			 rs=pstmt.executeQuery(); 
+			 
+			 if(rs.next()){
+				dto=new LikeDTO(); 
+				dto.setM_id(rs.getString("M_id"));
+				dto.setS_num(rs.getInt("S_num"));
+			 }else{
+				 
+			 }
+		}catch (Exception e) {	
+			e.printStackTrace();
+		}
+		finally {
+			if(pstmt!=null)try {pstmt.close();} catch (Exception e2) {}
+			if(con!=null)try {con.close();} catch (Exception e2) {}
+			if(rs!=null)try {rs.close();} catch (Exception e2) {}
 
-
-
-
-
-
-
-
+		}
+		return dto;
+	}
+	
+	//delete_like //글삭제할때 되게!!!!
+	public void deleteLike(int S_num) {
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		try {
+			con=getConnection();
+			String sql="delete from likes where S_num =?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, S_num);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+	} //delete_like
+	
+	
+	
 }
 

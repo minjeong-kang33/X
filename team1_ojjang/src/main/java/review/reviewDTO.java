@@ -4,8 +4,8 @@ import java.sql.Timestamp;
 
 public class reviewDTO {
 	
-	private int RE_id;
-	private String S_id;
+	private int RE_num;
+	private int S_id;
 	private String RE_writer;
 	private String RE_title;
 	private String RE_text;
@@ -17,20 +17,20 @@ public class reviewDTO {
 	private String RE_ProductStatus;
 	private String RE_fast;
 	private String RE_time;
-	
+
+	public int getRE_num() {
+		return RE_num;
+	}
+	public void setRE_num(int rE_num) {
+		RE_num = rE_num;
+	}
 
 	
 	
-	public int getRE_id() {
-		return RE_id;
-	}
-	public void setRE_id(int rE_id) {
-		RE_id = rE_id;
-	}
-	public String getS_id() {
+	public int getS_id() {
 		return S_id;
 	}
-	public void setS_id(String s_id) {
+	public void setS_id(int s_id) {
 		S_id = s_id;
 	}
 	public String getRE_writer() {

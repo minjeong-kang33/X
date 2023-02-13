@@ -1,3 +1,7 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="review.reviewDAO"%>
+<%@page import="review.reviewDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -9,7 +13,7 @@
     <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
-   <link href="../assets/css/reviewWrite.css" rel="stylesheet" type="text/css">
+   <link href="../assets/css/reviewWriteList.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장 - 리뷰작성</title>
 
@@ -20,6 +24,32 @@
 </head>
 
    <body>
+   
+   
+   <%
+   
+String M_id=(String)session.getAttribute("M_id");
+
+
+reviewDAO dao = new reviewDAO();
+
+int pageSize=5;
+   
+String pageNum=request.getParameter("pageNum");
+if(pageNum==null){
+   	pageNum="1";		
+   }
+ 
+int currentPage=Integer.parseInt(pageNum);
+int startRow=(currentPage-1)*pageSize+1;
+int endRow = startRow+pageSize-1;
+
+ArrayList<reviewDTO> reviewList= dao.getReviewList(startRow, pageSize);
+
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd");
+
+%>
+
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
         <div class="jumper">
@@ -28,58 +58,84 @@
             <div></div>
         </div>
     </div>  
-    
+    .
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
 
 	<section class="section" id="products">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="section-heading">
+		<div class="container"> <!--  댓글부분  -->
+			<div class="row"> <!--  글쓰기 버튼  -->
+				<div class="col-lg-12"> <!--  테이블부분 -->
+					<div class="section-heading"> <!--  테이블 제목부분 -->
 					<!--  게시판제목 -->
-						<h2>후기 작성</h2>
-						<span>review Write</span>
+						<h2>리뷰 내역</h2>
+						<span>review list</span>
 					</div>
 					
 					<!--  리뷰작성 입력상자 시작 -->
-					<form id="review" action="reviewWritePro.jsp" method="post" class="reviewWriteBox">
 						<table>
+							<%
+							
+							for(int i=0; i<reviewList.size();i++){
+								reviewDTO dto = reviewList.get(i);
+								
+							%>
 							<tr>
-								<th> 제목 </th>
-								<th><input type="text" id="RE_title" name="RE_title" class="RE_title" placeholder="제목을 입력하세요"></th>
+								<td rowspan="4" ><%=dto.getRE_img1() %> </td><td> 제목 : <%=dto.getRE_title() %> </td>
+								<td> 작성일 : <%=dateFormat.format(dto.getRE_createtime())%></td>
 							</tr>
 							<tr>
-								<th> 내용 </th>
-								<th><textarea rows="10" cols="30" id="RE_text" class="RE_text" placeholder="내용을 입력하세요"></textarea></th>
+								<td> 글쓴이 : <%=dto.getRE_writer() %> </td>
+								<td> 조회수 : <%=dto.getRE_view() %> </td>
+							</tr>
+							<tr>	
+								<td colspan="2"> 내용 : <%=dto.getRE_text() %> </td>
 							</tr>
 							<tr>
-								<th></th>
-								<th>
-								<div class="RE_checkbox">
-							<input type="checkbox" id="checkbox-btn-1" name="RE_delivery"  value="배송이 빨라요">
-								<label for="checkbox-btn-1" class="btn">배송이 빨라요</label>
-							<input type="checkbox" id="checkbox-btn-2" name="RE_manner" value="친절해요">
-								<label for="checkbox-btn-2" class="btn">친절해요</label>
-							<input type="checkbox" id="checkbox-btn-3" name="RE_ProductStatus" value="상품이 설명과 같아요">
-								<label for="checkbox-btn-3" class="btn">상품이 설명과 같아요</label><br>
-							<input type="checkbox" id="checkbox-btn-4" name="RE_fast"  value="응답이 빨라요">
-								<label for="checkbox-btn-4" class="btn">응답이 빨라요</label>
-							<input type="checkbox" id="checkbox-btn-5" name="RE_time" value="약속시간을 잘 지켜요">
-								<label for="checkbox-btn-5" class="btn">약속시간을 잘 지켜요</label>
-								</div>
-								</th>
+								<td colspan="2">
+									<span> <%=dto.getRE_delivery()%> </span>
+									<span> <%=dto.getRE_manner()%> </span>
+									<span> <%=dto.getRE_ProductStatus()%> </span>
+									<span> <%=dto.getRE_fast()%> </span>
+									<span> <%=dto.getRE_time()%> </span>
+								</td> 
 							</tr>
+							<tr>
+							</tr>
+							<tr><td colspan="3" class="line"></td> <tr>
+							<%
+							}
+							%>
+							
 						</table>
-						<div class="btn">
-							<input type="submit" value="등록"/>
-							<input type="reset" value="초기화"/>
-						</div>
-					</form> 
-					
 				</div>
+				<button type="button" class="btn btn-dark" onclick="location.href='reviewWriteForm.jsp'" style="float:right">글쓰기</button>
 			</div>
+				<!--  페이지 번호  -->
+				<%
+					int pageBlock = 10;
+				int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+				int endPage=startPage+pageBlock-1;
+				int count = dao.getreviewCount();
+				int pageCount=count/pageSize+(count%pageSize==0?0:1);
+				if(endPage > pageCount){
+					endPage = pageCount;
+				}
+				
+				if(startPage>pageBlock){
+					%>
+					<a href="reviewList.jsp?pageNum=<%=startPage-pageBlock%>"> [10페이지 이전]</a>
+					<%
+				}
+				
+				for(int i=startPage;i<=endPage;i++){
+					%>
+					<a href="reviewList.jsp?pageNum=<%=i%>"><%=i%></a>
+					<%
+				}
+				
+				%>
 		</div>
 	</section>
 
@@ -88,7 +144,8 @@
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->
-    <script src="../assets/js/jquery-2.1.0.min.js"></script>
+    <script src="../assets/js/jquery-2.1.0.min.js">
+    </script>
 
  <!--  Bootstrap -->
     <script src="../assets/js/popper.js"></script>

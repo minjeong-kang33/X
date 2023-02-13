@@ -2,8 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.io.PrintWriter" %>
-<%@ page import="buy.BuyDAO" %>
-<%@ page import="buy.BuyDTO" %>
+<%@ page import="sell.SellDAO" %>
+<%@ page import="sell.SellDTO" %>
 <%@ page import="comment.CommentDTO" %>
 <%@ page import="comment.CommentDAO" %>
 <%@ page import="java.util.ArrayList" %>
@@ -36,11 +36,34 @@
     <!-- ***** 헤더 끝 ***** -->
     
 <%
-int B_num = Integer.parseInt(request.getParameter("B_num"));
-BuyDAO dao = new BuyDAO();
-BuyDTO dto = dao.getBuyBoard(B_num);
+int S_num = Integer.parseInt(request.getParameter("S_num"));
+SellDAO dao = new SellDAO();
+SellDTO dto = dao.getSellBoard(S_num);
 String M_id = (String)session.getAttribute("M_id");
 
+// String category1;
+
+// if(dto.getS_category().equals("1")){
+// 	category1 = "아우터";
+// }
+// else if(dto.getS_category().equals("2")){
+// 	category1 = "상의";
+// }
+// else if(dto.getS_category().equals("3")){
+// 	category1 = "하의";
+// }
+// else if(dto.getS_category().equals("4")){
+// 	category1 = "원피스";
+// }
+
+// String like1;
+
+// if(dto.getS_like() == 1){
+// 	like1 = "직거래";
+// }
+// else if(dto.getS_like() == 2){
+// 	like1 = "택배";
+// }
 %>
 <div class="container2">
 	<div class="row">
@@ -48,32 +71,47 @@ String M_id = (String)session.getAttribute("M_id");
 	<table class = "table table-striped" style="text-align:center; border:1px solid #dddddd">
 		<thead>
 			<tr>
-				<th colspan="3"  style="background-color: #eeeeee; text-align:center">삽니다</th>
+				<th colspan="3"  style="background-color: #eeeeee; text-align:center">팝니다</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
 				<td style="width:20%;">글제목</td>
-				<td colspan="2"><%= dto.getB_title()%></td>
+				<td colspan="2"><%=dto.getS_title()%></td>
+			</tr>
+			<tr>
+
+				<td style="width:20%;">거래유형</td>
+				<td colspan="2">
+				<%
+				
+				if(dto.getS_like() == 1){
+					out.println("직거래");
+					}
+				else if(dto.getS_like() == 2){
+					out.println("택배거래");
+					}
+				%>
+					</td>
 			</tr>
 			<tr>
 				<td>작성자</td>
-				<td colspan="2"> <%= dto.getM_id() %></td>
+				<td colspan="2"> <%=dto.getM_id() %></td>
 			</tr>
 			<tr>
 				<td>작성일자</td>
-				<td colspan="2"> <%= dto.getB_time()%> </td>
+				<td colspan="2"> <%=dto.getS_createdate()%> </td>
 			</tr>
 			<tr>
 				<td>글내용</td>
-				<td colspan="2"  style="min-height: 200px; text-align:left;"> <%= dto.getB_text() %></td>
+				<td colspan="2"  style="min-height: 200px; text-align:left;"> <%= dto.getS_text() %></td>
 			<tr><td colspan="2">
 </tr>
 </tbody>		
 </table>
 <!-- 댓글시작 -->
 <div class="comment">
-<form method="post" action="commentAction.jsp?B_num=<%=B_num%>">
+<form method="post" action="commentAction.jsp?S_num=<%=S_num%>">
 				<table class="table table-striped"
 					style="text-align: center; border: 1px solid #dddddd">
 					<thead>
@@ -91,26 +129,15 @@ String M_id = (String)session.getAttribute("M_id");
 							pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
 						}
 							CommentDAO comment=new CommentDAO();
-							ArrayList<CommentDTO> List=comment.getList(B_num, pageNumber);
+							ArrayList<CommentDTO> List=comment.getList(S_num, pageNumber);
 							for(int i=List.size()-1 ; i>=0 ; i--){
 						%>
 
 						<tr>
 							<td style="text-align: left;"><%=List.get(i).getCo_text() %></td>
 							<td style="text-align: right;"><%=List.get(i).getM_id() %>
-							<a href=# onclick = "return coupdate();" class="btn">수정</a>
-								<script text="text/javascript">
-								function coupdate(Co_num){
-									window.name ="buydetails";
-									window.open("commentupdateForm.jsp?Co_num="+<%=List.get(i).getCo_num()%>,
-											"updateForm", "width=570, height=350, resizable=no, scrollbars=no");
-								}
-								</script>
-							<a href="commentdeleteAction.jsp?B_num=<%=B_num %>&Co_num=<%=List.get(i).getCo_num() %>"
-								onclick="return delchk();">삭제</a>
-								<script type="text/javascript">
-								function delchk(){return confirm("삭제하시겠습니까?");}
-								</script>
+							<a href="javascript:CoUpdate()" class="btn">수정</a>
+							<a href="commentdeleteAction.jsp?S_num=<%=S_num %>&Co_num=<%=List.get(i).getCo_num() %>" class="btn ">삭제</a>
 							</td> 
 						</tr>
 		
@@ -136,13 +163,13 @@ if(M_id != null){
 	// 세션값=id와 글쓴이가 일치해야만 글수정, 글삭제 표시
 	if(M_id.equals(dto.getM_id())){
 		%>
-<input type="button" class="btn btn-dark" value="글수정" onclick="location.href='buyEdit.jsp?num=<%=dto.getB_num() %>'">
-<input type="button" class="btn btn-dark" value="글삭제" onclick="location.href='buyDelete.jsp?num=<%=dto.getB_num() %>'"> 
+<input type="button" class="btn btn-dark" value="글수정" onclick="location.href='sellEditForm.jsp?num=<%=dto.getS_num() %>'">
+<input type="button" class="btn btn-dark" value="글삭제" onclick="location.href='SellDelete.jsp?num=<%=dto.getS_num() %>'"> 
 		<%		
 	}
 }
 %>
-	<button type="button" class="btn btn-dark" onclick="location.href='buyList.jsp'" style="float:right">글목록</button>
+	<button type="button" class="btn btn-dark" onclick="location.href='sellList.jsp'" style="float:right">글목록</button>
 </div>
 </div>
 <!-- ***** 푸터 시작 ***** -->

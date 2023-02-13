@@ -3,6 +3,7 @@ package sell;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.naming.Context;
@@ -38,21 +39,23 @@ public class SellDAO {
 					S_num = rs.getInt("max(S_num)") + 1;
 				}
 				
-				sql="insert into Buy(S_num,M_id,S_title,S_price,S_text,S_like,S_view,S_send,S_sido1,S_gugun1,S_createdate,S_category"
-						+ "values(?,?,?,?,?,?,?,?,?,?,?,?)";
+				sql="insert into sell(S_num,M_id,S_title,S_price,S_text,S_like,S_view,S_send1,S_send2,S_sido1,S_gugun1,S_createdate,S_category,S_img)"
+						+ "value(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 				pstmt=con.prepareStatement(sql);
 				pstmt.setInt(1, S_num);  
 				pstmt.setString(2, dto.getM_id()); 
-				pstmt.setString(3, dto.getS_title()); 
+				pstmt.setString(3, dto.getS_title());
 				pstmt.setInt(4, dto.getS_price());
 				pstmt.setString(5, dto.getS_text());
 				pstmt.setInt(6, dto.getS_like());
 				pstmt.setInt(7, dto.getS_view());
-				pstmt.setString(8, dto.getS_send());
-				pstmt.setString(9, dto.getS_sido1());
-				pstmt.setString(10, dto.getS_gugun1());
-				pstmt.setTimestamp(11, dto.getS_createdate());
-				pstmt.setString(12, dto.getS_category());
+				pstmt.setString(8, dto.getS_send1());
+				pstmt.setString(9, dto.getS_send2());
+				pstmt.setString(10, dto.getS_sido1());
+				pstmt.setString(11, dto.getS_gugun1());
+				pstmt.setTimestamp(12, dto.getS_createdate());
+				pstmt.setString(13, dto.getS_category());
+				pstmt.setString(14, dto.getS_img());
 				
 				pstmt.executeUpdate();
 			} catch (Exception e) {
@@ -81,7 +84,6 @@ public class SellDAO {
 			rs=pstmt.executeQuery();	
 
 			while(rs.next()) {
-				
 				SellDTO dto=new SellDTO();
 				dto.setS_num(rs.getInt("S_num"));
 				dto.setM_id(rs.getString("M_id"));
@@ -90,11 +92,13 @@ public class SellDAO {
 				dto.setS_text(rs.getString("S_text"));
 				dto.setS_like(rs.getInt("S_like"));
 				dto.setS_view(rs.getInt("S_view"));
-				dto.setS_send(rs.getString("S_send"));		
+				dto.setS_send1(rs.getString("S_send1"));		
+				dto.setS_send2(rs.getString("S_send2"));	
 				dto.setS_sido1(rs.getString("S_sido1"));	
 				dto.setS_gugun1(rs.getString("S_gugun1"));	
 				dto.setS_createdate(rs.getTimestamp("S_createdate"));
 				dto.setS_category(rs.getString("S_category"));
+				dto.setS_category(rs.getString("S_img"));
 				
 				sellList.add(dto);
 			}
@@ -107,7 +111,7 @@ public class SellDAO {
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return sellList;
-	} // getsellList 끝
+	} // getsellList 끝 (글목록에서 사용)
 	
 	public int getSellBoardCount() {
 		int count = 0;
@@ -130,7 +134,7 @@ public class SellDAO {
 			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
 		return count;
-	} // getSellBoardCount 끝
+	} // getSellBoardCount (페이징에서 사용)
 	
 	public SellDTO getSellBoard(int S_num){
 		SellDTO dto = null;
@@ -146,7 +150,7 @@ public class SellDAO {
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
 				dto = new SellDTO();
-				//TO.승민 **여기서 게시판에 출력되는 결과만 남기고 지울것! **
+				//TO.승민 **여기서 상세게시글에 출력되는 결과만 남기고 지울것! **
 				dto.setS_num(rs.getInt("S_num"));
 				dto.setM_id(rs.getString("M_id"));
 				dto.setS_title(rs.getString("S_title"));
@@ -154,11 +158,13 @@ public class SellDAO {
 				dto.setS_text(rs.getString("S_text"));
 				dto.setS_like(rs.getInt("S_like"));
 				dto.setS_view(rs.getInt("S_view"));
-				dto.setS_send(rs.getString("S_send"));		
+				dto.setS_send1(rs.getString("S_send1"));	
+				dto.setS_send2(rs.getString("S_send2"));
 				dto.setS_sido1(rs.getString("S_sido1"));	
 				dto.setS_gugun1(rs.getString("S_gugun1"));	
 				dto.setS_createdate(rs.getTimestamp("S_createdate"));
 				dto.setS_category(rs.getString("S_category"));
+				dto.setS_img(rs.getString("S_img"));	
 			}else {
 		}
 		} catch (Exception e) {
@@ -170,7 +176,7 @@ public class SellDAO {
 		}
 		return dto;
 		
-	} // getSellBoard 끝
+	} // getSellBoard 끝 (상세게시글 볼 때 사용)
 	
 	public ArrayList<SellDTO> sellHistory(String M_id){
 		ArrayList<SellDTO> sellHistory=new ArrayList<SellDTO>();
@@ -195,9 +201,9 @@ public class SellDAO {
 				dto.setS_text(rs.getString("S_text"));
 				dto.setS_like(rs.getInt("S_like"));
 				dto.setS_view(rs.getInt("S_view"));
-				dto.setS_send(rs.getString("S_send"));			
+				dto.setS_send1(rs.getString("S_send1"));	
+				dto.setS_send2(rs.getString("S_send2"));
 				dto.setS_createdate(rs.getTimestamp("S_createdate"));
-				dto.setS_updatedate(rs.getTimestamp("S_updatedate"));
 				dto.setS_category(rs.getString("S_category"));
 				
 				sellHistory.add(dto);
@@ -255,6 +261,50 @@ public class SellDAO {
 		return dealListS;
 	} // dealListS 끝 구매내역
 	
+	public void updateSellBoard(SellDTO dto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = getConnection();
+			String sql = "update sell set S_title=?, S_price=?, S_category=?, S_text=?, S_send1=?, S_send2=?, S_sido1=?, S_gugun1=?, S_img=? where S_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getS_title());
+			pstmt.setInt(2, dto.getS_price());
+			pstmt.setString(3, dto.getS_category());
+			pstmt.setString(4, dto.getS_text());
+			pstmt.setString(5, dto.getS_send1());
+			pstmt.setString(6, dto.getS_send2());
+			pstmt.setString(7, dto.getS_sido1());
+			pstmt.setString(8, dto.getS_gugun1());
+			pstmt.setString(9, dto.getS_img());
+			pstmt.setInt(10, dto.getS_num());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+		}
+		
+	} //update 수정 (제목, 내용, 카테고리, 거래유형, 시도, 구군, 이미지 변경가능)
+	
+	public void deleteSellBoard(int S_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = getConnection();
+			String sql = "delete from sell where S_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, S_num);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+		}
+	} //delete (글삭제)
 	
 }
 

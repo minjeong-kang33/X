@@ -1,5 +1,6 @@
+
+<%@page import="admin.MypageDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
-<%@page import="sell.SellDAO"%>
 <%@page import="sell.SellDTO"%>
 <%@page import="deal.DealDAO"%>
 <%@page import="deal.DealDTO"%>
@@ -32,19 +33,19 @@
  <!-- ***** 구매내역조회***** -->
     
     <h3>구매내역조회</h3>
+    
+    
 <%
+
 String M_id=(String)session.getAttribute("M_id");
-
 DealDTO dto=new DealDTO();
-DealDAO dao=new DealDAO();
-
 SellDTO sdto=new SellDTO();
-SellDAO sdao=new SellDAO();
 
+DealDAO ddao=new DealDAO();
+MypageDAO dao=new MypageDAO();
 
-ArrayList<DealDTO> dealListB=dao.dealListB(M_id);
-ArrayList<SellDTO> dealListS=sdao.dealListS(M_id);
-
+ArrayList<DealDTO> dealListB=ddao.dealListB(M_id);
+ArrayList<SellDTO> dealListS=dao.dealListS(M_id);
 SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 %>	
 <section>
@@ -52,8 +53,8 @@ SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 <tr><td>판매자</td><td>판매글제목</td><td>구매가격</td><td>카테고리</td><td>구매자</td><td>거래날짜</td></tr>
 
 <%
-System.out.println(dealListS.size());
-System.out.println(dealListB.size());
+// System.out.println(dealList.size());
+// System.out.println(dealListB.size());
 for(int i=0;i<dealListS.size();i++){
  	sdto=dealListS.get(i);
 	dto=dealListB.get(i);
@@ -67,15 +68,14 @@ for(int i=0;i<dealListS.size();i++){
 		<td><%=sdto.getS_title() %></td>
 		<td><%=sdto.getS_price() %></td>
 		<td><%=sdto.getS_category() %></td>
-		<td><%=dto.getD_buy() %>
-		<td><%=dateFormat.format(dto.getD_date()) %></td>
-		
-		
+		<td><%=dto.getD_buy() %></td>
+		<td><%=dateFormat.format(dto.getD_date()) %></td>				
 	</tr>
-	</table>
+	
 <%
 }
 %>
+</table>
 </section>
 	<!-- ***** 구매내역조회 끝 ***** -->
 	       
@@ -108,7 +108,6 @@ for(int i=0;i<dealListS.size();i++){
     <script src="../assets/js/custom.js"></script>
 
     <script>
-
         $(function() {
             var selectedClass = "";
             $("p").click(function(){
@@ -122,9 +121,7 @@ for(int i=0;i<dealListS.size();i++){
                 
             });
         });
-
     </script> 
 
   </body>
 </html>
-    

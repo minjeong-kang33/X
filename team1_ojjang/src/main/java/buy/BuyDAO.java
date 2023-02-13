@@ -3,12 +3,12 @@ package buy;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
-
 
 
 public class BuyDAO {
@@ -17,7 +17,7 @@ public class BuyDAO {
 		DataSource ds=(DataSource)init.lookup("java:comp/env/jdbc/MysqlDB");
 		Connection con=ds.getConnection();
 		return con;
-	} //getConnection()
+	} //getConnection (DB연결)
 
 	public void insertBuyBoard(BuyDTO dto) {		
 		Connection con=null;
@@ -37,17 +37,21 @@ public class BuyDAO {
 				B_num = rs.getInt("max(B_num)") + 1;
 			}
 			
-			sql="insert into Buy(M_id, B_num, B_title, B_text, B_view, B_time, B_imgname, B_imgsize)"
-		               + "values(?,?,?,?,?,?,?,?)";
+			sql="insert into Buy(M_id, B_num, B_category, B_title, B_text, B_send1, B_send2, B_sido1, B_gugun1, B_view, B_time, B_img)"
+		               + "value(?,?,?,?,?,?,?,?,?,?,?,?)";
 		         pstmt=con.prepareStatement(sql);
 		         pstmt.setString(1, dto.getM_id());  
 		         pstmt.setInt(2, B_num); 
-		         pstmt.setString(3, dto.getB_title()); 
-		         pstmt.setString(4, dto.getB_text());
-		         pstmt.setInt(5, dto.getB_view()); 
-		         pstmt.setTimestamp(6, dto.getB_time());
-		         pstmt.setString(7, dto.getB_imgname());
-		         pstmt.setString(8, dto.getB_imgsize());
+		         pstmt.setString(3, dto.getB_category()); 
+		         pstmt.setString(4, dto.getB_title()); 
+		         pstmt.setString(5, dto.getB_text());
+		         pstmt.setString(6, dto.getB_send1());
+		         pstmt.setString(7, dto.getB_send2());
+		         pstmt.setString(8, dto.getB_sido1());
+		         pstmt.setString(9, dto.getB_gugun1());
+		         pstmt.setInt(10, dto.getB_view()); 
+		         pstmt.setTimestamp(11, dto.getB_time());
+		         pstmt.setString(12, dto.getB_img());
 			
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -82,9 +86,16 @@ public class BuyDAO {
 				BuyDTO dto = new BuyDTO();
 				dto.setB_num(rs.getInt("B_num"));
 				dto.setM_id(rs.getString("M_id"));
+				dto.setB_category(rs.getString("B_category"));
+				dto.setB_text(rs.getString("B_text"));
+				dto.setB_send1(rs.getString("B_send1"));
+				dto.setB_send2(rs.getString("B_send2"));
+				dto.setB_sido1(rs.getString("B_sido1"));
+				dto.setB_gugun1(rs.getString("B_gugun1"));
 				dto.setB_title(rs.getString("B_title"));
 				dto.setB_time(rs.getTimestamp("B_time"));
 				dto.setB_view(rs.getInt("B_view"));
+				dto.setB_img(rs.getString("B_img"));
 				
 				buyList.add(dto);
 			}
@@ -96,7 +107,7 @@ public class BuyDAO {
 			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
 		return buyList;
-	} //getList(startRow, pageSize)
+	} //getList (startRow, pageSize) (글목록에서 사용)
 	
 	public int getBuyBoardCount() {
 		int count = 0;
@@ -118,9 +129,11 @@ public class BuyDAO {
 			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
 		return count;
-	}
+		
+	} //getBuyBoardCount (페이징에서 사용)
 	
 	public BuyDTO getBuyBoard(int B_num){
+		System.out.println("getBuyBoard");
 		BuyDTO dto = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -136,9 +149,17 @@ public class BuyDAO {
 				dto = new BuyDTO();
 				dto.setB_num(rs.getInt("B_num"));
 				dto.setM_id(rs.getString("M_id"));
+				dto.setB_category(rs.getString("B_category"));
+				dto.setB_text(rs.getString("B_text"));
+				dto.setB_send1(rs.getString("B_send1"));
+				dto.setB_send2(rs.getString("B_send2"));
+				dto.setB_sido1(rs.getString("B_sido1"));
+				dto.setB_gugun1(rs.getString("B_gugun1"));
 				dto.setB_title(rs.getString("B_title"));
 				dto.setB_time(rs.getTimestamp("B_time"));
 				dto.setB_view(rs.getInt("B_view"));
+				dto.setB_img(rs.getString("B_img"));
+				
 			}else {
 		}
 		} catch (Exception e) {
@@ -150,49 +171,50 @@ public class BuyDAO {
 		}
 		return dto;
 		
-	}
+	} // getBuyBoard (상세글읽기에서 사용)
 	
+	public void updateBuyBoard(BuyDTO dto) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = getConnection();
+			String sql = "update buy set B_title=?, B_category=?, B_text=?, B_send1=?, B_send2=?, B_sido1=?, B_gugun1=?, B_img=? where B_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setString(1, dto.getB_title());
+			pstmt.setString(2, dto.getB_category());
+			pstmt.setString(3, dto.getB_text());
+			pstmt.setString(4, dto.getB_send1());
+			pstmt.setString(5, dto.getB_send2());
+			pstmt.setString(6, dto.getB_sido1());
+			pstmt.setString(7, dto.getB_gugun1());
+			pstmt.setString(8, dto.getB_img());
+			pstmt.setInt(9, dto.getB_num());
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+		}
+		
+	} //update 수정 (제목, 내용, 카테고리, 거래유형, 시도, 구군, 이미지 변경가능)
 	
-	
-	// 페이징 처리
-//	public boolean nextPage(int pageNumber) {
-//		String SQL = "select * from Buy where B_num < ?";
-//		try {
-//			conn = getConnection();
-//			PreparedStatement pstmt = conn.prepareStatement(SQL);
-//			pstmt.setInt(1, getNext() - (pageNumber - 1) * 10);
-//			rs = pstmt.executeQuery();
-//			if(rs.next()) {
-//				return true;
-//				// 결과가 하나라도 존재하면 다음페이지로 넘어갈수있음
-//			}
-//		}catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//		return false;
-//	}
-	
-	
-//	public BuyDTO getbuy(int B_num) {
-//		BuyDTO buy=null;
-//		String SQL="select * from Buy where B_num=?";
-//		try {
-//			conn = getConnection();
-//			PreparedStatement pstmt = conn.prepareStatement(SQL);
-//			pstmt.setInt(1, B_num);
-//			rs = pstmt.executeQuery();
-//			if(rs.next()) {
-//				buy.setB_num(rs.getInt(1));
-//				buy.setM_id(rs.getString(2));
-//				buy.setB_title(rs.getString(3));
-//				buy.setB_time(rs.getString(4));
-//				buy.setB_view(rs.getInt(5));
-//				return buy;
-//			}
-//		}catch (Exception e){
-//			e.printStackTrace();
-//			}
-//		return null;
-//		}
+	public void deleteBuyBoard(int B_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+		try {
+			con = getConnection();
+			String sql = "delete from buy where B_num=?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, B_num);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+		}
+	} //delete (글삭제)
 	
 }
