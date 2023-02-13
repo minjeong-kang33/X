@@ -9,44 +9,44 @@ import javax.sql.DataSource;
 
 	
 	
-    //DB연결
+    
     public class ChatDAO {
     	
     	public Connection getConnection() throws Exception{
+    		//서버에서 미리 1, 2 단계 => 디비연결 => 이름을 불러 연결정보를 가져오기
+    		// => 속도 향상, 디비연결 정보 수정 최소화
+    		// DataBase Connection Pool (DBCP)=> 디비 연결정보 서버 저장
+    		// 1. META-INF context.xml (디비연결정보)
+    		// 2. MemberDAO 디비연결정보 불러서 사용
     		Context init=new InitialContext();
     		DataSource ds = (DataSource) init.lookup("java:comp/env/jdbc/MysqlDB");
-    		Connection conn=ds.getConnection();
-    		return conn;
+    		Connection con=ds.getConnection();
+    		return con;
     	}
         
     	
     
-    //특정한 아이디에서 아이디 내역을 가져온다.			
-	public ArrayList<ChatDTO> getChatListByID(String fromID, String toID, String CH_num) {
+        //			ChatDTO 객체를 가져온다. 시, 분, 초 나타냄			
+	public ArrayList<ChatDTO> getChatListByID(String fromID, String toID, String chatID) {
 		ArrayList<ChatDTO> chatList = null;
-		Connection conn = null;
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		//입력된 받는사람이건 주는사람이건 다 가져온다.
-		String SQL = "SELECT * FROM CHAT WHERE ((fromID = ? AND toID =?) OR (fromID = ? AND toID = ?)) AND CH_num > ? ORDER BY chatTime";
-		
-		//디비 연결하고 
+		String SQL = "SELECT * FROM CHAT WHERE ((fromID = ? AND toID =?) OR (fromID = ? AND toID = ?)) AND chatID > ? ORDER BY chatTime";
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(SQL);
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, fromID);
 			pstmt.setString(2, toID);
 			pstmt.setString(3, toID);
 			pstmt.setString(4, fromID);
-			pstmt.setInt(5, Integer.parseInt(CH_num));
-			rs = pstmt.executeQuery(); //실행한 결과 반환
-			
-			// 리스트 초기화
+			pstmt.setInt(5, Integer.parseInt(chatID));
+			rs = pstmt.executeQuery();
 			chatList = new ArrayList<ChatDTO>();
 			while (rs.next()) {
 				ChatDTO chat = new ChatDTO();
-				chat.setCH_num(rs.getInt("CH_num"));
-				chat.setFromID(rs.getString("fromID").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>")); //특수문자 치환
+				chat.setchatID(rs.getInt("chatID"));
+				chat.setFromID(rs.getString("fromID").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				chat.setToID(rs.getString("toID").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				chat.setChatContent(rs.getString("chatContent").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				int chatTime = Integer.parseInt(rs.getString("chatTime").substring(11, 13));
@@ -67,7 +67,7 @@ import javax.sql.DataSource;
 			try {
 				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
+				if(con != null) con.close();
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -75,16 +75,13 @@ import javax.sql.DataSource;
 		return chatList; // 리스트 반환
 	}
 	
-	
-	
-	
-	// getChatListByRecent SQL 문자 주고받는 시간순서
+	// 최신순으로 나타내는 sql 구문 빨리온걸 위쪽에 배치
 	public ArrayList<ChatDTO> getChatListByRecent(String fromID, String toID, int number) {
 		ArrayList<ChatDTO> chatList = null;
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM CHAT WHERE ((fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) AND CH_num > (SELECT MAX(CH_num) - ? FROM CHAT WHERE (fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) ORDER BY chatTime";                     
+		String SQL = "SELECT * FROM CHAT WHERE ((fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) AND chatID > (SELECT MAX(chatID) - ? FROM CHAT WHERE (fromID = ? AND toID = ?) OR (fromID = ? AND toID = ?)) ORDER BY chatTime";                     
 		try {
 			conn = getConnection();
 			pstmt = conn.prepareStatement(SQL);
@@ -101,7 +98,7 @@ import javax.sql.DataSource;
 			chatList = new ArrayList<ChatDTO>();
 			while (rs.next()) {
 				ChatDTO chat = new ChatDTO();
-				chat.setCH_num(rs.getInt("CH_num"));
+				chat.setchatID(rs.getInt("chatID"));
 				chat.setFromID(rs.getString("fromID").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				chat.setToID(rs.getString("toID").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				chat.setChatContent(rs.getString("chatContent").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
@@ -128,23 +125,24 @@ import javax.sql.DataSource;
 		return chatList; // 리스트 반환
 	}
 	
-	// getbox 상자에 순서별로 담는다
+	//메세지함 getBox에 모든 맴버객체를 받는다.
 	public ArrayList<ChatDTO> getBox(String M_id) {
 		ArrayList<ChatDTO> chatList = null;
-		Connection conn = null;
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT * FROM CHAT WHERE M_id IN (SELECT MAX(CH_num) FROM CHAT WHERE toID = ? OR fromID = ? GROUP BY fromID, toID)";                     
+		// 나와 상대방 내용을 그룹으로 묶어서 대화 내용을 저장한다.
+		String SQL = "SELECT * FROM CHAT WHERE chatID IN (SELECT MAX(chatID) FROM CHAT WHERE toID = ? OR fromID = ? GROUP BY fromID, toID)";                     
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(SQL);
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, M_id);
 			pstmt.setString(2, M_id);
 			rs = pstmt.executeQuery();
 			chatList = new ArrayList<ChatDTO>();
 			while (rs.next()) {
 				ChatDTO chat = new ChatDTO();
-				chat.setCH_num(rs.getInt("CH_num"));
+				chat.setchatID(rs.getInt("chatID"));
 				chat.setFromID(rs.getString("fromID").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				chat.setToID(rs.getString("toID").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
 				chat.setChatContent(rs.getString("chatContent").replaceAll(" ", "&nbsp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;").replaceAll("\n", "<br>"));
@@ -162,10 +160,11 @@ import javax.sql.DataSource;
 				for(int j=0; j<chatList.size(); j++) {
 					ChatDTO y = chatList.get(j);
 					if(x.getFromID().equals(y.getToID()) && x.getToID().equals(y.getFromID())) {
-						if(x.getCH_num() < y.getCH_num()) {
+						if(x.getChatID() < y.getChatID()) {
 							chatList.remove(x);
 							i--;
 							break;
+							// 10번째까지 저장하고 그 이상이 되면 break 시킨다.
 						} else {
 							chatList.remove(y);
 							j--;
@@ -179,7 +178,7 @@ import javax.sql.DataSource;
 			try {
 				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
+				if(con != null) con.close();
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -187,17 +186,15 @@ import javax.sql.DataSource;
 		return chatList; // 리스트 반환
 	}
 	
-	
-	
-	// 메신저 보내는 함수 처리
+	// 메신저 수신 읽음 처리  0은 안읽은거, 1은 읽은거
 	public int submit(String fromID, String toID, String chatContent) {
-		Connection conn = null;
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String SQL = "INSERT INTO CHAT VALUES (NULL, ?, ?, ?, NOW(), 0)";
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(SQL);
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, fromID);
 			pstmt.setString(2, toID);
 			pstmt.setString(3, chatContent);
@@ -208,7 +205,7 @@ import javax.sql.DataSource;
 			try {
 				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
+				if(con != null) con.close();
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
@@ -216,16 +213,15 @@ import javax.sql.DataSource;
 		return -1; // 데이터베이스 오류
 	}
 	
-	
 	// 받는사람입장에서 메세지를 받았다.
 	public int readChat(String fromID, String toID) {
-		Connection conn = null;
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		String SQL = "UPDATE CHAT SET chatRead = 1 WHERE (fromID = ? AND toID = ?)";
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(SQL);
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, toID);
 			pstmt.setString(2, fromID);
 			return pstmt.executeUpdate(); // 반환한 결과를 업데이트한다.
@@ -235,29 +231,30 @@ import javax.sql.DataSource;
 			try {
 				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
+				if(con != null) con.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return -1; // 데이터베이스 오류
 	}
+			
 	
-	
-	//읽지않는 내용을 가져온다
-	public int getAllUnreadChat(String  M_id) {
-		Connection conn = null;
+	//읽지않는 메세지 모두 가져오는 매서드
+	public int getAllUnreadChat(String M_id) {
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT COUNT(CH_num) FROM CHAT WHERE toID = ? AND chatRead = 0";
+		//읽지않는 전부 가져온다.
+		String SQL = "SELECT COUNT(chatID) FROM CHAT WHERE toID = ? AND chatRead = 0";
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(SQL);
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, M_id);
 			//실행한 결과를 가져온다.
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return rs.getInt("COUNT(CH_num)");
+				return rs.getInt("COUNT(chatID)");
 			}
 			return 0; // 받은 메세지가 0이다.
 		} catch (Exception e) {
@@ -266,28 +263,27 @@ import javax.sql.DataSource;
 			try {
 				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
+				if(con != null) con.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 		return -1; // 데이터베이스 오류
 	}
-	
-	
+	// 실시간으로 업데이트하는 매서드
 	public int getUnreadChat(String fromID, String toID) {
-		Connection conn = null;
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		String SQL = "SELECT COUNT(CH_num) FROM CHAT WHERE fromID = ? AND toID = ? AND chatRead = 0";
+		String SQL = "SELECT COUNT(chatID) FROM CHAT WHERE fromID = ? AND toID = ? AND chatRead = 0";
 		try {
-			conn = getConnection();
-			pstmt = conn.prepareStatement(SQL);
+			con = getConnection();
+			pstmt = con.prepareStatement(SQL);
 			pstmt.setString(1, fromID);
 			pstmt.setString(2, toID);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				return rs.getInt("COUNT(CH_num)");
+				return rs.getInt("COUNT(chatID)");
 			}
 			return 0;
 		} catch (Exception e) {
@@ -296,7 +292,7 @@ import javax.sql.DataSource;
 			try {
 				if(rs != null) rs.close();
 				if(pstmt != null) pstmt.close();
-				if(conn != null) conn.close();
+				if(con != null) con.close();
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
