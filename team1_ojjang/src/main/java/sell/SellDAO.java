@@ -293,6 +293,21 @@ public class SellDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
+		//	찜 삭제 먼저
+			try {
+				con = getConnection();
+				String sql = "delete from likes where S_num = ?";
+				pstmt = con.prepareStatement(sql);
+				pstmt.setInt(1, S_num);
+				pstmt.executeUpdate();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+				if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			}
+			
+		//	그 다음 글 삭제 	
 		try {
 			con = getConnection();
 			String sql = "delete from sell where S_num=?";

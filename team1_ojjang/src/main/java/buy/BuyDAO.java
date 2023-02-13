@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import comment.CommentDAO;
+
 
 public class BuyDAO {
 	public Connection getConnection() throws Exception{
@@ -203,6 +205,21 @@ public class BuyDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
+		//	댓글 삭제	먼저
+		try {
+			con = getConnection();
+			String sql = "delete from comment where B_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, B_num);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+		}
+		
+		// 그 다음 게시글 삭제
 		try {
 			con = getConnection();
 			String sql = "delete from buy where B_num=?";
