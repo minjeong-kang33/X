@@ -35,9 +35,8 @@ if(M_id != null){
                </a>
                <!-- ***** 로고 끝 ***** -->
                
-      <!--  검색시작 : ** 검색기능 (기능만! main.jsp에 적용시켜 주세요! main.jsp의 검색창에 class명으로 css 잡혀있으니 주의!) -->
+<!-- 검색시작 : ** 영환씨!!! ** 검색기능 (기능만! main.jsp에 적용시켜 주세요! main.jsp의 검색창에 class명으로 css 잡혀있으니 주의! 모르겠으면 물어보세요) -->
            
-              
 <%-- 	<div class="container">
 		<div class="row">
 			<form  name="search" method="get">
@@ -81,9 +80,10 @@ for(int i=0; i<list.size(); i++){
                   <li><a href="../sell/dress.jsp">원피스</a></li>
                   <li><a href="../buy/buyList.jsp">삽니다</a></li>
                   
+                  
+<!-- **** 로그인 한 경우에만 보이는 메뉴 시작 **** -->                  
 				<%
 								/* 로그인 한 경우 */
-					String M_id=(String)session.getAttribute("M_id");
 					if(M_id != null){
 					
 				%>
@@ -96,41 +96,42 @@ for(int i=0; i<list.size(); i++){
                         <li><a href="../Mypage/WriteHistoryB.jsp">구매글내역</a></li>
                         <li><a href="../Mypage/WriteHistoryS.jsp">판매글내역</a></li>
                         <li><a href="#">거래후기</a></li>
-                        <li><a href="#">로그아웃</a></li>
                      </ul></li>
+                     
+                     <!-- 대화기능에는 링크 걸지않기 -->
                    <li class="submenu"><a href="#">대화기능</a>
                       <ul>
       					 <li><a href="javascript:void(window.open('../find.jsp', '판매자찾기','width=400, height=400'))">판매자찾기</a></li>
 						 <li><a href="javascript:void(window.open('../box.jsp', '메세지함','width=400, height=400'))">메세지함</a></li>
                      </ul>
                    </li>   
+                   	
+                   	<!-- 고객센터에는 링크 걸지않기, 회사소개, QnA에만 걸기 -->
                   <li class="submenu"><a href="#">고객센터</a>
                      <ul>
                         <li><a href="#">회사소개</a></li>
                         <li><a href="#">QnA</a></li>
                      </ul>
-                  </li>		
+                  </li>	
+                  	
+
+
+<!-- **** 로그인 안 한 경우에만 보이는 메뉴 시작 **** -->                     
 				<%
 					}else{
-										/* 로그인 안 한 경우 */
 				%>
+				<!-- 고객센터에는 링크 걸지않기, 회사소개, QnA에만 걸기 -->
 				<li class="submenu"><a href="#">고객센터</a>
                      <ul>
                         <li><a href="#">회사소개</a></li>
                         <li><a href="#">QnA</a></li>
                      </ul>
                 </li>
-					<li class="submenu"><a href="#">로그인</a>
-                      <ul>
-      					 <li><a href="../login/loginForm.jsp">로그인</a></li>
-						 <li><a href="../join/joinForm.jsp">회원가입</a></li>
-                     </ul>
-                   </li>   
-                   
 				<%		
 				}
 				%>
 				</ul>
+<!-- **** 로그인 안 한 경우에만 보이는 메뉴 끝 **** -->
          
                <!-- ***** 상단 바 메뉴 끝 ***** -->
             </nav>
