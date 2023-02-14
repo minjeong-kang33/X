@@ -14,6 +14,10 @@
 					<!-- ***** 상단 바 메뉴 시작 ***** -->
 					<ul class="nav">
 						<li><a href="#" class="active">홈</a></li>
+						<li class="submenu"><a>관리자</a>
+							<ul>
+								<li><a href="#">로그아웃</a></li>
+							</ul></li>
 						<li class="submenu"><a>회원관리</a>
 							<ul>
 								<li><a href="../admin/adUserList.jsp">전체회원목록</a></li>

@@ -70,15 +70,16 @@ ArrayList<BuyDTO> adbuyList=dao.adBuyList(startRow,pageSize);
 	</div>
 <form name="ckDelete" action="adBuyDelete.jsp" method="post">
 <table border="1">
-<tr><td><input type="checkbox" id="ckAll" name="ckAll" onclick="fun2()"></td><td>구매번호</td><td>아이디</td><td>제목</td><td>날짜</td></tr>
+<tr><td><input type="checkbox" id="ckAll" name="ckAll" onclick="fun2()"></td><td>구매번호</td><td>카테고리</td><td>아이디</td><td>제목</td><td>날짜</td></tr>
 <%
 for(int i=0;i<adbuyList.size();i++){
 	dto=adbuyList.get(i);
 %>
 	<tr><td><input type="checkbox" id="ck" name="ck" value="<%=dto.getB_num() %>"></td>
-		<td><a href=""><%=dto.getB_num() %></a></td>
-		<td><a href=""><%=dto.getM_id() %></a></td>
-		<td><%=dto.getB_title() %></td>
+		<td><%=dto.getB_num() %></td>
+		<td><%=dto.getB_category() %></td>
+		<td><%=dto.getM_id() %></td>
+		<td><a href="../buy/buyDetails.jsp?B_num=<%=dto.getB_num() %>"><%=dto.getB_title() %></a></td>
 		<td><%=dateFormat.format(dto.getB_time()) %></td></tr>
 <%
 }

@@ -380,7 +380,7 @@ public class AdminDAO {
 		ResultSet rs=null;
 		try {
 			con=getConnection();
-			String sql="select * from buy order by M_id limit ?, ?";
+			String sql="select * from buy order by B_time desc limit ?, ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow-1);
 			pstmt.setInt(2, pageSize);
@@ -392,6 +392,7 @@ public class AdminDAO {
 				dto.setB_title(rs.getString("B_title"));
 				dto.setB_time(rs.getTimestamp("B_time"));
 				dto.setB_view(rs.getInt("B_view"));
+				dto.setB_category(rs.getString("B_category"));
 				adbuyList.add(dto);
 			}
 		}catch(Exception e) {
