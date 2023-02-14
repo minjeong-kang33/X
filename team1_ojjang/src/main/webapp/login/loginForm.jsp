@@ -14,7 +14,7 @@
 	href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
 	integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2"
 	crossorigin="anonymous">
- <link href="../assets/css/loginForm.css" rel="stylesheet" type="text/css">
+<link href="../assets/css/loginForm.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 	<div class="select"></div>
@@ -66,8 +66,13 @@
 	<br>
 	<footer class="footer">
 		<div class="footer-info">
-			<a href="findID.jsp">아이디/비밀번호찾기 |</a> <a href="../join/joinForm.jsp">회원가입</a>
-
+			<a href="" onclick="find()">아이디/비밀번호찾기 |</a> <a href="../join/joinForm.jsp">회원가입</a>
+<script type="text/javascript">
+				function find() {
+					window.open("findID.jsp", "nickwin",
+							"width=400, height=350");
+				}
+			</script>
 		</div>
 	</footer>
 </body>
