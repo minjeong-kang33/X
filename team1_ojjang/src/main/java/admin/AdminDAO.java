@@ -392,6 +392,7 @@ public class AdminDAO {
 				dto.setB_title(rs.getString("B_title"));
 				dto.setB_time(rs.getTimestamp("B_time"));
 				dto.setB_view(rs.getInt("B_view"));
+				dto.setB_category(rs.getString("B_category"));
 				adbuyList.add(dto);
 			}
 		}catch(Exception e) {
