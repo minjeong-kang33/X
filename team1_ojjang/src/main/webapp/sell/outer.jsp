@@ -78,7 +78,6 @@
 							<!-- 상품게시글 table  -->
 	<%
 	SellDAO dao =new SellDAO();
-	
 	int pageSize = 9;
 	
 	String pageNum = request.getParameter("pageNum");
@@ -106,7 +105,8 @@
 		<td>
 			<table class="item-table">
 				<tr>
-					<td colspan="2" class="S_img"> <a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" ><img src="/img/sell/<%=dto.getS_img()%>" width=300px height=300px class="goodsImg"></td>
+					<td colspan="2" class="S_img"><a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" >
+					<img src="../img/sell/<%=dto.getS_img() %>" width=300px height=300px class="goodsImg"></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="S_title" > <a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" > <%=dto.getS_title()%></td> <!-- 제목 -->

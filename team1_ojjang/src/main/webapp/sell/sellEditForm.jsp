@@ -63,7 +63,8 @@ $('document').ready(function() {
 	   var area14 = ["경산시","경주시","구미시","김천시","문경시","상주시","안동시","영주시","영천시","포항시","고령군","군위군","봉화군","성주군","영덕군","영양군","예천군","울릉군","울진군","의성군","청도군","청송군","칠곡군"];
 	   var area15 = ["거제시","김해시","마산시","밀양시","사천시","양산시","진주시","진해시","창원시","통영시","거창군","고성군","남해군","산청군","의령군","창녕군","하동군","함안군","함양군","합천군"];
 	   var area16 = ["서귀포시","제주시","남제주군","북제주군"];
-
+		
+		// 시/도 선택 박스 초기화
 	   $("select[name^=S_sido1]").each(function() {
 		     $selS_sido1 = $(this);
 		     $.each(eval(area0), function() {
@@ -86,7 +87,25 @@ $('document').ready(function() {
 		     }
 		    });
 		   });
+function fun1() {
+	// 필수조건 - 입력 안 된 경우, 선택 안 된 경우 => 입력하세요 제어=> 전송
+	if(document.frm.S_title.value==""){
+		alert("제목을 입력하세요");
+		document.frm.S_title.focus();
+		return false;
+	}
 	
+	if(document.frm.S_category[0].checked==false && document.frm.S_category[1].checked==false
+			&& document.frm.S_category[2].checked==false&& document.frm.S_category[3].checked==false){
+		alert("카테고리를 선택하세요");
+		return false;
+	}
+	
+	if(document.frm.S_send1.checked==false && document.frm.S_send2.checked==false){
+		alert("선호하는 거래형태를 선택하세요");
+		return false;
+	}
+}	
 </script>
 </head>
 
@@ -115,41 +134,30 @@ SellDTO dto = dao.getSellBoard(S_num);
 <img src="../assets/images/sellInsert_title.png" id="sellBoard" width="500px">
 	
 	<!-- ** 옷 카테고리 선택 시작 -->
-<form id="frm" action="sellInsertPro.jsp" method="post" enctype="multipart/form-data">
+<form id="frm" action="sellEditPro.jsp?S_num=<%=S_num %>" method="post" enctype="multipart/form-data" onsubmit="return fun1()">
 	<div class="radio1">
 		<b>카테고리</b>
-		<input type="radio" id="radio-btn-1" name="S_category" value="outer">
-			<label for="radio-btn-1" class="btn">아우터</label>
-		<input type="radio" id="radio-btn-2" name="S_category" value="shirts">
+		 <input type="radio" id="radio-btn-1" name="S_category" value="outer" <%if(dto.getS_category().equals("outer")){%>checked <%}%>>
+			<label for="radio-btn-1" class="btn" >아우터</label>
+		<input type="radio" id="radio-btn-2" name="S_category" value="shirts" <%if(dto.getS_category().equals("shirts")){%>checked <%}%>>
 			<label for="radio-btn-2" class="btn">상의</label>
-		<input type="radio" id="radio-btn-3" name="S_category" value="pants">
+		<input type="radio" id="radio-btn-3" name="S_category" value="pants" <%if(dto.getS_category().equals("pants")){%>checked <%}%>>
 			<label for="radio-btn-3" class="btn">하의</label>
-		<input type="radio" id="radio-btn-4" name="S_category" value="dress">
-			<label for="radio-btn-4" class="btn">원피스</label>
+		<input type="radio" id="radio-btn-4" name="S_category" value="dress" <%if(dto.getS_category().equals("dress")){%>checked <%}%>>
+			<label for="radio-btn-4" class="btn">원피스</label> 
 	</div>
 	<!-- ** 옷 카테고리 선택 끝 -->
 	
 	<!-- ** 선호거래 체크박스 시작 **-->
 	<div class="check1">
 		<b>선호하는 거래형태</b>
-		<% if(dto.getS_send1()!=null && dto.getS_send2()!=null){%> 
-		<input type="checkbox" id="checkbox-btn-1" name="S_send1" checked>
+		<input type="checkbox" id="checkbox-btn-1" name="S_send1"  value="delivery" <%if(dto.getS_send1()!=null){%>checked <%}%>>
 			<label for="checkbox-btn-1" class="btn">택배거래</label>
-		<input type="checkbox" id="checkbox-btn-2" name="S_send2" checked>
-			<label for="checkbox-btn-2" class="btn" >직거래</label><%}
-		else if(dto.getS_send1()!=null){%> 
-		<input type="checkbox" id="checkbox-btn-1" name="S_send1" checked>
-			<label for="checkbox-btn-1" class="btn">택배거래</label>
-		<input type="checkbox" id="checkbox-btn-2" name="S_send2">
-			<label for="checkbox-btn-2" class="btn" >직거래</label><%}
-		else if(dto.getS_send2()!=null){%> 
-		<input type="checkbox" id="checkbox-btn-1" name="S_send1">
-			<label for="checkbox-btn-1" class="btn">택배거래</label>
-		<input type="checkbox" id="checkbox-btn-2" name="S_send2"  checked>
-			<label for="checkbox-btn-2" class="btn" >직거래</label><%}%>
-			
-		<select name="S_sido1" id="S_sido1"></select>
-		<select name="S_gugun1" id="S_gugun1"></select>
+		<input type="checkbox" id="checkbox-btn-2" name="S_send2" value="direct" <%if(dto.getS_send2()!=null){%>checked <%}%>>
+			<label for="checkbox-btn-2" class="btn" >직거래</label>
+		
+		<select name="S_sido1" id="S_sido1"><option><%=dto.getS_sido1() %></option></select>
+		<select name="S_gugun1" id="S_gugun1"><option><%=dto.getS_gugun1() %></option></select>
 	</div>
 	<!-- ** 선호거래 체크박스 끝 **-->
 	
