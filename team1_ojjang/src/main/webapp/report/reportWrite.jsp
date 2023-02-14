@@ -1,3 +1,4 @@
+<%@page import="javax.swing.text.Document"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +11,12 @@
 
 <script type="text/javascript">
 
+finction fun1(){
+	
+	
+	
+}
+
 function fun2() {
 	window.close();
 } 
@@ -20,6 +27,7 @@ function fun2() {
 
 <%
 String M_id=(String)session.getAttribute("M_id");
+String R_id=(String)session.getAttribute("R_id");
 
 if(M_id==null){
 	response.sendRedirect("../login/loginForm.jsp");

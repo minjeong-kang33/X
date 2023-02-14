@@ -22,8 +22,8 @@
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
 <script type="text/javascript">
-function fun1(){
-	window.open("../report/reportWrite.jsp","pop","width=520,height=340");
+function fun1(M_id){
+	window.open("../report/reportWrite.jsp?R_id="+M_id,"pop","width=520,height=340");
 }
 
 </script>
@@ -147,7 +147,7 @@ if(M_id != null){
    }
 }
 %>
-   <button type="button" class="btn btn-dark" onclick="fun1()" style="float:right"> 신고하기</button>
+   <button type="button" class="btn btn-dark" onclick="fun1('<%=dto.getM_id()%>')" style="float:right"> 신고하기</button>
    <button type="button" class="btn btn-dark" onclick="location.href='sellList.jsp'" style="float:right">글목록</button>
 </div>
 

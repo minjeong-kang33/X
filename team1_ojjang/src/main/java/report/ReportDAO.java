@@ -34,7 +34,7 @@ public class ReportDAO {
 			
 			pstmt.setString(1, dto.getR_type());
 			pstmt.setString(2, dto.getM_id());
-			pstmt.setString(3, "구매자아이디"); // test로 (구매자 땡겨오는거 아직 못해서)
+			pstmt.setString(3, dto.getR_id()); // test로 (구매자 땡겨오는거 아직 못해서)
 			pstmt.setString(4, dto.getR_reason());
 			
 			pstmt.executeUpdate();	
