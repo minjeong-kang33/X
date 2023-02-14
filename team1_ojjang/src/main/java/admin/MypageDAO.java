@@ -68,7 +68,7 @@ public class MypageDAO {
 		ResultSet rs=null;
 		try {
 			con=getConnection();
-			String sql="select S_title, S_price, S_category from sell where M_id in ( select M_id from deal where M_id=?)";
+			String sql="select * from sell where M_id in ( select M_id from deal where M_id=?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, M_id);
 			rs=pstmt.executeQuery();
@@ -77,6 +77,7 @@ public class MypageDAO {
 				dto.setS_title(rs.getString("S_title"));
 				dto.setS_price(rs.getInt("S_price"));		
 				dto.setS_category(rs.getString("S_category"));
+				dto.setS_num(rs.getInt("S_num"));
 				sellHistory.add(dto);
 			}
 		}catch(Exception e) {
@@ -130,7 +131,7 @@ public class MypageDAO {
 		ResultSet rs=null;
 		try {
 			con=getConnection();
-			String sql="select M_id, S_title, S_price, S_category from sell where S_num in ( select S_num from deal where D_buy=?)";
+			String sql="select* from sell where S_num in ( select S_num from deal where D_buy=?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, M_id);
 			rs=pstmt.executeQuery();
@@ -140,6 +141,7 @@ public class MypageDAO {
 				dto.setS_title(rs.getString("S_title"));
 				dto.setS_price(rs.getInt("S_price"));		
 				dto.setS_category(rs.getString("S_category"));
+				dto.setS_num(rs.getInt("S_num"));
 				dealListS.add(dto);
 			}
 		}catch(Exception e) {

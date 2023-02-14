@@ -18,12 +18,11 @@
 <%
 
 request.setCharacterEncoding("utf-8");
-// String M_id=(String)session.getAttribute("id");
-// int S_num=Integer.parseInt(request.getParameter("S_num"));
-int like_id=0;
+String M_id=(String)session.getAttribute("id");
+int S_num=Integer.parseInt(request.getParameter("S_num"));
 
-String M_id="blue1";
-int S_num=2;
+// String M_id="blue1";
+// int S_num=2;
 
 MypageDAO dao=new MypageDAO();
 
@@ -31,7 +30,7 @@ LikeDTO getLikeDto=dao.getLike(M_id, S_num);
 
 
 if(getLikeDto==null){
-	dao.insertlike(S_num, M_id, like_id);
+	dao.insertlike(S_num, M_id);
 	%>
     <script type="text/javascript">
 		alert("찜완료");
