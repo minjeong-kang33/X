@@ -26,7 +26,7 @@ import javax.sql.DataSource;
         
     	
     
-        //			ChatDTO 객체를 가져온다. 시, 분, 초 나타냄	수정		
+        //			ChatDTO 객체를 가져온다. 시, 분, 초 나타냄			
 	public ArrayList<ChatDTO> getChatListByID(String fromID, String toID, String chatID) {
 		ArrayList<ChatDTO> chatList = null;
 		Connection con = null;
