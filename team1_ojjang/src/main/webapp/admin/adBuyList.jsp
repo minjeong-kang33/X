@@ -76,9 +76,9 @@ for(int i=0;i<adbuyList.size();i++){
 	dto=adbuyList.get(i);
 %>
 	<tr><td><input type="checkbox" id="ck" name="ck" value="<%=dto.getB_num() %>"></td>
-		<td><a href=""><%=dto.getB_num() %></a></td>
-		<td><a href=""><%=dto.getM_id() %></a></td>
-		<td><%=dto.getB_title() %></td>
+		<td><%=dto.getB_num() %></td>
+		<td><%=dto.getM_id() %></td>
+		<td><a href="../buy/buyDetails.jsp?B_num=<%=dto.getB_num() %>"><%=dto.getB_title() %></a></td>
 		<td><%=dateFormat.format(dto.getB_time()) %></td></tr>
 <%
 }

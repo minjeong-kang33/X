@@ -76,10 +76,10 @@ for(int i=0;i<adSellList.size();i++){
 	dto=adSellList.get(i);
 %>
 	<tr><td><input type="checkbox" id="ck" name="ck" value="<%=dto.getS_num() %>"></td>
-		<td><a href=""><%=dto.getS_num() %></a></td>
+		<td><%=dto.getS_num() %></td>
 		<td><%=dto.getS_category() %></td>
-		<td><a href=""><%=dto.getM_id() %></a></td>
-		<td><%=dto.getS_title() %></td>
+		<td><%=dto.getM_id() %></td>
+		<td><a href="../sell/sellDetails.jsp?S_num=<%=dto.getS_num() %>"><%=dto.getS_title() %></a></td>
 		<td><%=dto.getS_price() %></td>
 		<td><%=dateFormat.format(dto.getS_createdate()) %></td></tr>
 <%
