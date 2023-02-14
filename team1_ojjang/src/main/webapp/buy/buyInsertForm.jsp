@@ -94,6 +94,25 @@ $('document').ready(function() {
     });
    });
    
+function fun1() {
+	// 필수조건 - 입력 안 된 경우, 선택 안 된 경우 => 입력하세요 제어=> 전송
+	if(document.frm.B_title.value==""){
+		alert("제목을 입력하세요");
+		document.frm.B_title.focus();
+		return false;
+	}
+	
+	if(document.frm.B_category[0].checked==false && document.frm.B_category[1].checked==false
+			&& document.frm.B_category[2].checked==false&& document.frm.B_category[3].checked==false){
+		alert("카테고리를 선택하세요");
+		return false;
+	}
+	
+	if(document.frm.B_send1.checked==false && document.frm.B_send2.checked==false){
+		alert("선호하는 거래형태를 선택하세요");
+		return false;
+	}
+}
 </script>
 </head>
 <body>
@@ -110,7 +129,7 @@ String M_id = (String)session.getAttribute("M_id");
 <img src="../assets/images/buyInsert_title.png" id="buyBoard" width="500px">
 	
 	<!-- ** 옷 카테고리 선택 시작 -->
-<form id="frm" action="buyInsertPro.jsp" method="post" enctype="multipart/form-data">	
+<form id="frm" name="frm" action="buyInsertPro.jsp" method="post" enctype="multipart/form-data" onsubmit="return fun1()">	
 	<div class="radio1">
 		<b>카테고리</b>
 		<input type="radio" id="radio-btn-1" name="B_category" value="outer">
