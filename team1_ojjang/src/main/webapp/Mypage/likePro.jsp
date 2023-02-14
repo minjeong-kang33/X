@@ -18,11 +18,9 @@
 <%
 
 request.setCharacterEncoding("utf-8");
-String M_id=(String)session.getAttribute("id");
+// String M_id=(String)session.getAttribute("M_id");
 int S_num=Integer.parseInt(request.getParameter("S_num"));
-
-// String M_id="blue1";
-// int S_num=2;
+String M_id=request.getParameter("M_id");
 
 MypageDAO dao=new MypageDAO();
 
