@@ -63,6 +63,14 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 				<td colspan="2"> <%= dto.getM_id() %></td>
 			</tr>
 			<tr>
+				<td>카테고리</td>
+				<td> <%= dto.getB_category() %></td>
+			</tr>
+			<tr>
+				<td>조회수</td>
+				<td> <%= dto.getB_view() %></td>
+			</tr>
+			<tr>
 				<td>작성일자</td>
 				<td colspan="2"> <%= dateFormat.format(dto.getB_time())%> </td>
 			</tr>
