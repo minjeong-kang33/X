@@ -32,7 +32,6 @@ String M_id = request.getParameter("M_id");
 try{
 	//1) 사용하고자 하는 메일서버에서 인증받은 계정과 비번을 등록하기
 	//-> MyAuthenticator 클래스 생성
-
 	//2) 메일서버(POP3/SMTP) 지정하기
 
 	Properties props = new Properties();
