@@ -21,6 +21,12 @@
     <link href="../assets/css/buy.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
+<script type="text/javascript">
+function fun1(M_id,S_num){
+	window.open("../report/reportWrite.jsp?R_id="+M_id+"&S_num="+S_num,"pop","width=520,height=340");
+}
+
+</script>
 </head>
     <body>
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
@@ -67,113 +73,84 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 // 	like1 = "택배";
 // }
 %>
-<div class="container2">
-	<div class="row">
-	<!--보내지는 내용 숨겨지도록(post) 작성한 글을 writeAction으로 보냄 -->
-	<table class = "table table-striped" style="text-align:center; border:1px solid #dddddd">
-		<thead>
-			<tr>
-				<th colspan="3"  style="background-color: #eeeeee; text-align:center">팝니다</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td style="width:20%;">글제목</td>
-				<td colspan="2"><%=dto.getS_title()%></td>
-			</tr>
-			<tr>
 
-				<td style="width:20%;">거래유형</td>
-				<td colspan="2">
-				<%
-				
-				if(dto.getS_like() == 1){
-					out.println("직거래");
-					}
-				else if(dto.getS_like() == 2){
-					out.println("택배거래");
-					}
-				%>
-					</td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td colspan="2"> <%=dto.getM_id() %></td>
-			</tr>
-			<tr>
-				<td>작성일자</td>
-				<td colspan="2"> <%=dateFormat.format(dto.getS_createdate()) %> </td>
-			</tr>
-			<tr>
-				<td>글내용</td>
-				<td colspan="2"  style="min-height: 200px; text-align:left;"> <%= dto.getS_text() %></td>
-			<tr><td colspan="2">
-</tr>
-</tbody>		
-</table>
-<!-- 댓글시작 -->
-<div class="comment">
-<form method="post" action="commentAction.jsp?S_num=<%=S_num%>">
-				<table class="table table-striped"
-					style="text-align: center; border: 1px solid #dddddd">
-					<thead>
-						<tr>
-							<th colspan="3"
-								style="background-color: #eeeeeee; text-align: center;">댓글</th>
-						</tr>
-					</thead>
-					<tbody>
-					
-						<%
-						int pageNumber=1;
-						// pageNumber는 URL에서 가져온다.
-						if(request.getParameter("pageNumber")!=null){
-							pageNumber=Integer.parseInt(request.getParameter("pageNumber"));
-						}
-							CommentDAO comment=new CommentDAO();
-							ArrayList<CommentDTO> List=comment.getList(S_num, pageNumber);
-							for(int i=List.size()-1 ; i>=0 ; i--){
-						%>
+	<section class="section" id="products"> 
+		<!-- 게시판 제목  -->
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="aa"></div>
+					<div class="section-heading">
+						<h2 style="margin-top: 180px">팝니다</h2>
+						<span>sell</span>
+					</div>
+	<!--보내지는 내용 숨겨지도록(post) 작성한 글을 writeAction으로 보냄 --> 
+			<table class="table table-striped"
+				style="text-align: center; border: 1px solid #dddddd">
+			<!--	<thead>
+					<tr>
+						<th colspan="3"
+							style="background-color: #eeeeee; text-align: center">팝니다</th>
+					</tr>
+				</thead>
+				<tbody>  -->
+					<tr>
+						<td style="width: 20%;">글제목</td>
+						<td colspan="2"><%=dto.getS_title()%></td>
+					</tr>
+					<tr>
 
-						<tr>
-							<td style="text-align: left;"><%=List.get(i).getCo_text() %></td>
-							<td style="text-align: right;"><%=List.get(i).getM_id() %>
-							<a href="javascript:CoUpdate()" class="btn">수정</a>
-							<a href="commentdeleteAction.jsp?S_num=<%=S_num %>&Co_num=<%=List.get(i).getCo_num() %>" class="btn ">삭제</a>
-							</td> 
-						</tr>
-		
-						<%
-								}
-						%>
-			<td>
-				<textarea type="text" class="form-control"
-				placeholder="댓글을 입력하세요." name="Co_text" maxlength="2048"></textarea>
-			</td>
-
-					
-					</tbody>
-				</table>
-				<input type="submit" class="btn" value="댓글입력">
-			</form>
+						<td style="width: 20%;">거래유형</td>
+						<td colspan="2">
+							<%
+							if (dto.getS_like() == 1) {
+								out.println("직거래");
+							} else if (dto.getS_like() == 2) {
+								out.println("택배거래");
+							}
+							%>
+						</td>
+					</tr>
+					<tr>
+						<td>작성자</td>
+						<td colspan="2"><%=dto.getM_id()%></td>
+					</tr>
+					<tr>
+						<td>작성일자</td>
+						<td colspan="2"><%=dateFormat.format(dto.getS_createdate())%>
+						</td>
+					</tr>
+					<tr>
+						<td>글내용</td>
+						<td colspan="2" style="min-height: 200px; text-align: left;">
+							<%= dto.getS_text() %></td>
+					<tr>
+						<td colspan="2">
+					</tr>
+				</tbody>
+			</table>
+				</div>
 			</div>
+			</div>
+</section>
 <!-- 댓글끝 -->
 </div>
-			<div class="btn-naran">
+         <div class="btn-naran">
 <%
 if(M_id != null){
-	// 세션값=id와 글쓴이가 일치해야만 글수정, 글삭제 표시
-	if(M_id.equals(dto.getM_id())){
-		%>
-<input type="button" class="btn btn-dark" value="글수정" onclick="location.href='sellEditForm.jsp?num=<%=dto.getS_num() %>'">
-<input type="button" class="btn btn-dark" value="글삭제" onclick="location.href='SellDelete.jsp?num=<%=dto.getS_num() %>'"> 
-		<%		
-	}
+   // 세션값=id와 글쓴이가 일치해야만 글수정, 글삭제 표시
+   if(M_id.equals(dto.getM_id())){
+      %>
+<input type="button" class="btn btn-dark" value="글수정" onclick="location.href='sellEditForm.jsp?S_num=<%=dto.getS_num() %>'">
+<input type="button" class="btn btn-dark" value="글삭제" onclick="location.href='sellDeletePro.jsp?S_num=<%=dto.getS_num() %>'"> 
+      <%      
+   }
 }
 %>
-	<button type="button" class="btn btn-dark" onclick="location.href='sellList.jsp'" style="float:right">글목록</button>
+   <button type="button" class="btn btn-dark" onclick="fun1('<%=dto.getM_id()%>','<%=dto.getS_num() %>')" style="float:right"> 신고하기</button>
+   <button type="button" class="btn btn-dark" onclick="location.href='sellList.jsp'" style="float:right">글목록</button>
 </div>
-</div>
+
 <!-- ***** 푸터 시작 ***** -->
 <jsp:include page="../bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->

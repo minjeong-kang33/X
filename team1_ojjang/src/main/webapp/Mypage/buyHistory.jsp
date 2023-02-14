@@ -65,7 +65,8 @@ for(int i=0;i<dealListS.size();i++){
 
 	<tr>
 		<td><%=sdto.getM_id() %></td>
-		<td><%=sdto.getS_title() %></td>
+		<td><a href="../sell/sellDetails.jsp?S_num=<%=sdto.getS_num() %>">
+		<%=sdto.getS_title() %></a></td>
 		<td><%=sdto.getS_price() %></td>
 		<td><%=sdto.getS_category() %></td>
 		<td><%=dto.getD_buy() %></td>

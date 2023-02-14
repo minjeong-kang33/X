@@ -1,3 +1,4 @@
+<%@page import="buy.BuyDAO"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="sell.SellDTO"%>
 <%@page import="java.util.ArrayList"%>
@@ -14,32 +15,64 @@
     <link rel="stylesheet" href="../assets/css/templatemo-hexashop.css">
     <link rel="stylesheet" href="../assets/css/owl-carousel.css">
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
-   <link href="../assets/css/sell.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="../assets/css/main_searchbar.css" rel="stylesheet" type="text/css">
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
 
    <script type="text/javascript">     
-   	 <%-- 토글 --%>
-    	var set_state = true;
-    	var img_icon = new Array(); 
-    	img_icon[0] = new Image(); 
-    	img_icon[1] = new Image();
-    	img_icon[0].src = "heart.png"; 
-    	img_icon[1].src = "fullheart.png"; 
-    	
-    function hartToggle(){
-    	document.all.icon_btn.src = (set_state ? img_icon[0].src : img_icon[1].src);
-    	   if(set_state){ 
-    		   set_state = false;
-    	   } else {
-    	       set_state = true;
-    	   }
-    }
-    
-    </script>
-</head>
 
-   <body>
+
+    </script>
+    <script>
+function setCookie( name, value, expiredays ) {
+	var todayDate = new Date();
+	todayDate.setDate( todayDate.getDate() + expiredays );
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+}
+
+function getCookie( name ) {
+	var nameOfCookie = name + "=";
+	var x = 0;
+	while ( x <= document.cookie.length ) {
+	var y = (x+nameOfCookie.length);
+		if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+		if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+		endOfCookie = document.cookie.length;
+			return unescape( document.cookie.substring( y, endOfCookie ) );
+		}
+	x = document.cookie.indexOf( " ", x ) + 1;
+	if ( x == 0 )
+	break;
+	}
+	return "";
+}
+
+if ( getCookie( "popup1" ) != "done" ) {
+	noticeWindow =
+	window.open('../popup/popup1.jsp','popup1','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300,height=300');
+	noticeWindow.opener = self;
+}
+
+if ( getCookie( "popup2" ) != "done" ) {
+	noticeWindow =
+	window.open('../popup/popup2.jsp','popup2','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=310,height=510,top=90,left=200');
+	noticeWindow.opener = self;
+}
+
+if ( getCookie( "popup3" ) != "done" ) {
+	noticeWindow =
+	window.open('../popup/popup3.jsp','popup3','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=310,height=510,top=100,left=400');
+	noticeWindow.opener = self;
+}
+</script>
+</head>
+<body>
+<%
+
+String M_id = (String)session.getAttribute("M_id");
+
+%>
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
         <div class="jumper">
@@ -50,34 +83,51 @@
     </div>  
     
     <!-- ***** 헤더 ***** -->
-  <jsp:include page="../top.jsp" />
+  <jsp:include page="../admin_top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
+    
+   <!-- ***** 배너 시작 ***** -->
+    <div class="page-heading about-page-heading" id="top">
+        <div class="container">
+             <div class="inner-content2">
+                <img src="../assets/images/banner_img.png" width="100%" >
+             </div>
+        </div>
+    </div>
+<!--     ***** 배너 끝 ***** -->
 
-	<section class="section" id="products">
+ <!-- ***** 검색창 시작 ***** -->
+ <!-- ../assets/css/main_searchbar.css: 검색창용 css -->
+<div class = searchbar>
+  <form class="search-container">
+    <input type="text" id="search-bar" placeholder="찾으시는 상품이 있나요?">
+    <a href="#"><img class="search-icon" src="http://www.endlessicons.com/wp-content/uploads/2012/12/search-icon.png"></a>
+  </form>
+</div>
+ <!-- ***** 검색창 끝 ***** -->
 
 
-		<!-- 게시판 제목  -->
-		<div class="container">
+<!-- ***** 최신 판매글 시작 ***** -->
+    <section class="section" id="men">
+    	<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="section-heading">
-						<h2>아우터</h2>
-						<span>outer</span>
+						<h2>최신 판매글</h2>
+						<span>recent posts for sale</span>
 					</div>
 				</div>
 			</div>
 		</div>
-
-		<div class="container">
+    	
+        <div class="container">
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="item">
 						<div class="down-content">
-<!-- 게시판 내용 여기부터 넣으세요  -->
-						
-							<!-- 상품게시글 table  -->
-	<%
+  	<%
 	SellDAO dao =new SellDAO();
+	
 	int pageSize = 9;
 	
 	String pageNum = request.getParameter("pageNum");
@@ -105,20 +155,16 @@
 		<td>
 			<table class="item-table">
 				<tr>
-					<td colspan="2" class="S_img"><a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" >
-					<img src="../img/sell/<%=dto.getS_img() %>" width=300px height=300px class="goodsImg"></td>
+					<td colspan="2" class="S_img"><img src="../img/sell/<%=dto.getS_img() %>" width=300px height=300px class="goodsImg"></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="S_title" > <a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" > <%=dto.getS_title()%></td> <!-- 제목 -->
+					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
 				</tr>
 				<tr>
-					<td class="price"><%=dto.getS_price()%>원</td> <td align="right" class="like_id"><input type="image" name="button"  class="heart" src="heart.png" onclick="hartToggle()">
+					<td class="price"><%=dto.getS_price()%>원</td> <td align="right" class="like_id"><input type="image" name="button" class="heart" src="../sell/heart.png" onclick="location.href='../Mypage/likePro.jsp'">
 				</tr>
-				<%-- <tr>
-					<td class="S_sido1"><%=dto.getS_sido1()%></td> <td class="S_gugun1"><%=dto.getS_gugun1()%></td> <!-- 구군 -->
-				</tr> --%>
 				<tr>
-					<td colspan="2" class="S_createdate" ><%= dateFormat.format(dto.getS_createdate())%></td> <!-- 게시글 생성일자 -->
+					<td colspan="2" class="S_createdate" ><%= dateFormat.format(dto.getS_createdate())+" 작성"%></td> <!-- 게시글 생성일자 -->
 				</tr>
 				<tr>
 					<td colspan="2" class="S_send"> <% if(dto.getS_send1()!=null&&dto.getS_send2()!=null){%> <%= "<b>택배거래</b>, <b>직거래</b>"%><%}
@@ -126,7 +172,7 @@
 						else if(dto.getS_send2()!=null){%> <%= "<b>직거래</b>"%><%}%> </td> <!-- 선호거래유형 -->
 				</tr>
 				<tr>
-					<td colspan="2"> <% if(dto.getS_send2()!=null){%> <img src="location_icon.png" class="location"><%= dto.getS_sido1()%> <%= dto.getS_gugun1()%><%} else { %>　<%}%> </td>
+					<td colspan="2"> <% if(dto.getS_send2()!=null){%> <img src="../sell/location_icon.png" class="location"><%= dto.getS_sido1()%><%} else { %>　<%}%> </td>
 					<!-- else에 안보이는 공백문자있어요 지우지마세요 지우면 정렬깨짐 -->
 				</tr>
 			</table>
@@ -145,44 +191,19 @@
 	%>	
 	
 </tr>
-</table>
-							
-<!-- 게시판 내용 여기 넘어가면 안됨.  -->							
-					</div>
-				<!--  페이지 번호  -->
-				<%
-					int pageBlock = 10;
-				int startPage=(currentPage-1)/pageBlock*pageBlock+1;
-				int endPage=startPage+pageBlock-1;
-				int count = dao.getSellBoardCount();
-				int pageCount=count/pageSize+(count%pageSize==0?0:1);
-				if(endPage > pageCount){
-					endPage = pageCount;
-				}
-				
-				if(startPage>pageBlock){
-					%>
-					<a href="outer.jsp?pageNum=<%=startPage-pageBlock%>"> [10페이지 이전]</a>
-					<%
-				}
-				
-				for(int i=startPage;i<=endPage;i++){
-					%>
-					<a href="outer.jsp?pageNum=<%=i%>"><%=i%></a>
-					<%
-				}
-				
-				%>
-					</div>
-				</div>
-			</div>
-		</div>
-<!-- 	글 작성 버튼을 오른쪽 아래에 고정 -->
-	<button type="button" class="btn btn-dark" onclick="location.href='sellInsertForm.jsp'" style="float:right">글쓰기</button>
-</section>
+</table>      
+        
+		               </div>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </section>
+<!-- ***** 최신 판매글 끝 ***** -->
+
 
     <!-- ***** 푸터 시작 ***** -->
-   <jsp:include page="../bottom.jsp" />
+   <jsp:include page="../admin_bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->
@@ -191,6 +212,14 @@
  <!--  Bootstrap -->
     <script src="../assets/js/popper.js"></script>
     <script src="../assets/js/bootstrap.min.js"></script>
+
+
+
+
+
+
+
+
 
  <!-- Plugins -->
     <script src="../assets/js/owl-carousel.js"></script>
@@ -222,11 +251,8 @@
                 
             });
         });
-		
-    </script> 
-    
-<!-- JSP -->    
 
-    
-</body>
+    </script> 
+
+  </body>
 </html>

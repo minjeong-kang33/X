@@ -1,3 +1,4 @@
+<%@page import="javax.swing.text.Document"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -10,6 +11,11 @@
 
 <script type="text/javascript">
 
+finction fun1(){
+	
+	
+	
+}
 
 function fun2() {
 	window.close();
@@ -21,6 +27,8 @@ function fun2() {
 
 <%
 String M_id=(String)session.getAttribute("M_id");
+String R_id=(String)session.getAttribute("R_id");
+int S_num = Integer.parseInt(request.getParameter("S_num"));
 
 if(M_id==null){
 	response.sendRedirect("../login/loginForm.jsp");
@@ -31,7 +39,7 @@ if(M_id==null){
 
 <%-- 신고하기 폼 --%>
 <div class="reportForm">
-	<form action="reportWritePro.jsp" method="post">
+	<form action="reportWritePro.jsp" method="post" name="reportWriteBox">
 	<input type="hidden" name="M_id" value="<%=M_id %>">
 	<span class="reportInfo"><img src="danger.png" class="dangerIcon">  클릭하여 신고 이유를 선택해 주세요. </span> 
 	<select id="selectBox" name="R_type">

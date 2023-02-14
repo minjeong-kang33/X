@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import comment.CommentDAO;
+
 
 public class BuyDAO {
 	public Connection getConnection() throws Exception{
@@ -104,7 +106,7 @@ public class BuyDAO {
 		} finally {
 			if(rs!=null) try { rs.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return buyList;
 	} //getList (startRow, pageSize) (글목록에서 사용)
@@ -126,7 +128,7 @@ public class BuyDAO {
 			e.printStackTrace();
 		} finally {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return count;
 		
@@ -167,7 +169,7 @@ public class BuyDAO {
 		} finally {
 			if(rs!=null) try { rs.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return dto;
 		
@@ -193,7 +195,7 @@ public class BuyDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
 		
@@ -203,6 +205,21 @@ public class BuyDAO {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
+		//	댓글 삭제	먼저
+		try {
+			con = getConnection();
+			String sql = "delete from comment where B_num = ?";
+			pstmt = con.prepareStatement(sql);
+			pstmt.setInt(1, B_num);
+			pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+		
+		// 그 다음 게시글 삭제
 		try {
 			con = getConnection();
 			String sql = "delete from buy where B_num=?";
@@ -213,7 +230,7 @@ public class BuyDAO {
 			e.printStackTrace();
 		} finally {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 	} //delete (글삭제)
 	

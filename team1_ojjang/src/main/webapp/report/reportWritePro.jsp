@@ -1,3 +1,5 @@
+<%@page import="java.io.PrintWriter"%>
+<%@page import="java.awt.Window"%>
 <%@page import="report.ReportDAO"%>
 <%@page import="report.ReportDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -14,11 +16,14 @@
 
 <%
 
+
+
 request.setCharacterEncoding("utf-8");
 String R_type = request.getParameter("R_type"); // 신고유형
 String M_id = request.getParameter("M_id"); 
-String R_id = "가해자"; //가해자
+String R_id = request.getParameter("R_id"); //가해자
 String R_reason = request.getParameter("R_reason");
+
 
 ReportDTO dto = new ReportDTO();
 dto.setR_type(R_type);
@@ -30,7 +35,6 @@ ReportDAO dao = new ReportDAO();
 
 dao.insertReport(dto);
 
-response.sendRedirect("../home/main.jsp");
 %>
 
 </body>

@@ -32,7 +32,7 @@
             
  <!-- ***** 판매내역조회***** -->
     
-    <h3>판매내역조회</h3>
+    <h3>판매글조회</h3>
 <%
 String M_id=(String)session.getAttribute("M_id");
 
@@ -57,7 +57,8 @@ for(int i=0;i<WriteHistoryS.size();i++){
 %>
 
 	<tr>		
-		<td><%=dto.getS_title() %></td>
+		<td><a href="../sell/sellDetails.jsp?S_num=<%=dto.getS_num() %>">
+		<%=dto.getS_title() %></a></td>
 		<td><%=dto.getS_price() %></td>
 		<td><%=dto.getS_text() %></td>		
 		<td><%=dto.getS_category() %></td>
