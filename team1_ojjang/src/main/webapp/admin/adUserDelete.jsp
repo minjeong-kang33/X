@@ -13,6 +13,6 @@ if(M_idArr!=null){
 }
 %>
 	<script type="text/javascript">
-		alert("탈퇴완료");
+		alert("강퇴완료");
 		location.href="adUserList.jsp";
 	</script>
