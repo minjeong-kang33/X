@@ -380,7 +380,7 @@ public class AdminDAO {
 		ResultSet rs=null;
 		try {
 			con=getConnection();
-			String sql="select * from buy order by M_id limit ?, ?";
+			String sql="select * from buy order by B_time desc limit ?, ?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow-1);
 			pstmt.setInt(2, pageSize);
