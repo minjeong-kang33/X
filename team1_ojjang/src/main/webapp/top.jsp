@@ -11,15 +11,15 @@
             <nav class="main-nav">
             
                <!-- ***** 로고 시작 ***** -->
-               <a href="index.html" class="logo"> 
+               <a href="../top.jsp" class="logo"> 
                <img src="../assets/images/otzang_logo_top.png" height="60px">
                </a>
                <!-- ***** 로고 끝 ***** -->
                
-	                 <!--  검색시작 -->
+      <!--  검색시작 : ** 검색기능 (기능만! main.jsp에 적용시켜 주세요! main.jsp의 검색창에 class명으로 css 잡혀있으니 주의!) -->
            
               
-	<div class="container">
+<%-- 	<div class="container">
 		<div class="row">
 			<form  name="search" method="get">
 				<table class="pull-right">
@@ -51,18 +51,24 @@ for(int i=0; i<list.size(); i++){
 <% } %>    
 	
 			
-    <!-- 검색 끝 -->                
+    <!-- 검색 끝 -->                 --%>
                
                <!-- ***** 상단 바 메뉴 시작 ***** -->
                <ul class="nav">
-                  <li><a href="#" class="active">홈</a></li>
+                  <li><a href="../top.jsp" class="active">홈</a></li>
                   <li><a href="../sell/outer.jsp">아우터</a></li>
-                  <li><a href="../sell/shirts.jsp" value="outer">상의</a></li>
+                  <li><a href="../sell/shirts.jsp">상의</a></li>
                   <li><a href="../sell/pants.jsp">하의</a></li>
                   <li><a href="../sell/dress.jsp">원피스</a></li>
                   <li><a href="../buy/buyList.jsp">삽니다</a></li>
-                  <!-- 로그인 안 한 경우는 마이페이지 말고 로그인 버튼 보이도록 -->
-                  <li class="submenu"><a>마이페이지</a>
+                  
+				<%
+								/* 로그인 한 경우 */
+					String M_id=(String)session.getAttribute("M_id");
+					if(M_id != null){
+					
+				%>
+					<li class="submenu"><a>마이페이지</a>
                      <ul>
                         <li><a href="../Mypage/profile.jsp">프로필</a></li>
                         <li><a href="../Mypage/likeList.jsp">찜목록</a></li>
@@ -73,18 +79,39 @@ for(int i=0; i<list.size(); i++){
                         <li><a href="#">거래후기</a></li>
                         <li><a href="#">로그아웃</a></li>
                      </ul></li>
+                   <li class="submenu"><a href="#">대화기능</a>
+                      <ul>
+      					 <li><a href="javascript:void(window.open('../find.jsp', '판매자찾기','width=400, height=400'))">판매자찾기</a></li>
+						 <li><a href="javascript:void(window.open('../box.jsp', '메세지함','width=400, height=400'))">메세지함</a></li>
+                     </ul>
+                   </li>   
                   <li class="submenu"><a href="#">고객센터</a>
                      <ul>
-                        <li><a href="#">회사정보</a></li>
+                        <li><a href="#">회사소개</a></li>
                         <li><a href="#">QnA</a></li>
-                        <li><a href="#">또뭐있지</a></li>
-                     </ul></li>
-                                <li class="submenu"><a href="../login/loginForm.jsp">로그인</a>
+                     </ul>
+                  </li>		
+				<%
+					}else{
+										/* 로그인 안 한 경우 */
+				%>
+				<li class="submenu"><a href="#">고객센터</a>
                      <ul>
-      							<li><a href="javascript:void(window.open('../find.jsp', '판매자찾기','width=400, height=400'))">판매자찾기</a></li>
-								<li><a href="javascript:void(window.open('../box.jsp', '메세지함','width=400, height=400'))">메세지함</a></li>
-                     </ul></li>   
-                        </ul>
+                        <li><a href="#">회사소개</a></li>
+                        <li><a href="#">QnA</a></li>
+                     </ul>
+                </li>
+					<li class="submenu"><a href="#">로그인</a>
+                      <ul>
+      					 <li><a href="../login/loginForm.jsp">로그인</a></li>
+						 <li><a href="../join/joinForm.jsp">회원가입</a></li>
+                     </ul>
+                   </li>   
+                   
+				<%		
+				}
+				%>
+				</ul>
          
                <!-- ***** 상단 바 메뉴 끝 ***** -->
             </nav>

@@ -192,7 +192,6 @@ SellDTO dto = dao.getSellBoard(S_num);
 			</div>
               <div class="button2">
             	 <input type="submit" id="save" value="글수정"/>
-            	 <input type="button" value="글삭제" onclick="location.href='sellDeletePro.jsp?S_num=<%=dto.getS_num() %>'"/>
               </div>
          </td>
      </tr>

@@ -46,8 +46,13 @@ dao.updateSellBoard(dto);
 
 response.sendRedirect("outer.jsp");
 
-/* if(S_category=="outer"){response.sendRedirect("outer.jsp");}
-else if(S_category=="shirts"){response.sendRedirect("shirts.jsp");}
-else if(S_category=="pants"){response.sendRedirect("pants.jsp");}
-else if(S_category=="dress"){response.sendRedirect("dress.jsp");} */
+if (dto.getS_category().equals("outer")) {
+	response.sendRedirect("outer.jsp");
+} else if (dto.getS_category().equals("shirts")) {
+	response.sendRedirect("shirts.jsp");
+} else if (dto.getS_category().equals("pants")) {
+	response.sendRedirect("pants.jsp");
+} else if (dto.getS_category().equals("dress")) {
+	response.sendRedirect("dress.jsp");
+}
 %>
