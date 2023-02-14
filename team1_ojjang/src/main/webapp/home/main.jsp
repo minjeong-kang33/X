@@ -116,7 +116,7 @@ String M_id = (String)session.getAttribute("M_id");
 					<td colspan="2" class="S_img"><img src="../img/sell/<%=dto.getS_img() %>" width=300px height=300px class="goodsImg"></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
+					<td colspan="2" class="S_title" ><a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" > <%=dto.getS_title()%></td> <!-- 제목 -->
 				</tr>
 				<tr>
 					<td class="price"><%=dto.getS_price()%>원</td> <td align="right" class="like_id"><input type="image" name="button" class="heart" src="../sell/heart.png" onclick="location.href='../Mypage/likePro.jsp'">

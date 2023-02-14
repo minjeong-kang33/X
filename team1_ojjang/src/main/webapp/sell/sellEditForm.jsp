@@ -93,10 +93,10 @@ $('document').ready(function() {
 <body>
 <%
 
-String M_id = (String)session.getAttribute("M_id");
+ String M_id = (String)session.getAttribute("M_id"); 
+int S_num = Integer.parseInt(request.getParameter("S_num"));
 SellDAO dao = new SellDAO();
-SellDTO dto = dao.get
-
+SellDTO dto = dao.getSellBoard(S_num);
 %>
     <!-- ***** 로딩 일단 지금은 비어있음***** -->
     <div id="preloader">
@@ -132,10 +132,21 @@ SellDTO dto = dao.get
 	<!-- ** 선호거래 체크박스 시작 **-->
 	<div class="check1">
 		<b>선호하는 거래형태</b>
-		<input type="checkbox" id="checkbox-btn-1" name="S_send1"  value="delivery">
+		<% if(dto.getS_send1()!=null && dto.getS_send2()!=null){%> 
+		<input type="checkbox" id="checkbox-btn-1" name="S_send1" checked>
 			<label for="checkbox-btn-1" class="btn">택배거래</label>
-		<input type="checkbox" id="checkbox-btn-2" name="S_send2" value="direct">
-			<label for="checkbox-btn-2" class="btn" >직거래</label>
+		<input type="checkbox" id="checkbox-btn-2" name="S_send2" checked>
+			<label for="checkbox-btn-2" class="btn" >직거래</label><%}
+		else if(dto.getS_send1()!=null){%> 
+		<input type="checkbox" id="checkbox-btn-1" name="S_send1" checked>
+			<label for="checkbox-btn-1" class="btn">택배거래</label>
+		<input type="checkbox" id="checkbox-btn-2" name="S_send2">
+			<label for="checkbox-btn-2" class="btn" >직거래</label><%}
+		else if(dto.getS_send2()!=null){%> 
+		<input type="checkbox" id="checkbox-btn-1" name="S_send1">
+			<label for="checkbox-btn-1" class="btn">택배거래</label>
+		<input type="checkbox" id="checkbox-btn-2" name="S_send2"  checked>
+			<label for="checkbox-btn-2" class="btn" >직거래</label><%}%>
 			
 		<select name="S_sido1" id="S_sido1"></select>
 		<select name="S_gugun1" id="S_gugun1"></select>
@@ -145,7 +156,7 @@ SellDTO dto = dao.get
 	<!-- ** 가격 입력 상자 시작 ** -->
 	<div class="price">
 		<b>가격</b>
-		<input type="text" id="S_price" name="S_price" placeholder="숫자만 입력하세요">원<br>
+		<input type="text" id="S_price" name="S_price" value="<%= dto.getS_price()%>">원<br>
 	</div>
 	<!-- ** 가격 입력 상자 끝 ** -->
 	
@@ -155,12 +166,12 @@ SellDTO dto = dao.get
 <input type="hidden" name="M_id" value="<%=M_id %>"/>
 	<tr>
 		<th>제목</th>
-    	<td><input type="text" id="S_title" name="S_title" style="width:650px" placeholder="제목을 입력하세요"/></td>
+    	<td><input type="text" id="S_title" name="S_title" value="<%=dto.getS_title() %>" style="width:650px"/></td>
     </tr>
     <tr>
         <th>내용</th>
         <td>
-        <textarea rows="10" cols="30" id="S_text" name="S_text" style="width:650px; height:350px;" placeholder="내용을 입력하세요"></textarea>
+        <textarea rows="10" cols="30" id="S_text" name="S_text" style="width:650px; height:350px;"><%=dto.getS_text() %></textarea>
         </td>
      </tr>
 </table>   
@@ -168,11 +179,12 @@ SellDTO dto = dao.get
      <tr>
      	<td colspan="2">
      		<div class="button1">
-     			<input type="file" name="S_img">
+     			<input type="file" name="S_img"><%=dto.getS_img() %>
+     			<input type="hidden" name="oldfile" value="<%=dto.getS_img()%>">
 			</div>
               <div class="button2">
-            	 <input type="submit" id="save" value="등록"/>
-            	 <input type="reset" value="초기화"/>
+            	 <input type="submit" id="save" value="글수정"/>
+            	 <input type="button" value="글삭제" onclick="location.href='sellDeletePro.jsp?S_num=<%=dto.getS_num() %>'"/>
               </div>
          </td>
      </tr>

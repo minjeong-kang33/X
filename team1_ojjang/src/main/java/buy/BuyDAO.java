@@ -106,7 +106,7 @@ public class BuyDAO {
 		} finally {
 			if(rs!=null) try { rs.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return buyList;
 	} //getList (startRow, pageSize) (글목록에서 사용)
@@ -128,7 +128,7 @@ public class BuyDAO {
 			e.printStackTrace();
 		} finally {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return count;
 		
@@ -169,7 +169,7 @@ public class BuyDAO {
 		} finally {
 			if(rs!=null) try { rs.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return dto;
 		
@@ -195,7 +195,7 @@ public class BuyDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
 		
@@ -216,7 +216,7 @@ public class BuyDAO {
 			e.printStackTrace();
 		} finally {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		
 		// 그 다음 게시글 삭제
@@ -230,7 +230,7 @@ public class BuyDAO {
 			e.printStackTrace();
 		} finally {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 	} //delete (글삭제)
 	

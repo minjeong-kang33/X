@@ -1,22 +1,34 @@
+<%@page import="com.oreilly.servlet.multipart.DefaultFileRenamePolicy"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@page import="sell.SellDAO"%>
 <%@page import="sell.SellDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%
-request.setCharacterEncoding("utf-8");
-int S_num = Integer.parseInt(request.getParameter("S_num"));
-String S_title = request.getParameter("S_title");
-int S_price = Integer.parseInt(request.getParameter("S_price"));
-String S_text = request.getParameter("S_text");
-String S_send1 = request.getParameter("S_send1");
-String S_send2 = request.getParameter("S_send2");
-String S_sido1 = request.getParameter("S_sido1");
-String S_gugun1 = request.getParameter("S_gugun1");
+String uploadPath = request.getRealPath("/img/sell");
+System.out.println(uploadPath);
+//3. 파일의 크기
+int maxSize = 10*1024*1024;
+//4. 한글처리
+//5. 같은 이름의 파일이 있을 경우 이름 변경
+MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf-8", new DefaultFileRenamePolicy());
 
-String S_category = request.getParameter("S_category");
-/* 이미지의 수정방법은...??? */
-String S_img = request.getParameter("S_img");
+request.setCharacterEncoding("utf-8");
+int S_num = Integer.parseInt(multi.getParameter("S_num"));
+String S_title = multi.getParameter("S_title");
+int S_price = Integer.parseInt(multi.getParameter("S_price"));
+String S_text = multi.getParameter("S_text");
+String S_send1 = multi.getParameter("S_send1");
+String S_send2 = multi.getParameter("S_send2");
+String S_sido1 = multi.getParameter("S_sido1");
+String S_gugun1 = multi.getParameter("S_gugun1");
+String S_category = multi.getParameter("S_category");
+String S_img = multi.getFilesystemName("S_img");
+//파일 변경없으면 기존 파일 유지
+		if(S_img==null) {
+			S_img = multi.getParameter("oldfile");
+		}
 
 SellDTO dto = new SellDTO();
 dto.setS_num(S_num);
