@@ -490,7 +490,7 @@ try {
 	
 	
 	
-	//BuyHistory 연습
+//	BuyHistory 연습
 //	public ArrayList<SellDTO> buyHistory(String M_id) {
 //		ArrayList<SellDTO> sellHistory=new ArrayList<SellDTO>();
 //		ArrayList<DealDTO> dealHistory=new ArrayList<DealDTO>();

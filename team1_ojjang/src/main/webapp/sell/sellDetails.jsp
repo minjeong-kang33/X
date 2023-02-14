@@ -149,6 +149,8 @@ if(M_id != null){
 %>
    <button type="button" class="btn btn-dark" onclick="fun1()" style="float:right"> 신고하기</button>
    <button type="button" class="btn btn-dark" onclick="location.href='sellList.jsp'" style="float:right">글목록</button>
+	<button onclick="location.href='../Mypage/likePro.jsp'">찜하기</button>
+	
 </div>
 
 <!-- ***** 푸터 시작 ***** -->
