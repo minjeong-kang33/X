@@ -3,16 +3,17 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
+<link rel="stylesheet" href="joiN.css">
 <head>
 <title>JSP 게시판 웹 사이트</title>
 </head>
 <body>
 <body>
-<!-- 회원가입 -->
 	<form action="joinpro.jsp" method="post">
+		<!-- 아이디 , 아이디 중복확인 -->
 		<div>
-			아이디 <input type="text" id="M_id" name="M_id" size="15" required onclick="idCheck()">
-			<input type="button" value="ID중복확인" >
+			아이디 <input type="text" id="M_id" name="M_id" size="15" required
+				onclick="idCheck()"> <input type="button" value="ID중복확인">
 			<script type="text/javascript">
 				function idCheck() {
 					window.open("idCheck.jsp", "nickwin",
@@ -20,6 +21,8 @@
 				}
 			</script>
 		</div>
+
+		<!-- 비밀번호 -->
 		<div>
 			비밀번호 <input type="password" id="M_pw" name="M_pw" size="15" required>
 		</div>
@@ -29,9 +32,14 @@
 			<%@include file="pwCheck.jsp"%>
 			<input type="submit" value="PW중복확인">
 		</div>
+
+		<!-- 이름 -->
 		<div>
 			이름 <input type="text" id="M_name" name="M_name" size="15" required>
 		</div>
+
+
+		<!--닉네임 -->
 		<div>
 			닉네임 <input type="text" id="M_nick" name="M_nick" size="15" required
 				onclick="nickCheck()"> <input type="button" value="닉네임중복확인">
@@ -41,42 +49,40 @@
 							"width=400, height=350");
 				}
 			</script>
+
 		</div>
+		<!-- 이메일 -->
 		<div>
 			이메일 <input type="email" id="M_email" name="M_email" size="30">
 			<input type="button" id="M_id" value="Email 인증"
-				onclick="emailCheck()">
+				onclick="location.href = 'emailSendAction.jsp'">
 		</div>
 		<div>
+		<!--전화번호 -->
 			전화번호 <input type="text" id="M_phone" name="M_phone" size="15">
 		</div>
 		<div>
-			우편번호 <input type="text" name="M_zipcode" id="zipcode" size="7"
-				readonly> <input type="button" value="주소찾기"
-				onclick="DaumPostcode()">
-			<%@include file="addressMap.jsp"%>
+		<!-- 주소 -->
+		우편번호 <input type="text" id="sample6_postcode" placeholder="우편번호" readonly>
+		<input type="button" onclick="DaumPostcode()" value="우편번호 찾기"><br>
+		주소 <input type="text" name="M_address" id="M_address" placeholder="주소"><br>
+		상세주소 <input type="text" name="M_address2" id="M_address2" placeholder="상세주소">
+		<%@include file="addressMap.jsp"%>
 		</div>
-		<div>
-			주소 <input type="text" name="M_address" id="M_address" size="45"
-				readonly required>
-		</div>
-
-		<div>
-			나머지주소 <input type="text" name="M_address2" id="M_address2" size="45">
-		</div>
-
+		<!-- 성별 -->
 		<div>
 			성별 <select name="M_gender" id="M_gender">
-				<option value="2">선택하세요.</option>
-				<option value="0">남자</option>
-				<option value="1">여자</option>
+				<option>선택하세요.</option>
+				<option value="남">남자</option>
+				<option value="여">여자</option>
 			</select>
 		</div>
 
 		<input type="submit" value="회원가입" class="btn btn-primary" /> <input
 			type="reset" value="취소" class="btn btn-primary" />
-	<!-- 회원가입 -->
 	</form>
+	
+	<!--끝 -->
 </body>
 
 </html>
