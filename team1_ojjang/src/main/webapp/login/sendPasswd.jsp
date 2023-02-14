@@ -1,3 +1,4 @@
+<%@page import="javax.mail.PasswordAuthentication"%>
 <%@page import="member.MyAuthenticator"%>
 <%@page import="member.MemberDTO"%>
 <%@page import="member.MemberDAO"%>
@@ -31,7 +32,6 @@ String M_id = request.getParameter("M_id");
 try{
 	//1) 사용하고자 하는 메일서버에서 인증받은 계정과 비번을 등록하기
 	//-> MyAuthenticator 클래스 생성
-
 	//2) 메일서버(POP3/SMTP) 지정하기
 
 	Properties props = new Properties();
@@ -47,7 +47,9 @@ try{
 	props.put("mail.smtp.ssl.enable", "true");  // 추가된 코드
 	
 	//3) 메일서버에서 인증받은 계정+비번
-	Authenticator myAuth = new MyAuthenticator();	//다형성으로 객체 생성(자식이 부모집에 들어감)
+	Authenticator myAuth = new MyAuthenticator();
+// 	PasswordAuthentication=myAuth.getPasswordAuthentication2();
+	//다형성으로 객체 생성(자식이 부모집에 들어감)
 	
 	//4) 2)와 3)이 유효한지 검증
 	Session sess = Session.getInstance(props, myAuth);
@@ -59,21 +61,11 @@ try{
 	String to = request.getParameter("M_email");
 	String from	   = "lg25sk@gmail.com";
 	String subject = "[(주)옺장] 임시 비밀번호";
-	String content = "임시 비밀번호를 발급해드립니다.";
-
-	int cnt = dao.updatePasswd(dto);
-	if(cnt == 0){
-		out.println("<p>비밀번호 업데이트 실패</p>");
-		out.println("<p><a href='javascript:history.back()'>[다시시도]</a></p>");
-	}else{
-		out.println("<script>");
-		out.println("	location.href='../loginForm.jsp';");	//인트로페이지 이동
-		out.println("</script>");
-	}//if end	
-
+	String content = "임시 비밀번호를 발급해드립니다.";	
 	content += "<hr>";
 	content += M_pw;
-	
+	dto.setM_pw(M_pw);
+	dto.setM_id(M_id);	
 	//받는 사람 이메일 주소
 	InternetAddress[] address = { new InternetAddress(to) };
 	
@@ -90,11 +82,21 @@ try{
 	msg.setContent(content, "text/html; charset=UTF-8");
 	//메일 보낸 날짜
 	msg.setSentDate(new Date());
-	
+	int cnt = dao.updatePasswd(dto);
+	if(cnt == 0){
+	}else{
+		out.println("<script>");
+		out.println("	location.href='../loginForm.jsp';");	//인트로페이지 이동
+		out.println("</script>");
+	}//if end	
 
 	Transport.send(msg);
 	
 	out.print(to + "님에게 메일이 발송되었습니다.");
+	%>
+	<a href="../login/loginForm.jsp"></a>
+	<%
+	System.out.println(msg.getContent());
 	
 }catch(Exception e){
 	out.println("<p>메일전송 실패!" + e + "</p>");
