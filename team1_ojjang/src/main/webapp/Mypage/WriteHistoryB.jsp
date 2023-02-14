@@ -57,8 +57,9 @@ for(int i=0;i<WriteHistoryB.size();i++){
 	
 %>
 
-	<tr>		
-		<td><%=dto.getB_title() %></td>
+	<tr>	
+		<td><a href="../buy/buyDetails.jsp?B_num=<%=dto.getB_num() %>">
+		<%=dto.getB_title() %></a></td>	
 		<td><%=dto.getB_text() %></td>
 		<td><%=dto.getB_category() %></td>
 		<td><%=dto.getB_img() %>
