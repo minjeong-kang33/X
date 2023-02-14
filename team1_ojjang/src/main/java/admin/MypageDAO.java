@@ -345,7 +345,7 @@ public class MypageDAO {
 	
 	
 	public ArrayList<BuyDTO> WriteHistoryB(String M_id){
-		ArrayList<BuyDTO> WriteHistoryS=new ArrayList<BuyDTO>();
+		ArrayList<BuyDTO> WriteHistoryB=new ArrayList<BuyDTO>();
 		Connection con =null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
@@ -370,7 +370,7 @@ public class MypageDAO {
 				dto.setB_img(rs.getString("B_img"));
 			
 				
-				WriteHistoryS.add(dto);
+				WriteHistoryB.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -380,43 +380,132 @@ public class MypageDAO {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
-		return WriteHistoryS;
-	} //WriteHistoryS 끝
+		return WriteHistoryB;
+	} //WriteHistoryB 끝
+	
+	public ArrayList<BuyDTO> WriteHistoryB2(String M_id){
+		ArrayList<BuyDTO> WriteHistoryB2=new ArrayList<BuyDTO>();
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=getConnection();
+			String sql="select * from buy where M_id=? and date(b_time)>=date(now())-2";
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, M_id);
+			
+			rs=pstmt.executeQuery();	
+
+			while(rs.next()) {
+				
+				BuyDTO dto=new BuyDTO();
+				dto.setM_id(rs.getString("M_id"));
+				dto.setB_num(rs.getInt("B_num"));
+				dto.setB_category(rs.getString("B_category"));
+				dto.setB_title(rs.getString("B_title"));
+				dto.setB_text(rs.getString("B_text"));
+				dto.setB_view(rs.getInt("B_view"));
+				dto.setB_img(rs.getString("B_img"));
+			
+				
+				WriteHistoryB2.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+		return WriteHistoryB2;
+	}
+	
+	public ArrayList<SellDTO> WriteHistoryS2(String M_id){
+		ArrayList<SellDTO> WriteHistoryS2=new ArrayList<SellDTO>();
+		Connection con =null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		try {
+			con=getConnection();
+			String sql="select * from sell where M_id=? and date(S_createdate)>=date(now())-2";
+			
+			pstmt=con.prepareStatement(sql);
+			pstmt.setString(1, M_id);
+			
+			rs=pstmt.executeQuery();	
+
+			while(rs.next()) {
+				
+				SellDTO dto=new SellDTO();
+				dto.setS_num(rs.getInt("S_num"));
+				dto.setS_price(rs.getInt("S_price"));
+				dto.setM_id(rs.getString("M_id"));
+				dto.setS_title(rs.getString("S_title"));
+				dto.setS_text(rs.getString("S_text"));
+				dto.setS_like(rs.getInt("S_like"));
+				dto.setS_view(rs.getInt("S_view"));
+				dto.setS_category(rs.getString("S_category"));
+				dto.setS_send1(rs.getString("S_send1"));	
+				dto.setS_send2(rs.getString("S_send2"));
+				dto.setS_createdate(rs.getTimestamp("S_createdate"));
+				dto.setS_category(rs.getString("S_category"));
+				
+				WriteHistoryS2.add(dto);
+
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+		return WriteHistoryS2;
+	}
+	
 	
 	//============================페이징
 	
-	// 리턴할형 ArrayList<BoardDTO>  getBoardList(int startRow,int pageSize) 메서드 정의 
-	public ArrayList<DealDTO> getDealList(int startRow,int pageSize){
+	public ArrayList<SellDTO> sellList(int startRow, int pageSize){
+		System.out.println("SellDAO sellList()");
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ArrayList<DealDTO> dealList=new ArrayList<>();
+		ArrayList<SellDTO> sellList=new ArrayList<>();
 		try {
-			// 1~2 단계
+		
 			con=getConnection();
-			// 3단계 sql
-			// 기본 num기준 오름차순 => 최근글 위로 올라오게 정렬 (num 내림차순)
-//			String sql="select * from board order by num desc";
-//			String sql="select * from board order by num desc limit 시작행-1, 몇개";
-			String sql="select * from deal order by D_num desc limit ?, ?";
+
+			String sql="select * from board order by num desc limit ?,?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setInt(1, startRow-1);
 			pstmt.setInt(2, pageSize);
-			//4
+
 			rs=pstmt.executeQuery();
 			//5
 			while(rs.next()) {
 				// 하나의 글의 바구니에 저장
-				DealDTO dto=new DealDTO();
-				
-				dto.setD_buy(rs.getString("D_buy"));
-				dto.setD_date(rs.getTimestamp("D_date"));
-				dto.setD_num(rs.getInt("D_num"));
+				SellDTO dto=new SellDTO();
 				dto.setM_id(rs.getString("M_id"));
 				dto.setS_num(rs.getInt("S_num"));
+				dto.setS_title(rs.getString("S_title"));
+				dto.setS_price(rs.getInt("S_price"));
+				dto.setS_text(rs.getString("S_text"));
+				dto.setS_like(rs.getInt("S_like"));
+				dto.setS_view(rs.getInt("S_view"));
+				dto.setS_send1(rs.getString("S_send1"));
+				dto.setS_send2(rs.getString("S_send2"));
+				dto.setS_sido1(rs.getString("S_sido1"));
+				dto.setS_gugun1(rs.getString("S_gugun1"));
+				dto.setS_createdate(rs.getTimestamp("S_createdate"));
+				dto.setS_category(rs.getString("S_category"));
+				dto.setS_img(rs.getString("S_img"));
 				
 				// 바구니의 주소값을 배열 한칸에 저장
-				dealList.add(dto);
+				sellList.add(dto);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -426,20 +515,66 @@ public class MypageDAO {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
-		return dealList;
+		return sellList;
+	}//
+	
+	
+	public ArrayList<BuyDTO> buyList(int startRow, int pageSize){
+		System.out.println("BuyDAO buyList()");
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		ArrayList<BuyDTO> buyList=new ArrayList<>();
+		try {
+		
+			con=getConnection();
+
+			String sql="select * from board order by num desc limit ?,?";
+			pstmt=con.prepareStatement(sql);
+			pstmt.setInt(1, startRow-1);
+			pstmt.setInt(2, pageSize);
+
+			rs=pstmt.executeQuery();
+			//5
+			while(rs.next()) {
+				// 하나의 글의 바구니에 저장
+				BuyDTO dto=new BuyDTO();
+				dto.setM_id(rs.getString("M_id"));
+				dto.setB_num(rs.getInt("B_num"));
+				dto.setB_category(rs.getString("B_category"));
+				dto.setB_title(rs.getString("B_title"));
+				dto.setB_text(rs.getString("B_text"));
+				dto.setB_send1(rs.getString("B_send2"));
+				dto.setB_sido1(rs.getString("B_sido1"));
+				dto.setB_gugun1(rs.getString("B_gugun1"));
+				dto.setB_view(rs.getInt("B_view"));
+				dto.setB_time(rs.getTimestamp("B_time"));
+				dto.setB_img(rs.getString("B_img"));
+				
+				// 바구니의 주소값을 배열 한칸에 저장
+				buyList.add(dto);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			// 예외 상관없이 마무리작업 => 객체생성한 기억장소 해제
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+		return buyList;
 	}
 	
-	
-	public int getbuyHistoryCount() {
+	public int getsellCount() {
 		int count=0;
 		Connection con =null;
 		PreparedStatement pstmt=null;	
 		ResultSet rs=null;
-try {
+		try {
 			
 			con=getConnection();
 			
-			String sql="select count(*) from deal";
+			String sql="select count(*) from Sell";
 			pstmt=con.prepareStatement(sql);
 
 			rs=pstmt.executeQuery();
@@ -458,10 +593,33 @@ try {
 		return count;
 	}
 	
-	
-	
-	
-	
+	public int getbuyCount() {
+		int count=0;
+		Connection con =null;
+		PreparedStatement pstmt=null;	
+		ResultSet rs=null;
+		try {
+			
+			con=getConnection();
+			
+			String sql="select count(*) from Buy";
+			pstmt=con.prepareStatement(sql);
+
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()){
+				count=rs.getInt("count(*)");				
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			// 예외 상관없이 마무리작업 => 객체생성한 기억장소 해제
+			if(rs!=null) try { rs.close();} catch (Exception e2) {}
+			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
+		}
+		return count;
+	}
 	
 	
 	
