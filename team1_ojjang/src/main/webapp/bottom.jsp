@@ -20,32 +20,53 @@
          <div class="col-lg-3">
             <h4>Categories</h4>
             <ul>
-               <li><a href="#">아우터</a></li>
-               <li><a href="#">상의</a></li>
-               <li><a href="#">하의</a></li>
+               <li><a href="../sell/outer.jsp">Outer</a></li>
+               <li><a href="../sell/shirts.jsp">Top</a></li>
+               <li><a href="../sell/pants.jsp">Pants</a></li>
+               <li><a href="../sell/dress.jsp">Dress</a></li>
             </ul>
          </div>
-         <div class="col-lg-3">
+         <%
+								/* 로그인 한 경우 */
+					String M_id=(String)session.getAttribute("M_id");
+					if(M_id != null){
+					
+				%>
+		<div class="col-lg-3">
             <h4>Useful Links</h4>
             <ul>
-               <li><a href="../Mypage/profile.jsp">프로필</a></li>
-               <li><a href="../Mypage/likeList.jsp">찜목록</a></li>
-               <li><a href="../Mypage/sellHistory.jsp">판매내역</a></li>
-               <li><a href="../Mypage/buyHistory.jsp">구매내역</a></li>
-               <li><a href="../Mypage/WriteHistoryB.jsp">구매글내역</a></li>
-               <li><a href="../Mypage/WriteHistoryS.jsp">판매글내역</a></li>
-               <li><a href="#">거래 후기</a></li>
+               <li><a href="../Mypage/profile.jsp">My Profile</a></li>
+               <li><a href="../Mypage/likeList.jsp">Wish List</a></li>
+               <li><a href="../Mypage/sellHistory.jsp">Sales History</a></li>
+               <li><a href="../Mypage/buyHistory.jsp">Purchase history</a></li>
+               <!-- 일단 게시글모음은 여기서는 뺄게요! 너무 많아서요! -->
+               <li><a href="../review/reviewList.jsp">My review</a></li>
             </ul>
          </div>
          <div class="col-lg-3">
-            <h4>Help &amp; Information</h4>
+            <h4>Help & Information</h4>
             <ul>
+               <li><a href="#">About us</a></li>
                <li><a href="#">Help</a></li>
-               <li><a href="#">FAQ's</a></li>
-               <li><a href="#">Shipping</a></li>
-               <li><a href="#">Tracking ID</a></li>
             </ul>
          </div>
+				<%
+					}else{
+										/* 로그인 안 한 경우 */
+				%>
+		<div class="col-lg-3">
+            <h4>Help & Information</h4>
+            <ul>
+               <li><a href="#">About us</a></li>
+               <li><a href="#">Help</a></li>
+            </ul>
+         </div>
+                   
+				<%		
+				}
+				%>
+         
+         
          <div class="col-lg-12">
             <div class="under-footer"></div>
          </div>

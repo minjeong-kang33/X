@@ -22,9 +22,9 @@
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
 <script type="text/javascript">
-function fun1(M_id,S_num){
-	window.open("../report/reportWrite.jsp?R_id="+M_id+"&S_num="+S_num,"pop","width=520,height=340");
-}
+function fun1(M_id,S_num,R_category,S_title){
+	   window.open("../report/reportWrite.jsp?R_id="+M_id+"&R_writeNum="+S_num+"&R_category="+R_category+"&R_title="+S_title,"pop","width=520,height=340");
+	}
 
 </script>
 </head>
@@ -147,8 +147,20 @@ if(M_id != null){
    }
 }
 %>
-   <button type="button" class="btn btn-dark" onclick="fun1('<%=dto.getM_id()%>','<%=dto.getS_num() %>')" style="float:right"> 신고하기</button>
+<%
+if(M_id != null){
+   // 세션값=id와 글쓴이가 일치해야만 글수정, 글삭제 표시
+   if(M_id.equals("admin")){
+      %>
+<input type="button" class="btn btn-dark" value="글삭제" onclick="location.href='sellDeletePro.jsp?S_num=<%=dto.getS_num() %>'"> 
+      <%      
+   }
+}
+%>
+   <button type="button" class="btn btn-dark" onclick="fun1('<%=dto.getM_id()%>','<%=dto.getS_num() %>','sell','<%=dto.getS_title() %>')" style="float:right"> 신고하기</button>
    <button type="button" class="btn btn-dark" onclick="location.href='sellList.jsp'" style="float:right">글목록</button>
+	<button onclick="location.href='../Mypage/likePro.jsp'">찜하기</button>
+	
 </div>
 
 <!-- ***** 푸터 시작 ***** -->

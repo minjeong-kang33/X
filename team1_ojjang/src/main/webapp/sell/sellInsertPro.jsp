@@ -14,7 +14,7 @@ MultipartRequest multi = new MultipartRequest(request, uploadPath, maxSize, "utf
 
 request.setCharacterEncoding("utf-8");
 
-String M_id=(String)session.getAttribute("M_id");
+String M_id = (String) session.getAttribute("M_id");
 
 String S_title = multi.getParameter("S_title");
 int S_price = Integer.parseInt(multi.getParameter("S_price"));
@@ -48,5 +48,13 @@ dto.setS_img(S_img);
 SellDAO dao = new SellDAO();
 dao.insertSellBoard(dto);
 
-response.sendRedirect("outer.jsp");
+if (dto.getS_category().equals("outer")) {
+	response.sendRedirect("outer.jsp");
+} else if (dto.getS_category().equals("shirts")) {
+	response.sendRedirect("shirts.jsp");
+} else if (dto.getS_category().equals("pants")) {
+	response.sendRedirect("pants.jsp");
+} else if (dto.getS_category().equals("dress")) {
+	response.sendRedirect("dress.jsp");
+}
 %>

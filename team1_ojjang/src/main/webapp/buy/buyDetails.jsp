@@ -47,29 +47,50 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 <div class="container2">
 	<div class="row" style="text-align: center; ">
 	<!-- 	본문 시작 -->
-	<table class = "table table-striped" style="text-align:center; border:1px solid #dddddd">
-		<thead>
-			<tr>
-				<th colspan="3"  style="background-color: #eeeeee; text-align:center">삽니다</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td style="width:20%;">글제목</td>
-				<td colspan="2"><%= dto.getB_title()%></td>
-			</tr>
-			<tr>
-				<td>작성자</td>
-				<td colspan="2"> <%= dto.getM_id() %></td>
-			</tr>
-			<tr>
-				<td>작성일자</td>
-				<td colspan="2"> <%= dateFormat.format(dto.getB_time())%> </td>
-			</tr>
-			<tr>
-				<td>글내용</td>
-				<td colspan="2"  style="min-height: 200px; text-align:left;"> <%= dto.getB_text() %></td>
-			<tr><td colspan="2">
+<table class = "table table-striped" style="margin-left:auto;margin-right:auto; undefined;table-layout: fixed; width: 1003px; text-align:center; border:1px solid #dddddd">
+<colgroup>
+<col style="width: 601px">
+<col style="width: 101px">
+<col style="width: 301px">
+</colgroup>
+<thead>
+  <tr>
+    <th colspan="3" style="background-color: #eeeeee; text-align:center">삽니다</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td rowspan="7">이미지자리</td>
+    <td>글제목</td>
+    <td><%= dto.getB_title()%></td>
+  </tr>
+  <tr>
+    <td>작성자</td>
+    <td><%= dto.getM_id() %></td>
+  </tr>
+  <tr>
+    <td>카테고리</td>
+    <td><%= dto.getB_category() %></td>
+  </tr>
+  <tr>
+    <td>거래유형</td>
+    <td><% if(dto.getB_send1()!=null){%> <%= "택배거래<br>"%><%}%>
+					<% if(dto.getB_send2()!=null){%> <%= "("+dto.getB_sido1()+")<br>직거래"%><%}%></td>
+  </tr>
+  <tr>
+    <td>조회수</td>
+    <td> <%= dto.getB_view() %></td>
+  </tr>
+  <tr>
+    <td>작성일자</td>
+    <td><%= dateFormat.format(dto.getB_time())%></td>
+  </tr>
+  <tr>
+    <td height="150">글내용</td>
+    <td><%= dto.getB_text() %></td>
+  </tr>
+</tbody>
+</table>
 </tr>
 </tbody>		
 </table>
@@ -99,9 +120,10 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 						%>
 
 						<tr>
-							<td style="text-align: left;"><%=List.get(i).getCo_text() %></td>
-							<td style="text-align: right;"><%=List.get(i).getM_id() %></td>
-							<td><a href=# onclick = "return coupdate();" class="btn">수정</a>
+						<td width="10%" style="text-align: left;"><%=List.get(i).getM_id() %></td>
+							<td width="200" style="text-align: left;"><%=List.get(i).getCo_text() %></td>
+							
+							<td width="10" ><a href=# onclick = "return coupdate();" class="btn">수정</a>
 									<script text="text/javascript">
 								
 								function coupdate(Co_num){
@@ -116,7 +138,7 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 								}
 									</script>
 							</td>
-							<td>
+							<td width="10">
 							<a href="commentdeleteAction.jsp?B_num=<%=B_num %>&Co_num=<%=List.get(i).getCo_num() %>"
 								onclick="return delchk();" class="btn">삭제</a>
 									<script type="text/javascript">
@@ -128,11 +150,14 @@ SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy.MM.dd hh:mm");
 						<%
 								}
 						%>
-			<td>
+			<tr>
+			<td colspan="3">
 			<div class="btn-naran">
 				<textarea type="text" class="form-control"
 				placeholder="댓글을 입력하세요." name="Co_text" 
 				maxlength="2048" style="width:800px;height:100px;font-size:15px;"></textarea>
+				</td>
+				<td>
 				<input type="submit" class="btn btn-dark" value="댓글입력">
 			</div>
 			</td>

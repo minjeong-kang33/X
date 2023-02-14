@@ -28,7 +28,7 @@ public class ReportDAO {
 			con=getConnection();
 
 			//신고폼에서 작성되는 Data 등록하기
-			String sql="insert into report values(?,?,?,?)";
+			String sql="insert into report values(?,?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			
 			
@@ -36,6 +36,9 @@ public class ReportDAO {
 			pstmt.setString(2, dto.getM_id());
 			pstmt.setString(3, dto.getR_id()); // test로 (구매자 땡겨오는거 아직 못해서)
 			pstmt.setString(4, dto.getR_reason());
+			pstmt.setString(5, dto.getR_category());
+			pstmt.setString(6, dto.getR_writeNum());
+			pstmt.setString(7, dto.getR_title());
 			
 			pstmt.executeUpdate();	
 			}

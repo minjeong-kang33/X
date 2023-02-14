@@ -31,7 +31,7 @@ public class ChatListServlet extends HttpServlet {
         else {
         	try {
 				HttpSession session = request.getSession();
-				if(!URLDecoder.decode(fromID, "UTF-8").equals((String) session.getAttribute("userID"))) {
+				if(!URLDecoder.decode(fromID, "UTF-8").equals((String) session.getAttribute("M_id"))) {
 					response.getWriter().write("");
 					return;
 				}
@@ -43,7 +43,7 @@ public class ChatListServlet extends HttpServlet {
 	}
 	
 
-	// 목록10개까지만 보여지는 함수
+	// 목록10개까지만 보여지는 함수 수정
 	public String getTen(String fromID, String toID) {
 		StringBuffer result = new StringBuffer("");
 		result.append("{\"result\":[");

@@ -27,8 +27,11 @@ function fun2() {
 
 <%
 String M_id=(String)session.getAttribute("M_id");
-String R_id=(String)session.getAttribute("R_id");
-int S_num = Integer.parseInt(request.getParameter("S_num"));
+String R_id = request.getParameter("R_id");
+String R_writeNum = request.getParameter("R_writeNum");
+String R_category = request.getParameter("R_category");
+String R_title = request.getParameter("R_title");
+
 
 if(M_id==null){
 	response.sendRedirect("../login/loginForm.jsp");
@@ -41,9 +44,13 @@ if(M_id==null){
 <div class="reportForm">
 	<form action="reportWritePro.jsp" method="post" name="reportWriteBox">
 	<input type="hidden" name="M_id" value="<%=M_id %>">
-	<span class="reportInfo"><img src="danger.png" class="dangerIcon">  클릭하여 신고 이유를 선택해 주세요. </span> 
+ 	<input type="hidden" name="R_id" value="<%=R_id %>">
+	<input type="hidden" name="R_writeNum" value="<%=R_writeNum %>">
+	<input type="hidden" name="R_category" value="<%=R_category %>">
+	<input type="hidden" name="R_title" value="<%=R_title %>">
+	<span class="reportInfo"><img src="danger.png" class="dangerIcon">  클릭하여 신고 이유를 선택해 주세요.</span> 
 	<select id="selectBox" name="R_type">
-		<option value=""> -- 선택하세요 -- </option>
+		<option value=""> -- 선택하세요 --</option>
 		<option value="회원비난/비하"> 회원비난/비하 </option>
 		<option value="욕설/비속어"> 욕설/비속어 </option>
 		<option value="무단광고/홍보"> 무단광고/홍보 </option>

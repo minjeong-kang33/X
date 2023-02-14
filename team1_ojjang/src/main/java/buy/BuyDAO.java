@@ -135,6 +135,9 @@ public class BuyDAO {
 	} //getBuyBoardCount (페이징에서 사용)
 	
 	public BuyDTO getBuyBoard(int B_num){
+		
+		boardCnt(B_num);
+		
 		System.out.println("getBuyBoard");
 		BuyDTO dto = null;
 		Connection con = null;
@@ -174,6 +177,24 @@ public class BuyDAO {
 		return dto;
 		
 	} // getBuyBoard (상세글읽기에서 사용)
+	
+	public void boardCnt(int B_num) {            // 게시판 조회수
+	     
+        Connection con = null;
+		PreparedStatement pstmt = null;
+     	        
+        try {
+        	con = getConnection();
+			String sql = "update buy SET B_view =(B_view+1) where B_num = ?";
+			pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, B_num);
+            pstmt.executeUpdate();
+            	            
+        } catch (Exception e) {
+            e.printStackTrace();
+          }
+ 
+    }
 	
 	public void updateBuyBoard(BuyDTO dto) {
 		Connection con = null;

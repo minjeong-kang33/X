@@ -47,6 +47,8 @@ MemberDTO dto=dao.getMember(M_id);
 번호: <%=dto.getM_phone() %><br>
 성별: <%=dto.getM_gender() %><br>
 
+<button onclick="location.href='profileUpdate.jsp'">프로필 수정</button>
+<button onclick="location.href='pwUpdate.jsp'">비밀번호 수정</button>
 
 </section>
 
