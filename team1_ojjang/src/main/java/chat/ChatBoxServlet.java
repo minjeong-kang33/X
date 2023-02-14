@@ -37,9 +37,9 @@ public class ChatBoxServlet extends HttpServlet {
 				response.getWriter().write("");
 			}
 		}
-	}  //기본 M_id 설정
+	}  //기본 M_id 설정 수정
 	
-	
+
 	
 	// getBox M_id를 담을 상자
 	public String getBox(String M_id) {
