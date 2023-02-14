@@ -28,6 +28,7 @@ function fun2() {
 <%
 String M_id=(String)session.getAttribute("M_id");
 String R_id=(String)session.getAttribute("R_id");
+int S_num = Integer.parseInt(request.getParameter("S_num"));
 
 if(M_id==null){
 	response.sendRedirect("../login/loginForm.jsp");

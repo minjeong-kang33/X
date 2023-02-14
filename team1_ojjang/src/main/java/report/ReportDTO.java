@@ -6,9 +6,16 @@ private String R_type;
 private String M_id;
 private String R_id;
 private String R_reason;
+private int S_num;
 
 
 
+public int getS_num() {
+	return S_num;
+}
+public void setS_num(int s_num) {
+	S_num = s_num;
+}
 public String getR_type() {
 	return R_type;
 }
