@@ -132,7 +132,7 @@ public class SellDAO {
 			e.printStackTrace();
 		} finally {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return count;
 	} // getSellBoardCount (페이징에서 사용)
@@ -173,7 +173,7 @@ public class SellDAO {
 		} finally {
 			if(rs!=null) try { rs.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 		return dto;
 		
@@ -283,13 +283,13 @@ public class SellDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
 		}
 		
 	} //update 수정 (제목, 내용, 카테고리, 거래유형, 시도, 구군, 이미지 변경가능)
 	
-	public void deleteSellBoard(int S_num) {
+	public void deleteLikeSellBoard(int S_num) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		
@@ -300,25 +300,35 @@ public class SellDAO {
 				pstmt = con.prepareStatement(sql);
 				pstmt.setInt(1, S_num);
 				pstmt.executeUpdate();
+				
+				System.out.println("like canceled");
+				
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {
 				if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-				if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+				if(con!=null) try { con.close();} catch (Exception e2) {}
 			}
-			
-		//	그 다음 글 삭제 	
+	}//	찜 삭제
+	
+	public void deleteSellBoard(int S_num) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
 		try {
 			con = getConnection();
-			String sql = "delete from sell where S_num=?";
-			pstmt = con.prepareStatement(sql);
+			String sql2 = "delete from sell where S_num=?";
+			pstmt = con.prepareStatement(sql2);
 			pstmt.setInt(1, S_num);
 			pstmt.executeUpdate();
+			
+			System.out.println("sell post deleted");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
 			if(pstmt!=null) try { pstmt.close();} catch (Exception e2) {}
-			if(con!=null) try { pstmt.close();} catch (Exception e2) {}
+			if(con!=null) try { con.close();} catch (Exception e2) {}
 		}
 	} //delete (글삭제)
 	

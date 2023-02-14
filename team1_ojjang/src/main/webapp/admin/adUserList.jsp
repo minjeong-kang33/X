@@ -16,6 +16,44 @@
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
 <meta charset="UTF-8">
 </head>
+<script>
+function fun1() {
+	let check = false;
+	with(document.ckDelete) {
+		if(ck.length==undefined) {
+			if(ck.checked) { check = true; }
+		} else {
+			for(let i=0;i<ck.length;i++) {
+				if(ck[i].checked) { check = true; } }
+		} if(!check) {
+		alert("강퇴할 멤버를 선택하세요");
+			return;
+		} else {
+			if(confirm("강퇴처리 하시겠습니까?")) { submit(); }
+		} } }
+
+function fun2() {
+	if($("input:checked[id='ckAll']").prop("checked")) {
+	 $("input[type=checkbox]").prop("checked", true); 
+	}else {
+	 $("input[type=checkbox]").prop("checked", false); 
+	}
+}
+
+function fun3() {
+	if(document.scfr.info.value=="") {
+		alert("검색목록을 선택하세요")
+		document.scfr.info.focus();
+		return;
+	}
+	if(document.scfr.search.value==0) {
+		alert("검색어를 입력하세요");
+		document.scfr.search.focus();
+		return;
+		}
+		document.scfr.submit();
+}
+</script>
 <body>
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../admin_top.jsp" />
@@ -43,30 +81,30 @@ ArrayList<MemberDTO> adUserList=dao.adUserList(startRow, pageSize);
 <section>
 <div class="container">
 	<div>
-	<form action="adUserListPro.jsp" method="post">
+	<form action="adUserListPro.jsp" method="post" name="scfr">
 		<ul>
-		<li><label>검색어</label>
+		<li>
 		<select name="info">
-		<option value="null">선택</option>
+		<option value="">선택</option>
 		<option value="M_id">아이디</option>
 		<option value="M_name">이름</option>
 		<option value="M_nick">닉네임</option>
 		</select>
-		<input type="text" name="search"> <input type="submit" value="검색"></li>
+		<input type="text" name="search"> <input type="button" value="검색" onclick="fun3()"></li>
 		</ul><br>
 	</form>
 	</div>
-		<div>
-		총 멤버 <%=dao.adUserCount() %>명
-		</div>
-<form action="adUserDeletePro.jsp" method="post">
+	<div>
+	총 멤버 <%=dao.adUserCount() %>명
+	</div>
+<form name="ckDelete" action="adUserDelete.jsp" method="post">
 <table border="1">
-<tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td></tr>
+<tr><td><input type="checkbox" id="ckAll" name="ckAll" onclick="fun2()"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td></tr>
 <%
 for(int i=0;i<adUserList.size();i++){
 	dto=adUserList.get(i);
 %>
-	<tr><td><input type="checkbox" id="ck" name="id" value="<%=dto.getM_id() %>"></td>
+	<tr><td><input type="checkbox" id="ck" name="ck" value="<%=dto.getM_id() %>"></td>
 		<td><%=i+1 %></td>
 		<td><%=dto.getM_id() %></td>
 		<td><%=dto.getM_name() %></td>
@@ -84,15 +122,25 @@ int endPage=startPage+pageBlock-1;
 int count=dao.adUserCount();
 int pageCount=count/pageSize+(count%pageSize==0?0:1);
 if(endPage>pageCount){endPage=pageCount;}
-for(int i=startPage;i<=endPage;i++){
 if(startPage > pageBlock){
 %>
 <a href="adUserList.jsp?pageNum=<%=startPage-pageBlock%>">[10페이지 이전]</a>
 <%
 }
+if(currentPage>1) {
+	%>
+	<a href="adUserList.jsp?pageNum=<%=currentPage-1 %>">[1페이지 이전]</a>
+	<%
+}
+for(int i=startPage;i<=endPage;i++){
 %>
 <a href="adUserList.jsp?pageNum=<%=i %>"><%=i %></a>
 <%
+}
+if(currentPage<pageCount) {
+	%>
+	<a href="adUserList.jsp?pageNum=<%=currentPage+1 %>">[1페이지 다음]</a>
+	<%
 }
 if(endPage < pageCount){
 %>
@@ -101,8 +149,7 @@ if(endPage < pageCount){
 }
 %>
 <div>
-회원 처리 <input type="submit" value="강퇴">
-<!-- 회원 처리 <input type="button" value="수정요청"> <input type="button" value="경고"> <input type="button" value="강퇴"> -->
+회원 처리 <input type="button" value="강퇴" onclick="fun1()">
 </div>
 </form>
 </div>

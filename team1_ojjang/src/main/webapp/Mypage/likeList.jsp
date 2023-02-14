@@ -54,7 +54,8 @@ for(int i=0;i<likeHistory.size();i++){
 	<tr>
 		<td><%=dto.getM_id() %></td>
 		<td><%=dto.getS_category() %></td>
-		<td><%=dto.getS_title() %></td>
+		<td><a href="../sell/sellDetails.jsp?S_num=<%=dto.getS_num() %>">
+		<%=dto.getS_title() %></a></td>
 		<td><%=dto.getS_text() %></td>
 		<td><%=dto.getS_price() %></td>
 	</tr>

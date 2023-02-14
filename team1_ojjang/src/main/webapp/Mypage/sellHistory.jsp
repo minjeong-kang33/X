@@ -36,6 +36,7 @@
 <%
 String M_id=(String)session.getAttribute("M_id");
 
+
 DealDTO dto=new DealDTO();
 SellDTO sdto=new SellDTO();
 
@@ -59,17 +60,15 @@ for(int i=0;i<dealHistory.size();i++){
  	dto=dealHistory.get(i);
 	sdto=sellHistory.get(i);
 	
-	
-	
 %>
 
 	<tr>
-		<td><%=sdto.getS_title() %></td>
+		<td><a href="../sell/sellDetails.jsp?S_num=<%=sdto.getS_num() %>">
+		<%=sdto.getS_title() %></a></td>
 		<td><%=sdto.getS_price() %></td>
 		<td><%=sdto.getS_category() %></td>
 		<td><%=dto.getD_buy() %>
 		<td><%=dateFormat.format(dto.getD_date()) %></td>
-		
 		
 	</tr>
 

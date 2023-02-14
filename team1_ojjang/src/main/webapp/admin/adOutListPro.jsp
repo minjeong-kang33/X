@@ -16,6 +16,21 @@
     <link rel="stylesheet" href="../assets/css/lightbox.css"> 
 <meta charset="UTF-8">
 </head>
+<script>
+function fun3() {
+	if(document.scfr.info.value=="") {
+		alert("검색목록을 선택하세요")
+		document.scfr.info.focus();
+		return;
+	}
+	if(document.scfr.search.value==0) {
+		alert("검색어를 입력하세요");
+		document.scfr.search.focus();
+		return;
+		}
+		document.scfr.submit();
+}
+</script>
 <body>
     <!-- ***** 헤더 ***** -->
   <jsp:include page="../admin_top.jsp" />
@@ -46,37 +61,34 @@ ArrayList<MemberDTO> adOutListPro=dao.adOutListPro(info, search);
 <section>
 <div class="container">
 	<div>
-	<form action="adOutListPro.jsp" method="post">
+	<form action="adOutListPro.jsp" method="post" name="scfr">
 		<ul>
-		<li><label>검색어</label>
+		<li>
 		<select name="info">
-		<option value="null">선택</option>
+		<option value="">선택</option>
 		<option value="M_id">아이디</option>
 		<option value="M_name">이름</option>
 		<option value="M_nick">닉네임</option>
 		</select>
-		<input type="text" name="search"> <input type="submit" value="검색"></li>
+		<input type="text" name="search" placeholder="<%=search %>"> <input type="button" value="검색" onclick="fun3()"></li>
 		</ul><br>
 	</form>
 		<div>
 		검색결과 : <%=adOutListPro.size() %>명 / 총 <%=adOutList.size() %>명
 		</div>
 	</div>
-<form action="#.jsp" method="post">
 <table border="1">
-<tr><td><input type="checkbox" id="ckAll" name="ckAll"></td><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td><td>관리</td></tr>
+<tr><td>번호</td><td>아이디</td><td>이름</td><td>닉네임</td><td>가입날짜</td><td>상태</td></tr>
 <%
 for(int i=0;i<adOutListPro.size();i++){
 	dto=adOutListPro.get(i);
 %>
-	<tr><td><input type="checkbox" id="ck" name="id" value="<%=dto.getM_id() %>"></td>
-		<td><%=i+1 %></td>
+	<tr><td><%=i+1 %></td>
 		<td><%=dto.getM_id() %></td>
 		<td><%=dto.getM_name() %></td>
 		<td><%=dto.getM_nick() %></td>
 		<td><%=dateFormat.format(dto.getM_createdate()) %></td>
-		<td><%=dto.getM_play() %></td>
-		<td><a href="#">관리</a></td></tr>
+		<td><%=dto.getM_play() %></td></tr>
 <%
 }
 %>
@@ -104,10 +116,6 @@ if(endPage < pageCount){
 <%
 }
 %>
-<div>
-회원 처리 <input type="submit" value="탈퇴">
-</div>
-</form>
 </div>
 </section>
              </div>

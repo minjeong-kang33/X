@@ -24,6 +24,48 @@
 
 
     </script>
+    <script>
+function setCookie( name, value, expiredays ) {
+	var todayDate = new Date();
+	todayDate.setDate( todayDate.getDate() + expiredays );
+	document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+}
+
+function getCookie( name ) {
+	var nameOfCookie = name + "=";
+	var x = 0;
+	while ( x <= document.cookie.length ) {
+	var y = (x+nameOfCookie.length);
+		if ( document.cookie.substring( x, y ) == nameOfCookie ) {
+		if ( (endOfCookie=document.cookie.indexOf( ";", y )) == -1 )
+		endOfCookie = document.cookie.length;
+			return unescape( document.cookie.substring( y, endOfCookie ) );
+		}
+	x = document.cookie.indexOf( " ", x ) + 1;
+	if ( x == 0 )
+	break;
+	}
+	return "";
+}
+
+if ( getCookie( "popup1" ) != "done" ) {
+	noticeWindow =
+	window.open('../popup/popup1.jsp','popup1','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=300,height=300');
+	noticeWindow.opener = self;
+}
+
+if ( getCookie( "popup2" ) != "done" ) {
+	noticeWindow =
+	window.open('../popup/popup2.jsp','popup2','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=310,height=510,top=90,left=200');
+	noticeWindow.opener = self;
+}
+
+if ( getCookie( "popup3" ) != "done" ) {
+	noticeWindow =
+	window.open('../popup/popup3.jsp','popup3','toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=no,resizable=no,width=310,height=510,top=100,left=400');
+	noticeWindow.opener = self;
+}
+</script>
 </head>
 <body>
 <%
@@ -41,7 +83,7 @@ String M_id = (String)session.getAttribute("M_id");
     </div>  
     
     <!-- ***** 헤더 ***** -->
-  <jsp:include page="../top.jsp" />
+  <jsp:include page="../admin_top.jsp" />
     <!-- ***** 헤더 끝 ***** -->
     
    <!-- ***** 배너 시작 ***** -->
@@ -116,7 +158,7 @@ String M_id = (String)session.getAttribute("M_id");
 					<td colspan="2" class="S_img"><img src="../img/sell/<%=dto.getS_img() %>" width=300px height=300px class="goodsImg"></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="S_title" ><a href="sellDetails.jsp?S_num=<%=dto.getS_num()%>" > <%=dto.getS_title()%></td> <!-- 제목 -->
+					<td colspan="2" class="S_title" ><%=dto.getS_title()%></td> <!-- 제목 -->
 				</tr>
 				<tr>
 					<td class="price"><%=dto.getS_price()%>원</td> <td align="right" class="like_id"><input type="image" name="button" class="heart" src="../sell/heart.png" onclick="location.href='../Mypage/likePro.jsp'">
@@ -161,7 +203,7 @@ String M_id = (String)session.getAttribute("M_id");
 
 
     <!-- ***** 푸터 시작 ***** -->
-   <jsp:include page="../bottom.jsp" />
+   <jsp:include page="../admin_bottom.jsp" />
     <!-- ***** 푸터 끝 ***** -->
 
  <!-- jQuery -->
