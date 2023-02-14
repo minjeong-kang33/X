@@ -138,6 +138,9 @@ public class SellDAO {
 	} // getSellBoardCount (페이징에서 사용)
 	
 	public SellDTO getSellBoard(int S_num){
+		
+		boardCnt(S_num);
+		
 		SellDTO dto = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -178,6 +181,24 @@ public class SellDAO {
 		return dto;
 		
 	} // getSellBoard 끝 (상세게시글 볼 때 사용)
+	
+	public void boardCnt(int S_num) {            // 게시판 조회수
+	     
+        Connection con = null;
+		PreparedStatement pstmt = null;
+     	        
+        try {
+        	con = getConnection();
+			String sql = "update sell SET S_view =(S_view+1) where S_num = ?";
+			pstmt = con.prepareStatement(sql);
+            pstmt.setInt(1, S_num);
+            pstmt.executeUpdate();
+            	            
+        } catch (Exception e) {
+            e.printStackTrace();
+          }
+ 
+    }
 	
 	public ArrayList<SellDTO> sellHistory(String M_id){
 		ArrayList<SellDTO> sellHistory=new ArrayList<SellDTO>();
