@@ -6,16 +6,31 @@ private String R_type;
 private String M_id;
 private String R_id;
 private String R_reason;
-private int S_num;
+private String R_writeNum;
+private String R_category;
+private String R_title;
 
 
 
-public int getS_num() {
-	return S_num;
+public String getR_title() {
+	return R_title;
 }
-public void setS_num(int s_num) {
-	S_num = s_num;
+public void setR_title(String r_title) {
+	R_title = r_title;
 }
+public String getR_writeNum() {
+	return R_writeNum;
+}
+public void setR_writeNum(String r_writeNum) {
+	R_writeNum = r_writeNum;
+}
+public String getR_category() {
+	return R_category;
+}
+public void setR_category(String r_category) {
+	R_category = r_category;
+}
+
 public String getR_type() {
 	return R_type;
 }
