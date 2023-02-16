@@ -16,26 +16,6 @@
 <meta charset="UTF-8">
 <title>중고 의류거래: 옺장</title>
 
-<script type="text/javascript">
-	
-<%-- 토글 --%>
-	var set_state = true;
-	var img_icon = new Array();
-	img_icon[0] = new Image();
-	img_icon[1] = new Image();
-	img_icon[0].src = "hart.png";
-	img_icon[1].src = "fullhart.png";
-
-	function hartToggle() {
-		document.all.icon_btn.src = (set_state ? img_icon[0].src
-				: img_icon[1].src);
-		if (set_state) {
-			set_state = false;
-		} else {
-			set_state = true;
-		}
-	}
-</script>
 </head>
 
 <body>
